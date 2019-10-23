@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import br.com.kbmg.domain.Pessoa;
+import br.com.kbmg.domain.PessoaFisica;
+import br.com.kbmg.domain.PessoaJuridica;
+import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.repository.PessoaRepository;
 
 @Component
@@ -17,8 +20,24 @@ public class RunFake implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		Pessoa p = new Pessoa();
-		p.setNomeCompleto("Teste do nome");
+		this.criaPessoaFisica("Teste do nome", "71941528007", "242492757");
+		this.criaPessoaJuridica("nome da pessoa juridica", "19056334000105", "995253323");
+		this.criaPessoaFisica("dev4dev gerador", "47268406061", "363537454");
+	}
+
+	private void criaPessoaFisica(String nomeCompleto, String cpf, String rg) {
+		PessoaFisica pf = new PessoaFisica(cpf, rg);
+		Pessoa p = new Pessoa(nomeCompleto, TipoPessoa.PF, pf, null);
+		pf.setPessoa(p);
 		repository.save(p);
 	}
+
+	private void criaPessoaJuridica(String nomeCompleto, String cnpj, String inscricaoEstadual) {
+		PessoaJuridica pj = new PessoaJuridica(cnpj, inscricaoEstadual);
+		Pessoa p = new Pessoa(nomeCompleto, TipoPessoa.PJ, null, pj);
+		pj.setPessoa(p);
+		repository.save(p);
+	}
+	
+	
 }

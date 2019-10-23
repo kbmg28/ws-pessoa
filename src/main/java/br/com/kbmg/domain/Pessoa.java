@@ -2,32 +2,57 @@ package br.com.kbmg.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
-import io.swagger.annotations.ApiModelProperty;
+import br.com.kbmg.enums.TipoPessoa;
 
 @Entity
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long codPessoa;
-	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_pessoa;
+
 	@Column
 	private String nomeCompleto;
 
-	public Long getCodPessoa() {
-		return codPessoa;
+	@Column
+	@Enumerated(EnumType.STRING)
+	@NotNull
+	private TipoPessoa tipo;
+
+	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
+	private PessoaFisica pessoaFisica;
+
+	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
+	private PessoaJuridica pessoaJuridica;
+
+	public Pessoa() { }
+	
+	public Pessoa(String nomeCompleto, TipoPessoa tipo, PessoaFisica pessoaFisica, PessoaJuridica pessoaJuridica) {
+		 this.nomeCompleto = nomeCompleto;
+		 this.tipo = tipo;
+		 this.pessoaFisica = pessoaFisica;
+		 this.pessoaJuridica = pessoaJuridica;
 	}
 
-	public void setCodPessoa(Long codPessoa) {
-		this.codPessoa = codPessoa;
+	public Long getId_pessoa() {
+		return id_pessoa;
+	}
+
+	public void setId_pessoa(Long id_pessoa) {
+		this.id_pessoa = id_pessoa;
 	}
 
 	public String getNomeCompleto() {
@@ -38,11 +63,35 @@ public class Pessoa implements Serializable{
 		this.nomeCompleto = nomeCompleto;
 	}
 
+	public TipoPessoa getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(TipoPessoa tipo) {
+		this.tipo = tipo;
+	}
+
+	public PessoaFisica getPessoaFisica() {
+		return pessoaFisica;
+	}
+
+	public void setPessoaFisica(PessoaFisica pessoaFisica) {
+		this.pessoaFisica = pessoaFisica;
+	}
+
+	public PessoaJuridica getPessoaJuridica() {
+		return pessoaJuridica;
+	}
+
+	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
+		this.pessoaJuridica = pessoaJuridica;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codPessoa == null) ? 0 : codPessoa.hashCode());
+		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
 		return result;
 	}
 
@@ -55,14 +104,12 @@ public class Pessoa implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		if (codPessoa == null) {
-			if (other.codPessoa != null)
+		if (id_pessoa == null) {
+			if (other.id_pessoa != null)
 				return false;
-		} else if (!codPessoa.equals(other.codPessoa))
+		} else if (!id_pessoa.equals(other.id_pessoa))
 			return false;
 		return true;
 	}
 
-	
-	
 }
