@@ -21,7 +21,7 @@ public class PessoaServiceImpl implements PessoaService {
 	
 	@Override
 	public Pessoa findByCodPessoa(Long codPessoa) {
-		
+		System.out.println( " ----------------------<>>>>> " + codPessoa);
 		return repository.findById(codPessoa).orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
 
