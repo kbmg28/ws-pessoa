@@ -1,9 +1,13 @@
 package br.com.kbmg.serviceTest;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,28 +26,39 @@ public class PessoaServiceTest {
 
 	@InjectMocks
 	PessoaServiceImpl service;
-	
+
 	@Mock
 	PessoaRepository repository;
-	
+
 	@Mock
-	MessagesService msgService;
-	
+	MessagesService msg;
+
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 	}
 
 	@Test
-	@DisplayName("juivbs")
-	void test (){
+	@DisplayName("Buscar pessoa por id_pessoa")
+	void deveBuscarPorPessoaFisicaPorIdPessoa() {
 		Pessoa p = CreatePessoa.getFisica(1L, "TEST JUNIT5", "70715922092");
+
+		when(repository.findById(p.getId_pessoa())).thenReturn(Optional.of(p));
 		
-//		when(repository.findById(p.getId_pessoa())).thenReturn(Optional.of(p));
-		when(repository.findById(20L)).thenReturn(Optional.empty());
-		Pessoa retorno = service.findByCodPessoa(1L);
+		Pessoa retorno = service.findByCodPessoa(p.getId_pessoa());
+		assertAll(() -> assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto(), "NOME COMPLETO"),
+				() -> assertEquals(p.getPessoaFisica().getCpf(), retorno.getPessoaFisica().getCpf(), "CPF"));
+	}
+
+	@Test
+	void deveLancarExceptionSeNaoEncontrarPessoaPorId() {
+		String msgErro = "Não encontrado";
 		
-		assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto());
+		when(msg.get("nao.encontrado")).thenReturn(msgErro);
+
+		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
+				() -> service.findByCodPessoa(1L));
+		assertEquals(msgErro, exception.getMessage());
 	}
 
 }
