@@ -5,6 +5,16 @@ import br.com.kbmg.enums.TipoPessoa;
 
 public class CreatePessoa {
 
+	public static Pessoa get(Long id_pessoa, String nomeCompleto) {
+		return new Pessoa() {
+			private static final long serialVersionUID = 1L;
+			{
+				setId_pessoa(id_pessoa);
+				setNomeCompleto(nomeCompleto);
+			}
+		};
+	}
+
 	public static Pessoa getFisica(Long id_pessoa, String nomeCompleto, String cpf) {
 		return new Pessoa() {
 			private static final long serialVersionUID = 1L;
@@ -28,4 +38,5 @@ public class CreatePessoa {
 			}
 		};
 	}
+
 }
