@@ -20,9 +20,9 @@ public class RunFake implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		this.criaPessoaFisica("Teste do nome", "71941528007", "242492757");
-		this.criaPessoaJuridica("nome da pessoa juridica", "19056334000105", "995253323");
-		this.criaPessoaFisica("dev4dev gerador", "47268406061", "363537454");
+		this.criaPessoaFisica("TESTE DO NOME", "71941528007", "242492757");
+		this.criaPessoaJuridica("NOME DA PESSOA JURIDICA", "19056334000105", "995253323");
+		this.criaPessoaFisica("DEV4DEV GERADOR DE CPF", "47268406061", "363537454");
 	}
 
 	private void criaPessoaFisica(String nomeCompleto, String cpf, String rg) {
