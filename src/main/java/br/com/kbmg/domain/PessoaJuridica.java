@@ -33,14 +33,6 @@ public class PessoaJuridica implements Serializable{
 	@JsonIgnore
 	private Pessoa pessoa;
 	
-	public PessoaJuridica() { }
-	
-	public PessoaJuridica(String cnpj, String inscricaoEstadual) {
-		super();
-		this.cnpj = cnpj;
-		this.inscricaoEstadual = inscricaoEstadual;
-	}
-
 	public Long getId_pj() {
 		return id_pj;
 	}

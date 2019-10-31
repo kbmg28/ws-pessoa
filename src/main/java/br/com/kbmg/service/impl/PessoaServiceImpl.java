@@ -15,6 +15,7 @@ import br.com.kbmg.repository.PessoaFisicaRepository;
 import br.com.kbmg.repository.PessoaJuridicaRepository;
 import br.com.kbmg.repository.PessoaRepository;
 import br.com.kbmg.service.PessoaService;
+import br.com.kbmg.utils.Validator;
 
 @Service
 public class PessoaServiceImpl implements PessoaService {
@@ -36,7 +37,7 @@ public class PessoaServiceImpl implements PessoaService {
 		validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
 
-		return null;
+		return pessoa;
 	}
 
 	private void validaPessoa(Pessoa pessoa) {
@@ -49,12 +50,13 @@ public class PessoaServiceImpl implements PessoaService {
 		if (pessoa.getTipo().equals(TipoPessoa.PF)
 				? pessoaFisicaRepository.findByCpf(pessoa.getPessoaFisica().getCpf()).isPresent()
 				: pessoaJuridicaRepository.findByCnpj(pessoa.getPessoaJuridica().getCnpj()).isPresent())
-			throw new EntityExistsException(msg.get("pessoa.fisica.cpf.existe"));
+			throw new EntityExistsException(msg.get("pessoa.existe"));
 	}
 
 	@Override
-	public Pessoa findByCodPessoa(Long codPessoa) {
-		return repository.findById(codPessoa).orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
+	public Pessoa findByCodPessoa(String id_pessoa) {
+		
+		return repository.findById(Validator.stringParseLong(id_pessoa, "Id da pessoa")).orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
 
 }

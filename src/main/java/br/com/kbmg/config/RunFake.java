@@ -20,22 +20,38 @@ public class RunFake implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		this.criaPessoaFisica("Teste do nome", "71941528007", "242492757");
-		this.criaPessoaJuridica("nome da pessoa juridica", "19056334000105", "995253323");
-		this.criaPessoaFisica("dev4dev gerador", "47268406061", "363537454");
+		this.criaPessoaFisica("TESTE DO NOME", "71941528007", "242492757");
+		this.criaPessoaJuridica("NOME DA PESSOA JURIDICA", "19056334000105", "995253323");
+		this.criaPessoaFisica("DEV4DEV GERADOR DE CPF", "47268406061", "363537454");
 	}
 
 	private void criaPessoaFisica(String nomeCompleto, String cpf, String rg) {
-		PessoaFisica pf = new PessoaFisica(cpf, rg);
-		Pessoa p = new Pessoa(nomeCompleto, TipoPessoa.PF, pf, null);
+		PessoaFisica pf = new PessoaFisica();
+		Pessoa p = new Pessoa();
+		
+		p.setNomeCompleto(nomeCompleto);
+		p.setTipo(TipoPessoa.PF);
+		p.setPessoaFisica(pf);
+		
+		pf.setCpf(cpf);
+		pf.setRg(rg);
 		pf.setPessoa(p);
+		
 		repository.save(p);
 	}
 
 	private void criaPessoaJuridica(String nomeCompleto, String cnpj, String inscricaoEstadual) {
-		PessoaJuridica pj = new PessoaJuridica(cnpj, inscricaoEstadual);
-		Pessoa p = new Pessoa(nomeCompleto, TipoPessoa.PJ, null, pj);
+		PessoaJuridica pj = new PessoaJuridica();
+		Pessoa p = new Pessoa();
+		
+		p.setNomeCompleto(nomeCompleto);
+		p.setTipo(TipoPessoa.PJ);
+		p.setPessoaJuridica(pj);
+		
+		pj.setCnpj(cnpj);
+		pj.setInscricaoEstadual(inscricaoEstadual);
 		pj.setPessoa(p);
+		
 		repository.save(p);
 	}
 	
