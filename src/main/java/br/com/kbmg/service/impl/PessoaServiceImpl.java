@@ -49,7 +49,7 @@ public class PessoaServiceImpl implements PessoaService {
 		if (pessoa.getTipo().equals(TipoPessoa.PF)
 				? pessoaFisicaRepository.findByCpf(pessoa.getPessoaFisica().getCpf()).isPresent()
 				: pessoaJuridicaRepository.findByCnpj(pessoa.getPessoaJuridica().getCnpj()).isPresent())
-			throw new EntityExistsException(msg.get("pessoa.fisica.cpf.existe"));
+			throw new EntityExistsException(msg.get("pessoa.existe"));
 	}
 
 	@Override
