@@ -18,7 +18,7 @@ public class PessoaFisicaController {
 	@Autowired
 	private PessoaFisicaService service;
 
-	@GetMapping(value = "/cpf")
+	@GetMapping("/cpf")
 	public PessoaFisica findByCpf(@Valid @RequestParam String cpf) {
 		return service.findByCpf(cpf);
 	}

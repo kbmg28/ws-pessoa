@@ -19,7 +19,7 @@ public class PessoaController {
 	private PessoaService service;
 
 	@GetMapping("/findOne")
-	public Pessoa findOne(@Valid @RequestParam Long codPessoa) {
-		return service.findByCodPessoa(codPessoa);
+	public Pessoa findOne(@Valid @RequestParam String id_pessoa) {
+		return service.findByCodPessoa(id_pessoa);
 	}
 }
