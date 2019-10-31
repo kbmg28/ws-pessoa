@@ -37,7 +37,7 @@ public class PessoaServiceImpl implements PessoaService {
 		validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
 
-		return null;
+		return pessoa;
 	}
 
 	private void validaPessoa(Pessoa pessoa) {
