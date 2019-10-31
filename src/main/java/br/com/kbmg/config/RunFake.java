@@ -26,16 +26,32 @@ public class RunFake implements CommandLineRunner{
 	}
 
 	private void criaPessoaFisica(String nomeCompleto, String cpf, String rg) {
-		PessoaFisica pf = new PessoaFisica(cpf, rg);
-		Pessoa p = new Pessoa(nomeCompleto, TipoPessoa.PF, pf, null);
+		PessoaFisica pf = new PessoaFisica();
+		Pessoa p = new Pessoa();
+		
+		p.setNomeCompleto(nomeCompleto);
+		p.setTipo(TipoPessoa.PF);
+		p.setPessoaFisica(pf);
+		
+		pf.setCpf(cpf);
+		pf.setRg(rg);
 		pf.setPessoa(p);
+		
 		repository.save(p);
 	}
 
 	private void criaPessoaJuridica(String nomeCompleto, String cnpj, String inscricaoEstadual) {
-		PessoaJuridica pj = new PessoaJuridica(cnpj, inscricaoEstadual);
-		Pessoa p = new Pessoa(nomeCompleto, TipoPessoa.PJ, null, pj);
+		PessoaJuridica pj = new PessoaJuridica();
+		Pessoa p = new Pessoa();
+		
+		p.setNomeCompleto(nomeCompleto);
+		p.setTipo(TipoPessoa.PJ);
+		p.setPessoaJuridica(pj);
+		
+		pj.setCnpj(cnpj);
+		pj.setInscricaoEstadual(inscricaoEstadual);
 		pj.setPessoa(p);
+		
 		repository.save(p);
 	}
 	

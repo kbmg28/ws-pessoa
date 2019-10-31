@@ -38,15 +38,6 @@ public class Pessoa implements Serializable {
 	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
 	private PessoaJuridica pessoaJuridica;
 
-	public Pessoa() { }
-	
-	public Pessoa(String nomeCompleto, TipoPessoa tipo, PessoaFisica pessoaFisica, PessoaJuridica pessoaJuridica) {
-		 this.nomeCompleto = nomeCompleto;
-		 this.tipo = tipo;
-		 this.pessoaFisica = pessoaFisica;
-		 this.pessoaJuridica = pessoaJuridica;
-	}
-
 	public Long getId_pessoa() {
 		return id_pessoa;
 	}
