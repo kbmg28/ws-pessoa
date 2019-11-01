@@ -1,6 +1,7 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,6 +41,15 @@ public class Pessoa implements Serializable {
 
 	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
 	private PessoaJuridica pessoaJuridica;
+
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Email.class)
+	private Set<Email> emails;
+
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Endereco.class)
+	private Set<Endereco> enderecos;
+
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Telefone.class)
+	private Set<Telefone> telefones;
 
 	public Long getId_pessoa() {
 		return id_pessoa;
@@ -78,6 +89,31 @@ public class Pessoa implements Serializable {
 
 	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		this.pessoaJuridica = pessoaJuridica;
+	}
+
+	
+	public Set<Email> getEmails() {
+		return emails;
+	}
+
+	public void setEmails(Set<Email> emails) {
+		this.emails = emails;
+	}
+
+	public Set<Endereco> getEnderecos() {
+		return enderecos;
+	}
+
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
+
+	public Set<Telefone> getTelefones() {
+		return telefones;
+	}
+
+	public void setTelefones(Set<Telefone> telefones) {
+		this.telefones = telefones;
 	}
 
 	@Override

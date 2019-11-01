@@ -21,7 +21,6 @@ import org.mockito.MockitoAnnotations;
 import br.com.kbmg.builder.PessoaBuilder;
 import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Pessoa;
-import br.com.kbmg.factoryTest.CreatePessoa;
 import br.com.kbmg.repository.PessoaFisicaRepository;
 import br.com.kbmg.repository.PessoaJuridicaRepository;
 import br.com.kbmg.repository.PessoaRepository;
@@ -43,17 +42,21 @@ public class PessoaServiceTest {
 	@Mock
 	MessagesService msg;
 
+	private static final Long ID_PESSOA_1 = 100L;
+	
+	private static final String NOME_PESSOA = "NOME DE TESTE";
+	
+	private static final String CPF = "70715922092";
+	private static final String CNPJ = "15206418000127";
+	
+	private static final String NAO_ENCONTRADO = "Não encontrado";
+
 	@BeforeEach
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
+		when(msg.get("nao.encontrado")).thenReturn(NAO_ENCONTRADO);
 	}
 
-	private static final Long ID_PESSOA_1 = 100L;
-
-	private static final String NOME_PESSOA = "NOME DE TESTE";
-
-	private static final String CPF = "70715922092";
-	private static final String CNPJ = "15206418000127";
 	
 
 	@Test
@@ -97,11 +100,11 @@ public class PessoaServiceTest {
 	@Test
 	@DisplayName("Buscar pessoa por id_pessoa")
 	void deveBuscarPorPessoaFisicaPorIdPessoa() {
-		Pessoa p = CreatePessoa.getFisica(ID_PESSOA_1, "TEST JUNIT5", CPF);
+		Pessoa p = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).fisica(CPF).agora();
 
 		when(repository.findById(p.getId_pessoa())).thenReturn(Optional.of(p));
 
-		Pessoa retorno = service.findByCodPessoa(ID_PESSOA_1.toString());
+		Pessoa retorno = service.findByIdPessoa(ID_PESSOA_1.toString());
 		assertAll(() -> assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto(), "NOME COMPLETO"),
 				() -> assertEquals(p.getPessoaFisica().getCpf(), retorno.getPessoaFisica().getCpf(), "CPF"));
 	}
@@ -109,13 +112,9 @@ public class PessoaServiceTest {
 	@Test
 	@DisplayName("Lança exception quando não encontra id_pessoa")
 	void deveLancarExceptionSeNaoEncontrarPessoaPorId() {
-		String msgErro = "Não encontrado";
-
-		when(msg.get("nao.encontrado")).thenReturn(msgErro);
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findByCodPessoa(ID_PESSOA_1.toString()));
-		assertEquals(msgErro, exception.getMessage());
+				() -> service.findByIdPessoa(ID_PESSOA_1.toString()));
+		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
-
 }
