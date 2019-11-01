@@ -22,11 +22,11 @@ public class PessoaController {
 
 	@GetMapping("/findOne")
 	public Pessoa findOne(@Valid @RequestParam String id_pessoa) {
-		return service.findByCodPessoa(id_pessoa);
+		return service.findByIdPessoa(id_pessoa);
 	}
 
 	@PostMapping
-	public Pessoa findOne(@Valid @RequestBody Pessoa pessoa) {
+	public Pessoa create(@Valid @RequestBody Pessoa pessoa) {
 		return service.create(pessoa);
 	}
 }
