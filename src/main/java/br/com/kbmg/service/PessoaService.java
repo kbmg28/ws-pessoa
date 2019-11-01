@@ -7,6 +7,6 @@ public interface PessoaService {
 	
 	Pessoa create(Pessoa pessoa);
 
-	Pessoa findByCodPessoa(String id_pessoa);
+	Pessoa findByIdPessoa(String id_pessoa);
 
 }
