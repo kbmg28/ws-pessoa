@@ -45,8 +45,8 @@ public class PessoaFisicaServiceTest {
 	}
 
 	@Test
-	@DisplayName("Buscar pessoa física por CPF")
-	void deveBuscarPorPessoaFisicaPorCPF() {
+	@DisplayName("Buscar por CPF")
+	void deveBuscarCPF() {
 		PessoaFisica pessoaFisica = CreatePessoaFisica.get(ID_PESSOA_FISICA, CPF);
 
 		when(repository.findByCpf(CPF)).thenReturn(Optional.of(pessoaFisica));
@@ -55,16 +55,16 @@ public class PessoaFisicaServiceTest {
 	}
 
 	@Test
-	@DisplayName("Lança exception quando não encontra pessoa física por CPF")
-	void deveLancarExceptionSeNaoEncontrarPessoaPorCPF() {
+	@DisplayName("Lança exception quando não encontrar CPF")
+	void deveLancarExceptionSeNaoEncontrarCPF() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> service.findByCpf(CPF));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 
 	@Test
-	@DisplayName("Buscar pessoa física por ID_PF")
-	void deveBuscarPorPessoaFisicaPorIdPf() {
+	@DisplayName("Busca por ID_PF")
+	void deveBuscarPorIdPf() {
 		PessoaFisica pessoaFisica = CreatePessoaFisica.get(ID_PESSOA_FISICA, CPF);
 
 		when(repository.findById(ID_PESSOA_FISICA)).thenReturn(Optional.of(pessoaFisica));
@@ -75,8 +75,8 @@ public class PessoaFisicaServiceTest {
 	}
 
 	@Test
-	@DisplayName("Lança exception quando não encontra pessoa física por ID_PF")
-	void deveLancarExceptionSeNaoEncontrarPessoaPorId() {
+	@DisplayName("Lança exception quando não encontrar ID_PF")
+	void deveLancarExceptionSeNaoEncontrarIdPf() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
 				() -> service.findById(ID_PESSOA_FISICA.toString()));

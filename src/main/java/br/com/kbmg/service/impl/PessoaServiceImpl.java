@@ -55,8 +55,8 @@ public class PessoaServiceImpl implements PessoaService {
 
 	@Override
 	public Pessoa findByIdPessoa(String id_pessoa) {
-		
-		return repository.findById(Validator.stringParseLong(id_pessoa, "Id da pessoa")).orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
+		return repository.findById(Validator.stringParseLong(id_pessoa, "Id da pessoa"))
+				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
 
 }
