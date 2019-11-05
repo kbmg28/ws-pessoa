@@ -1,4 +1,4 @@
-package br.com.kbmg.exception;
+package br.com.kbmg.response;
 
 import java.nio.file.AccessDeniedException;
 import java.sql.SQLException;
@@ -22,7 +22,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
+public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler({ AccessDeniedException.class })
 	public ResponseEntity<ErrorResponse> handleAccessDeniedException(final Exception ex, final WebRequest request) {
@@ -101,7 +101,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 		ErrorResponse error = new ErrorResponse();
 
 		error.setErrorCode(httpStatusValue);
-		error.setMessage(message);
+		error.getErrors().add(message);
 		return new ResponseEntity<ErrorResponse>(error, http);
 	}
 
