@@ -101,7 +101,7 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 		ErrorResponse error = new ErrorResponse();
 
 		error.setErrorCode(httpStatusValue);
-		error.getErrors().add(message);
+		error.setMessage(message);
 		return new ResponseEntity<ErrorResponse>(error, http);
 	}
 
