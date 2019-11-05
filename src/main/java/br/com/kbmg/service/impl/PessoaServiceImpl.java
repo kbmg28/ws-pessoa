@@ -34,7 +34,7 @@ public class PessoaServiceImpl implements PessoaService {
 
 	@Override
 	public Pessoa create(Pessoa pessoa) {
-		validaPessoa(pessoa);
+		//validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
 
 		return pessoa;

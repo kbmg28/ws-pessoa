@@ -10,6 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.br.CNPJ;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,6 +26,8 @@ public class PessoaJuridica implements Serializable{
 	private Long id_pj;
 
 	@Column
+	@NotNull
+	@CNPJ(message = "CNPJ inválido.")
 	private String cnpj;
 
 	@Column

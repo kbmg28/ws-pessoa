@@ -12,6 +12,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -61,6 +62,7 @@ public class PessoaServiceTest {
 
 	@Test
 	@DisplayName("Não deve adicionar pessoa se tipo não informado")
+	@Disabled
 	void deveLancarExceptionSeTipoPessoaVazio() {
 		String msgErro = "Tipo da pessoa obrigatório";
 

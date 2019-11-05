@@ -28,12 +28,12 @@ public class Pessoa implements Serializable {
 	private Long id_pessoa;
 
 	@Column
-	@NotBlank
+	@NotBlank(message="Nome da pessoa obrigatório")
 	private String nomeCompleto;
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	@NotNull
+	@NotNull(message="Tipo da pessoa inválido.")
 	private TipoPessoa tipo;
 
 	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")

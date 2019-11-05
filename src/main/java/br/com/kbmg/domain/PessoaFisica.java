@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -25,6 +27,7 @@ public class PessoaFisica implements Serializable{
 
 	@Column
 	@NotBlank
+	@CPF(message = "CPF inválido.")
 	private String cpf;
 
 	@Column
