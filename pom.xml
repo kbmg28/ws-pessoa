@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.kbmg</groupId>
 	<artifactId>ws-pessoa</artifactId>
-	<version>0.0.7</version>
+	<version>0.0.8</version>
 	<name>ws-pessoa</name>
 	<description>Micro serviço para trabalhar com pessoas</description>
 
