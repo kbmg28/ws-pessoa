@@ -29,15 +29,15 @@ public class Telefone implements Serializable {
 	private Pessoa pessoa;
 	
 	@Column
-	@NotNull(message="Número para contato obrigatório.")
+	@NotNull
 	private Integer numero;
 	
 	@Column
-	@NotNull(message="DDD obrigatório.")
+	@NotNull
 	private Integer ddd;
 	
 	@Column
-	@NotNull(message="Contato do número obrigatório.")
+	@NotNull
 	private String contato;
 
 	public Long getId_telefone() {

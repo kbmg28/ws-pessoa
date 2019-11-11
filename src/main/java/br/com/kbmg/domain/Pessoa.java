@@ -33,7 +33,7 @@ public class Pessoa implements Serializable {
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	@NotNull(message="Tipo da pessoa inválido.")
+	@NotNull(message="Tipo da pessoa obrigatório.")
 	private TipoPessoa tipo;
 
 	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
