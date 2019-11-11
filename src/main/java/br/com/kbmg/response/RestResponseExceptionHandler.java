@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpHeaders;
@@ -37,6 +38,15 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 	@ExceptionHandler({ IllegalArgumentException.class })
 	public ResponseEntity<ErrorResponse> handleArguments(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+	}
+
+	@ExceptionHandler({ ConstraintViolationException.class })
+	public ResponseEntity<ObjectResponse> handleBadRequestConstraintViolation(final ConstraintViolationException ex,
+			final WebRequest request) {
+		ObjectResponse response = new ObjectResponse();
+		
+		ex.getConstraintViolations().forEach(e -> response.getErrors().add(e.getPropertyPath() + ": " + e.getMessage()));
+		return new ResponseEntity<ObjectResponse>(response, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })

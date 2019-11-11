@@ -28,7 +28,7 @@ public class Email  implements Serializable {
 	private Pessoa pessoa;
 
 	@Column
-	@javax.validation.constraints.Email(message="Email inválido.")
+	@javax.validation.constraints.Email
 	private String email;
 
 	public Long getId_email() {

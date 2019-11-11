@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.PessoaService;
+import br.com.kbmg.utils.Util;
 
 @RestController
 @RequestMapping(value = "/pessoa")
@@ -31,12 +32,14 @@ public class PessoaController {
 	@PostMapping
 	public ResponseEntity<ObjectResponse> create(@Valid @RequestBody Pessoa pessoa, BindingResult result) {
 		ObjectResponse response = new ObjectResponse(pessoa);
-		
+
 		if (result.hasErrors()) {
-			result.getAllErrors().forEach(error -> response.getErrors().add(error.getDefaultMessage()));
+
+			result.getAllErrors().forEach(
+					error -> response.getErrors().add(error.getObjectName() + ": " + error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
-		
+
 		response.setData(service.create(pessoa));
 		return ResponseEntity.ok(response);
 	}

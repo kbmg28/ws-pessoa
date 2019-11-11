@@ -34,7 +34,7 @@ public class Endereco implements Serializable {
 	private Pessoa pessoa;
 	
 	@Column
-	@NotBlank(message="Logradouro obrigatório")
+	@NotBlank//(message="Logradouro obrigatório")
 	private String logradouro;
 	
 	@Column
@@ -47,11 +47,11 @@ public class Endereco implements Serializable {
 	private String cep;
 	
 	@Column
-	@NotBlank(message="Bairro obrigatório.")
+	@NotBlank//(message="Bairro obrigatório.")
 	private String bairro;
 	
 	@Column
-	@NotBlank(message="Número do endereço obrigatório.")
+	@NotBlank//(message="Número do endereço obrigatório.")
 	private String numero;
 	
 	@Column
