@@ -16,10 +16,14 @@ Navegue até onde o diretório foi extraído e na raíz do projeto e execute os 
 1. `mvn clean install -DPROFILE=test`
 2. `mvn spring-boot:run -Dspring-boot.run.profiles=test`
 
-## Acessar API online
+
+### Acessar API local
+http://localhost:8000/ws-pessoa/swagger-ui.html#
+
+### Acessar API online
 Essa operação deve demorar alguns segundos no primeiro acesso. 
 
-https://warm-hollows-28046.herokuapp.com/ws-pessoa/swagger-ui.html
+https://kbmg28-java.herokuapp.com/ws-pessoa/swagger-ui.html
 
 
 [badge-jdk-8]: https://img.shields.io/badge/jdk-8-lightgray.svg "JDK-8"
