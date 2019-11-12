@@ -37,17 +37,17 @@ public class PessoaServiceImpl implements PessoaService {
 		//validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
 
-		return pessoa;
+		return repository.save(pessoa);
 	}
 
 	private void validaPessoa(Pessoa pessoa) {
-		if (pessoa.getTipo() == null)
+		if (pessoa.getTipoPessoa() == null)
 			throw new InvalidParameterException(msg.get("pessoa.tipo.obrigatorio"));
 
 	}
 
 	private void verificaSeExisteCpfOuCnpj(Pessoa pessoa) {
-		if (pessoa.getTipo().equals(TipoPessoa.PF)
+		if (pessoa.getTipoPessoa().equals(TipoPessoa.PF)
 				? pessoaFisicaRepository.findByCpf(pessoa.getPessoaFisica().getCpf()).isPresent()
 				: pessoaJuridicaRepository.findByCnpj(pessoa.getPessoaJuridica().getCnpj()).isPresent())
 			throw new EntityExistsException(msg.get("pessoa.existe"));

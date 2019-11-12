@@ -30,7 +30,7 @@ public class RunFake implements CommandLineRunner{
 		Pessoa p = new Pessoa();
 		
 		p.setNomeCompleto(nomeCompleto);
-		p.setTipo(TipoPessoa.PF);
+		p.setTipoPessoa(TipoPessoa.PF);
 		p.setPessoaFisica(pf);
 		
 		pf.setCpf(cpf);
@@ -45,7 +45,7 @@ public class RunFake implements CommandLineRunner{
 		Pessoa p = new Pessoa();
 		
 		p.setNomeCompleto(nomeCompleto);
-		p.setTipo(TipoPessoa.PJ);
+		p.setTipoPessoa(TipoPessoa.PJ);
 		p.setPessoaJuridica(pj);
 		
 		pj.setCnpj(cnpj);
