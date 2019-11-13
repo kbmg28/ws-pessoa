@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
@@ -35,7 +36,7 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 		return generatedError("Erro ao conectar com o banco", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
 
-	@ExceptionHandler({ IllegalArgumentException.class })
+	@ExceptionHandler({ IllegalArgumentException.class, EntityExistsException.class })
 	public ResponseEntity<ErrorResponse> handleArguments(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
