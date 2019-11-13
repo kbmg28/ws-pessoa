@@ -26,4 +26,12 @@ public interface PessoaFisicaService {
 	 */
 	PessoaFisica findByCpf(String cpf);
 
+	/**
+	 * Verifica se o cpf existe.
+	 * 
+	 * @param cpf - Cadastro de Pessoa Fisica
+	 * 
+	 * @return a representação booleana da verificação.
+	 */
+	Boolean verifyIfCpfExists(String cpf);
 }
