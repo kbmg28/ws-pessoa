@@ -84,4 +84,30 @@ public class PessoaJuridicaServiceTest {
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 
+	@Test
+	@DisplayName("Deve retornar \'true\' se CNPJ já está cadastrado")
+	void deveRetornarTrueSeCNPJExiste() {
+		PessoaJuridica pessoaJuridica = CreatePessoaJuridica.get(ID_PESSOA_JURIDICA, CNPJ, INSCRICAO_ESTADUAL);
+
+		when(repository.findByCnpj(CNPJ)).thenReturn(Optional.of(pessoaJuridica));
+
+		assertEquals(true, service.verifyIfCnpjExists(CNPJ));
+	}
+
+	@Test
+	@DisplayName("Deve retornar \'false\' se CNPJ não está cadastrado")
+	void deveRetornarFalseSeCNPJNaoExiste() {
+		
+		when(repository.findByCnpj(CNPJ)).thenReturn(Optional.empty());
+		
+		assertEquals(false, service.verifyIfCnpjExists(CNPJ));
+	}
+
+	@Test
+	@DisplayName("Deve retornar \'false\' se na verificacao de CNPJ existente, valor estiver null")
+	void deveRetornarFalseSeVerificaCNPJNull() {
+		
+		assertEquals(false, service.verifyIfCnpjExists(null));
+	}
+
 }
