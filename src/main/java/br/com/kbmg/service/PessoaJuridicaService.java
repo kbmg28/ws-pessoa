@@ -24,4 +24,13 @@ public interface PessoaJuridicaService {
 	 * @return O registro encontrado.
 	 */
 	PessoaJuridica findByCnpj(String cnpj);
+
+	/**
+	 * Verifica se o CNPJ existe.
+	 * 
+	 * @param cnpj - Cadastro Nacional de Pessoa Jurídica
+	 * 
+	 * @return a representação booleana da verificação.
+	 */
+	Boolean verifyIfCnpjExists(String cnpj);
 }

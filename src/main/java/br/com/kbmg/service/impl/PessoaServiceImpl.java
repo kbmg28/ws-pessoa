@@ -14,6 +14,8 @@ import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.repository.PessoaFisicaRepository;
 import br.com.kbmg.repository.PessoaJuridicaRepository;
 import br.com.kbmg.repository.PessoaRepository;
+import br.com.kbmg.service.PessoaFisicaService;
+import br.com.kbmg.service.PessoaJuridicaService;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.utils.Validator;
 
@@ -24,32 +26,33 @@ public class PessoaServiceImpl implements PessoaService {
 	PessoaRepository repository;
 
 	@Autowired
-	PessoaFisicaRepository pessoaFisicaRepository;
+	PessoaFisicaService pessoaFisicaService;
 
 	@Autowired
-	PessoaJuridicaRepository pessoaJuridicaRepository;
+	PessoaJuridicaService pessoaJuridicaService;
 
 	@Autowired
 	MessagesService msg;
 
 	@Override
 	public Pessoa create(Pessoa pessoa) {
-		//validaPessoa(pessoa);
+		validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
 
 		return pessoa;
 	}
 
 	private void validaPessoa(Pessoa pessoa) {
-		if (pessoa.getTipo() == null)
+		if (pessoa.getTipoPessoa() == null)
 			throw new InvalidParameterException(msg.get("pessoa.tipo.obrigatorio"));
 
 	}
 
 	private void verificaSeExisteCpfOuCnpj(Pessoa pessoa) {
-		if (pessoa.getTipo().equals(TipoPessoa.PF)
-				? pessoaFisicaRepository.findByCpf(pessoa.getPessoaFisica().getCpf()).isPresent()
-				: pessoaJuridicaRepository.findByCnpj(pessoa.getPessoaJuridica().getCnpj()).isPresent())
+		
+		if (pessoa.getTipoPessoa().equals(TipoPessoa.PF)
+				? pessoaFisicaService.verifyIfCpfExists(pessoa.getPessoaFisica().getCpf()) 
+				: pessoaJuridicaService.verifyIfCnpjExists(pessoa.getPessoaJuridica().getCnpj()))
 			throw new EntityExistsException(msg.get("pessoa.existe"));
 	}
 

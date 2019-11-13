@@ -12,7 +12,6 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -22,9 +21,9 @@ import org.mockito.MockitoAnnotations;
 import br.com.kbmg.builder.PessoaBuilder;
 import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Pessoa;
-import br.com.kbmg.repository.PessoaFisicaRepository;
-import br.com.kbmg.repository.PessoaJuridicaRepository;
 import br.com.kbmg.repository.PessoaRepository;
+import br.com.kbmg.service.PessoaFisicaService;
+import br.com.kbmg.service.PessoaJuridicaService;
 import br.com.kbmg.service.impl.PessoaServiceImpl;
 
 public class PessoaServiceTest {
@@ -36,20 +35,21 @@ public class PessoaServiceTest {
 	PessoaRepository repository;
 
 	@Mock
-	PessoaFisicaRepository pessoaFisicaRepository;
+	PessoaFisicaService pessoaFisicaService;
+
 	@Mock
-	PessoaJuridicaRepository pessoaJuridicaRepository;
+	PessoaJuridicaService pessoaJuridicaService;
 
 	@Mock
 	MessagesService msg;
 
 	private static final Long ID_PESSOA_1 = 100L;
-	
+
 	private static final String NOME_PESSOA = "NOME DE TESTE";
-	
+
 	private static final String CPF = "70715922092";
 	private static final String CNPJ = "15206418000127";
-	
+
 	private static final String NAO_ENCONTRADO = "Não encontrado";
 
 	@BeforeEach
@@ -58,11 +58,8 @@ public class PessoaServiceTest {
 		when(msg.get("nao.encontrado")).thenReturn(NAO_ENCONTRADO);
 	}
 
-	
-
 	@Test
 	@DisplayName("Não deve adicionar pessoa se tipo não informado")
-	@Disabled
 	void deveLancarExceptionSeTipoPessoaVazio() {
 		String msgErro = "Tipo da pessoa obrigatório";
 
@@ -80,7 +77,7 @@ public class PessoaServiceTest {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).fisica(CPF).agora();
 
 		when(msg.get("pessoa.existe")).thenReturn(msgErro);
-		when(pessoaFisicaRepository.findByCpf(CPF)).thenReturn(Optional.of(pessoa.getPessoaFisica()));
+		when(pessoaFisicaService.verifyIfCpfExists(CPF)).thenReturn(true);
 
 		EntityExistsException exception = assertThrows(EntityExistsException.class, () -> service.create(pessoa));
 		assertEquals(msgErro, exception.getMessage());
@@ -93,7 +90,7 @@ public class PessoaServiceTest {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).juridica(CNPJ).agora();
 
 		when(msg.get("pessoa.existe")).thenReturn(msgErro);
-		when(pessoaJuridicaRepository.findByCnpj(CNPJ)).thenReturn(Optional.of(pessoa.getPessoaJuridica()));
+		when(pessoaJuridicaService.verifyIfCnpjExists(CNPJ)).thenReturn(true);
 
 		EntityExistsException exception = assertThrows(EntityExistsException.class, () -> service.create(pessoa));
 		assertEquals(msgErro, exception.getMessage());
@@ -119,4 +116,5 @@ public class PessoaServiceTest {
 				() -> service.findByIdPessoa(ID_PESSOA_1.toString()));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
+
 }

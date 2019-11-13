@@ -30,4 +30,9 @@ public class PessoaFisicaServiceImpl implements PessoaFisicaService {
 		return repository.findById(Validator.stringParseLong(id_pf, "Id da pessoa física"))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
+
+	@Override
+	public Boolean verifyIfCpfExists(String cpf) {
+		return repository.findByCpf(cpf).isPresent();
+	}
 }

@@ -60,7 +60,7 @@ public class Endereco implements Serializable {
 	@Column
 	@Enumerated(EnumType.STRING)
 	@NotNull(message="Tipo do endereço inválido.")
-	private TipoEndereco tipo;
+	private TipoEndereco tipoEndereco;
 
 
 	public Long getId_endereco() {
@@ -135,12 +135,12 @@ public class Endereco implements Serializable {
 		this.complemento = complemento;
 	}
 
-	public TipoEndereco getTipo() {
-		return tipo;
+	public TipoEndereco getTipoEndereco() {
+		return tipoEndereco;
 	}
 
-	public void setTipo(TipoEndereco tipo) {
-		this.tipo = tipo;
+	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
 	}
 
 	@Override

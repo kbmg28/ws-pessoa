@@ -30,4 +30,9 @@ public class PessoaJuridicaServiceImpl implements PessoaJuridicaService {
 		return repository.findById(Validator.stringParseLong(id_pj, "Id da pessoa jurídica"))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
+
+	@Override
+	public Boolean verifyIfCnpjExists(String cnpj) {
+		return repository.findByCnpj(cnpj).isPresent();
+	}
 }

@@ -34,7 +34,7 @@ public class Pessoa implements Serializable {
 	@Column
 	@Enumerated(EnumType.STRING)
 	@NotNull(message="Tipo da pessoa obrigatório.")
-	private TipoPessoa tipo;
+	private TipoPessoa tipoPessoa;
 
 	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
 	private PessoaFisica pessoaFisica;
@@ -67,12 +67,12 @@ public class Pessoa implements Serializable {
 		this.nomeCompleto = nomeCompleto;
 	}
 
-	public TipoPessoa getTipo() {
-		return tipo;
+	public TipoPessoa getTipoPessoa() {
+		return tipoPessoa;
 	}
 
-	public void setTipo(TipoPessoa tipo) {
-		this.tipo = tipo;
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
+		this.tipoPessoa = tipoPessoa;
 	}
 
 	public PessoaFisica getPessoaFisica() {

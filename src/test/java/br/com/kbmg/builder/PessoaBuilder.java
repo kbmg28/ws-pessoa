@@ -21,13 +21,13 @@ public class PessoaBuilder {
 
 	public PessoaBuilder fisica(String cpf) {
 		this.pessoa.setPessoaFisica(CreatePessoaFisica.get(this.pessoa.getId_pessoa(), cpf));
-		this.pessoa.setTipo(TipoPessoa.PF);
+		this.pessoa.setTipoPessoa(TipoPessoa.PF);
 		return this;
 	}
 
 	public PessoaBuilder juridica(String cnpj) {
 		this.pessoa.setPessoaJuridica(CreatePessoaJuridica.get(this.pessoa.getId_pessoa(), cnpj, null));
-		this.pessoa.setTipo(TipoPessoa.PJ);
+		this.pessoa.setTipoPessoa(TipoPessoa.PJ);
 		return this;
 	}
 
