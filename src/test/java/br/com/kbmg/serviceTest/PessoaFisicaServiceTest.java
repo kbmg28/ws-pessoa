@@ -83,4 +83,30 @@ public class PessoaFisicaServiceTest {
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 
+	@Test
+	@DisplayName("Deve retornar \'true\' se CPF já está cadastrado")
+	void deveRetornarTrueSeCPFExiste() {
+		PessoaFisica pessoaFisica = CreatePessoaFisica.get(ID_PESSOA_FISICA, CPF);
+
+		when(repository.findByCpf(CPF)).thenReturn(Optional.of(pessoaFisica));
+
+		assertEquals(true, service.verifyIfCpfExists(CPF));
+	}
+
+	@Test
+	@DisplayName("Deve retornar \'false\' se CPF não está cadastrado")
+	void deveRetornarFalseSeCPFNaoExiste() {
+		
+		when(repository.findByCpf(CPF)).thenReturn(Optional.empty());
+		
+		assertEquals(false, service.verifyIfCpfExists(CPF));
+	}
+
+	@Test
+	@DisplayName("Deve retornar \'false\' se na verificacao de CPF existente, valor estiver null")
+	void deveRetornarFalseSeVerificaCPFNull() {
+		
+		assertEquals(false, service.verifyIfCpfExists(null));
+	}
+
 }
