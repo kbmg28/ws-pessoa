@@ -34,7 +34,7 @@ public class PessoaJuridica implements Serializable{
 	private String inscricaoEstadual;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA")
+	@JoinColumn(name = "IDPESSOA")
 	@JsonIgnore
 	private Pessoa pessoa;
 	

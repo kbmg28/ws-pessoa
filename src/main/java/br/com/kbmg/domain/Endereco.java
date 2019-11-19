@@ -29,7 +29,7 @@ public class Endereco implements Serializable {
 	private Long id_endereco;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA")
+	@JoinColumn(name = "IDPESSOA")
 	@JsonIgnore
 	private Pessoa pessoa;
 	

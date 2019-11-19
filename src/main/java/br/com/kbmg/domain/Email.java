@@ -23,7 +23,7 @@ public class Email  implements Serializable {
 	private Long id_email;
 
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA")
+	@JoinColumn(name = "IDPESSOA")
 	@JsonIgnore
 	private Pessoa pessoa;
 

@@ -8,7 +8,7 @@ public class CreatePessoaFisica {
 		return new PessoaFisica() {
 			private static final long serialVersionUID = 1L;
 			{
-				setId_pf(id_pf);
+//				setId_pf(id_pf);
 				setCpf(cpf);
 			}
 		};

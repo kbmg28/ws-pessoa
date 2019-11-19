@@ -11,8 +11,6 @@ import org.springframework.stereotype.Service;
 import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.enums.TipoPessoa;
-import br.com.kbmg.repository.PessoaFisicaRepository;
-import br.com.kbmg.repository.PessoaJuridicaRepository;
 import br.com.kbmg.repository.PessoaRepository;
 import br.com.kbmg.service.PessoaFisicaService;
 import br.com.kbmg.service.PessoaJuridicaService;
@@ -39,7 +37,7 @@ public class PessoaServiceImpl implements PessoaService {
 		validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
 
-		return pessoa;
+		return repository.save(pessoa);
 	}
 
 	private void validaPessoa(Pessoa pessoa) {
@@ -60,6 +58,11 @@ public class PessoaServiceImpl implements PessoaService {
 	public Pessoa findByIdPessoa(String id_pessoa) {
 		return repository.findById(Validator.stringParseLong(id_pessoa, "Id da pessoa"))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
+	}
+
+	@Override
+	public void delete(Pessoa p) {
+		repository.delete(p);
 	}
 
 }

@@ -24,7 +24,7 @@ public class Telefone implements Serializable {
 	private Long id_telefone;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_pessoa", nullable = false)
+	@JoinColumn(name = "IDPESSOA")
 	@JsonIgnore
 	private Pessoa pessoa;
 	

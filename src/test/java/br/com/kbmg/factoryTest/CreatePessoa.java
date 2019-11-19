@@ -8,7 +8,7 @@ public class CreatePessoa {
 		return new Pessoa() {
 			private static final long serialVersionUID = 1L;
 			{
-				setId_pessoa(id_pessoa);
+				setIdPessoa(id_pessoa);
 				setNomeCompleto(nomeCompleto);
 			}
 		};
