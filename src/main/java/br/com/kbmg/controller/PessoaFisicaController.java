@@ -33,10 +33,10 @@ public class PessoaFisicaController {
 		return ResponseEntity.ok(new ObjectResponse(service.findById(idPf, "Id da pessoa física")));
 	}
 
-	@PutMapping
-	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody PessoaFisica pf) {
-		return ResponseEntity.ok(new ObjectResponse( service.update(pf, pf.getIdPf())) );
-	}
+//	@PutMapping
+//	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody PessoaFisica pf) {
+//		return ResponseEntity.ok(new ObjectResponse( service.update(pf, pf.getIdPf())) );
+//	}
 
 	@GetMapping("/all")
 	public ResponseEntity<ObjectResponse> findAll() {

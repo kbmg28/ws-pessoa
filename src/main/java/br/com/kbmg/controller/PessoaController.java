@@ -41,10 +41,10 @@ public class PessoaController {
 		return ResponseEntity.ok(response);
 	}
 
-	@PutMapping
-	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody Pessoa pessoa) {
-		return ResponseEntity.ok(new ObjectResponse( service.update(pessoa, pessoa.getIdPessoa())) );
-	}
+//	@PutMapping
+//	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody Pessoa pessoa) {
+//		return ResponseEntity.ok(new ObjectResponse( service.update(pessoa, pessoa.getIdPessoa())) );
+//	}
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findOne(@Valid @RequestParam String idPessoa) {

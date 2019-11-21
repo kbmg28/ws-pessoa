@@ -39,7 +39,8 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 		pessoa.getEnderecos().forEach(e -> e.setPessoa(pessoa));
 		pessoa.getTelefones().forEach(t -> t.setPessoa(pessoa));
 
-		return repository.save(pessoa);
+//		return repository.save(pessoa);
+		return pessoa;
 	}
 
 	private void validaPessoa(Pessoa pessoa) {
