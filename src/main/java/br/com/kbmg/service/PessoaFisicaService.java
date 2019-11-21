@@ -6,15 +6,6 @@ import br.com.kbmg.domain.PessoaFisica;
 
 public interface PessoaFisicaService extends GenericService<PessoaFisica>{
 
-	/**
-	 * Busca pessoa física por ID.
-	 * 
-	 * @param id_pf - identificador único.
-	 * 
-	 * @return O registro encontrado.
-	 * @throws EntityNotFoundException- Se não existir.
-	 */
-//	PessoaFisica findById(String id_pf);
 
 	/**
 	 * Busca pessoa física por cpf.
