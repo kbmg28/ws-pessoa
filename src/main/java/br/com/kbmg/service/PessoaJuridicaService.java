@@ -2,7 +2,7 @@ package br.com.kbmg.service;
 
 import br.com.kbmg.domain.PessoaJuridica;
 
-public interface PessoaJuridicaService {
+public interface PessoaJuridicaService extends GenericService<PessoaJuridica>{
 
 	/**
 	 * Busca pessoa jurídica por CNPJ.

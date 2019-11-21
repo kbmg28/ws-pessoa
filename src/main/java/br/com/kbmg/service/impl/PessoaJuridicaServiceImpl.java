@@ -11,7 +11,7 @@ import br.com.kbmg.repository.PessoaJuridicaRepository;
 import br.com.kbmg.service.PessoaJuridicaService;
 
 @Service
-public class PessoaJuridicaServiceImpl implements PessoaJuridicaService {
+public class PessoaJuridicaServiceImpl extends GenericServiceImpl<PessoaJuridica> implements PessoaJuridicaService {
 
 	@Autowired
 	PessoaJuridicaRepository repository;
