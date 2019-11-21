@@ -72,7 +72,7 @@ public class PessoaJuridicaServiceTest {
 		PessoaJuridica retorno = service.findById(ID_PESSOA_JURIDICA.toString());
 
 		assertAll(() -> assertEquals(pessoaJuridica.getCnpj(), retorno.getCnpj()),
-				() -> assertEquals(pessoaJuridica.getId_pj(), retorno.getId_pj()));
+				() -> assertEquals(pessoaJuridica.getIdPj(), retorno.getIdPj()));
 	}
 
 	@Test

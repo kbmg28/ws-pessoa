@@ -103,7 +103,7 @@ public class PessoaServiceTest {
 
 		when(repository.findById(p.getIdPessoa())).thenReturn(Optional.of(p));
 
-		Pessoa retorno = service.findByIdPessoa(ID_PESSOA_1.toString());
+		Pessoa retorno = service.findById(ID_PESSOA_1.toString(), "Id da Pessoa");
 		assertAll(() -> assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto(), "NOME COMPLETO"),
 				() -> assertEquals(p.getPessoaFisica().getCpf(), retorno.getPessoaFisica().getCpf(), "CPF"));
 	}
@@ -113,7 +113,7 @@ public class PessoaServiceTest {
 	void deveLancarExceptionSeNaoEncontrarPessoaPorId() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findByIdPessoa(ID_PESSOA_1.toString()));
+				() -> service.findById(ID_PESSOA_1.toString(), "Id da Pessoa"));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 

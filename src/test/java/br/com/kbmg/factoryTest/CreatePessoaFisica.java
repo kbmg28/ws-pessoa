@@ -4,11 +4,11 @@ import br.com.kbmg.domain.PessoaFisica;
 
 public class CreatePessoaFisica {
 
-	public static PessoaFisica get(Long id_pf, String cpf) {
+	public static PessoaFisica get(Long idPf, String cpf) {
 		return new PessoaFisica() {
 			private static final long serialVersionUID = 1L;
 			{
-//				setId_pf(id_pf);
+				setIdPf(idPf);
 				setCpf(cpf);
 			}
 		};
