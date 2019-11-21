@@ -69,10 +69,10 @@ public class PessoaJuridicaServiceTest {
 		PessoaJuridica pessoaJuridica = CreatePessoaJuridica.get(ID_PESSOA_JURIDICA, CNPJ, INSCRICAO_ESTADUAL);
 
 		when(repository.findById(ID_PESSOA_JURIDICA)).thenReturn(Optional.of(pessoaJuridica));
-		PessoaJuridica retorno = service.findById(ID_PESSOA_JURIDICA.toString());
+		PessoaJuridica retorno = service.findById(ID_PESSOA_JURIDICA.toString(), "ID da pessoa jurídica");
 
 		assertAll(() -> assertEquals(pessoaJuridica.getCnpj(), retorno.getCnpj()),
-				() -> assertEquals(pessoaJuridica.getId_pj(), retorno.getId_pj()));
+				() -> assertEquals(pessoaJuridica.getIdPj(), retorno.getIdPj()));
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class PessoaJuridicaServiceTest {
 	void deveLancarExceptionSeNaoEncontrarIdPj() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findById(ID_PESSOA_JURIDICA.toString()));
+				() -> service.findById(ID_PESSOA_JURIDICA.toString(), "ID da pessoa jurídica"));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 
@@ -97,16 +97,16 @@ public class PessoaJuridicaServiceTest {
 	@Test
 	@DisplayName("Deve retornar \'false\' se CNPJ não está cadastrado")
 	void deveRetornarFalseSeCNPJNaoExiste() {
-		
+
 		when(repository.findByCnpj(CNPJ)).thenReturn(Optional.empty());
-		
+
 		assertEquals(false, service.verifyIfCnpjExists(CNPJ));
 	}
 
 	@Test
 	@DisplayName("Deve retornar \'false\' se na verificacao de CNPJ existente, valor estiver null")
 	void deveRetornarFalseSeVerificaCNPJNull() {
-		
+
 		assertEquals(false, service.verifyIfCnpjExists(null));
 	}
 

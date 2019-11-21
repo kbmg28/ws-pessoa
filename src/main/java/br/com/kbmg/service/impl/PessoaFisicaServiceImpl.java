@@ -9,10 +9,9 @@ import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.repository.PessoaFisicaRepository;
 import br.com.kbmg.service.PessoaFisicaService;
-import br.com.kbmg.utils.Validator;
 
 @Service
-public class PessoaFisicaServiceImpl implements PessoaFisicaService {
+public class PessoaFisicaServiceImpl extends GenericServiceImpl<PessoaFisica> implements PessoaFisicaService {
 
 	@Autowired
 	PessoaFisicaRepository repository;
@@ -23,12 +22,6 @@ public class PessoaFisicaServiceImpl implements PessoaFisicaService {
 	@Override
 	public PessoaFisica findByCpf(String cpf) {
 		return repository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
-	}
-
-	@Override
-	public PessoaFisica findById(String id_pf) {
-		return repository.findById(Validator.stringParseLong(id_pf, "Id da pessoa física"))
-				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
 
 	@Override

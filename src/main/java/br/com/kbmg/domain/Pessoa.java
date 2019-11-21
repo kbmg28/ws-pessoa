@@ -1,6 +1,7 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
@@ -25,38 +27,43 @@ public class Pessoa implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_pessoa;
+	private Long idPessoa;
 
 	@Column
-	@NotBlank(message="Nome da pessoa obrigatório")
+	@NotBlank(message = "Nome da pessoa obrigatório")
 	private String nomeCompleto;
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	@NotNull(message="Tipo da pessoa obrigatório.")
+	@NotNull(message = "Tipo da pessoa obrigatório.")
 	private TipoPessoa tipoPessoa;
 
-	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinColumn(name = "PF_ID")
 	private PessoaFisica pessoaFisica;
 
-	@OneToOne(cascade = { CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "pessoa")
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+	@JoinColumn(name = "PJ_ID")
 	private PessoaJuridica pessoaJuridica;
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Email.class)
-	private Set<Email> emails;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Email.class)
+	private Set<Email> emails = new LinkedHashSet<>();
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Endereco.class)
-	private Set<Endereco> enderecos;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Endereco.class)
+	private Set<Endereco> enderecos = new LinkedHashSet<>();
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Telefone.class)
-	private Set<Telefone> telefones;
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Telefone.class)
+	private Set<Telefone> telefones = new LinkedHashSet<>();
 
-	public Long getId_pessoa() {
-		return id_pessoa;
+	public Long getIdPessoa() {
+		return idPessoa;
 	}
 
-	public void setId_pessoa(Long id_pessoa) {
-		this.id_pessoa = id_pessoa;
+	public void setIdPessoa(Long idPessoa) {
+		this.idPessoa = idPessoa;
 	}
 
 	public String getNomeCompleto() {
@@ -91,7 +98,6 @@ public class Pessoa implements Serializable {
 		this.pessoaJuridica = pessoaJuridica;
 	}
 
-	
 	public Set<Email> getEmails() {
 		return emails;
 	}
@@ -120,7 +126,7 @@ public class Pessoa implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id_pessoa == null) ? 0 : id_pessoa.hashCode());
+		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
 		return result;
 	}
 
@@ -133,10 +139,10 @@ public class Pessoa implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Pessoa other = (Pessoa) obj;
-		if (id_pessoa == null) {
-			if (other.id_pessoa != null)
+		if (idPessoa == null) {
+			if (other.idPessoa != null)
 				return false;
-		} else if (!id_pessoa.equals(other.id_pessoa))
+		} else if (!idPessoa.equals(other.idPessoa))
 			return false;
 		return true;
 	}

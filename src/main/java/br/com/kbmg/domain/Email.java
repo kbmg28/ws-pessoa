@@ -9,21 +9,22 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Email  implements Serializable {
+public class Email implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_email;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID_PESSOA")
+	private Long idEmail;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
 
@@ -31,12 +32,12 @@ public class Email  implements Serializable {
 	@javax.validation.constraints.Email
 	private String email;
 
-	public Long getId_email() {
-		return id_email;
+	public Long getIdEmail() {
+		return idEmail;
 	}
 
-	public void setId_email(Long id_email) {
-		this.id_email = id_email;
+	public void setIdEmail(Long idEmail) {
+		this.idEmail = idEmail;
 	}
 
 	public Pessoa getPessoa() {
@@ -59,7 +60,7 @@ public class Email  implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id_email == null) ? 0 : id_email.hashCode());
+		result = prime * result + ((idEmail == null) ? 0 : idEmail.hashCode());
 		return result;
 	}
 
@@ -72,12 +73,12 @@ public class Email  implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Email other = (Email) obj;
-		if (id_email == null) {
-			if (other.id_email != null)
+		if (idEmail == null) {
+			if (other.idEmail != null)
 				return false;
-		} else if (!id_email.equals(other.id_email))
+		} else if (!idEmail.equals(other.idEmail))
 			return false;
 		return true;
 	}
-	
+
 }

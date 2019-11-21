@@ -4,11 +4,11 @@ import br.com.kbmg.domain.Pessoa;
 
 public class CreatePessoa {
 
-	public static Pessoa get(Long id_pessoa, String nomeCompleto) {
+	public static Pessoa get(Long idPessoa, String nomeCompleto) {
 		return new Pessoa() {
 			private static final long serialVersionUID = 1L;
 			{
-				setId_pessoa(id_pessoa);
+				setIdPessoa(idPessoa);
 				setNomeCompleto(nomeCompleto);
 			}
 		};

@@ -25,6 +25,7 @@ import br.com.kbmg.repository.PessoaRepository;
 import br.com.kbmg.service.PessoaFisicaService;
 import br.com.kbmg.service.PessoaJuridicaService;
 import br.com.kbmg.service.impl.PessoaServiceImpl;
+import br.com.kbmg.utils.Util;
 
 public class PessoaServiceTest {
 
@@ -56,6 +57,18 @@ public class PessoaServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		when(msg.get("nao.encontrado")).thenReturn(NAO_ENCONTRADO);
+	}
+
+	@Test
+	@DisplayName("Deve adicionar Pessoa física")
+	void deveAdicionarPessoaFisica() {
+		Pessoa pessoa = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).fisica(CPF).agora();
+
+		when(repository.save(pessoa)).thenReturn(pessoa);
+		Pessoa resp = service.create(pessoa);
+		
+		assertAll(() -> assertEquals(pessoa.getNomeCompleto(), resp.getNomeCompleto()),
+				() -> assertEquals(pessoa.getPessoaFisica().getCpf(), resp.getPessoaFisica().getCpf()));
 	}
 
 	@Test
@@ -101,9 +114,9 @@ public class PessoaServiceTest {
 	void deveBuscarPorPessoaFisicaPorIdPessoa() {
 		Pessoa p = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).fisica(CPF).agora();
 
-		when(repository.findById(p.getId_pessoa())).thenReturn(Optional.of(p));
+		when(repository.findById(p.getIdPessoa())).thenReturn(Optional.of(p));
 
-		Pessoa retorno = service.findByIdPessoa(ID_PESSOA_1.toString());
+		Pessoa retorno = service.findById(ID_PESSOA_1.toString(), "Id da Pessoa");
 		assertAll(() -> assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto(), "NOME COMPLETO"),
 				() -> assertEquals(p.getPessoaFisica().getCpf(), retorno.getPessoaFisica().getCpf(), "CPF"));
 	}
@@ -113,7 +126,7 @@ public class PessoaServiceTest {
 	void deveLancarExceptionSeNaoEncontrarPessoaPorId() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findByIdPessoa(ID_PESSOA_1.toString()));
+				() -> service.findById(ID_PESSOA_1.toString(), "Id da Pessoa"));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 

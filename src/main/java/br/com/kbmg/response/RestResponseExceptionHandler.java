@@ -11,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @ControllerAdvice
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
-	
+
 	@ExceptionHandler({ AccessDeniedException.class })
 	public ResponseEntity<ErrorResponse> handleAccessDeniedException(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.value());
@@ -41,12 +42,22 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 		return generatedError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
 
+	@ExceptionHandler({ PropertyReferenceException.class })
+	public ResponseEntity<ErrorResponse> handlePropertySpring(final PropertyReferenceException ex,
+			final WebRequest request) {
+		String msg = "Não foi possível localizar a propriedade: %s";
+
+		return generatedError(String.format(msg, ex.getPropertyName()), HttpStatus.BAD_REQUEST,
+				HttpStatus.BAD_REQUEST.value());
+	}
+
 	@ExceptionHandler({ ConstraintViolationException.class })
 	public ResponseEntity<ObjectResponse> handleBadRequestConstraintViolation(final ConstraintViolationException ex,
 			final WebRequest request) {
 		ObjectResponse response = new ObjectResponse();
-		
-		ex.getConstraintViolations().forEach(e -> response.getErrors().add(e.getPropertyPath() + ": " + e.getMessage()));
+
+		ex.getConstraintViolations()
+				.forEach(e -> response.getErrors().add(e.getPropertyPath() + ": " + e.getMessage()));
 		return new ResponseEntity<ObjectResponse>(response, HttpStatus.BAD_REQUEST);
 	}
 
@@ -87,10 +98,10 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		
+
 		String message = "Não foi possível ler os dados.";
 		Throwable mostSpecificCause = ex.getMostSpecificCause();
-		
+
 		if (mostSpecificCause != null) {
 			message = mostSpecificCause.getMessage();
 
@@ -99,8 +110,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 			int fim = nomeDaClasse.length() - 1;
 
 			message = nomeDaClasse.substring(inicio, fim) + " com valor inválido.";
-		} 
-		
+		}
+
 		Map<String, Object> response = new HashMap<String, Object>();
 		response.put("message", message.replaceAll("\"", ""));
 		response.put("errorCode", HttpStatus.BAD_REQUEST.value());
