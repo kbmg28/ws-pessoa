@@ -23,7 +23,7 @@ public class PessoaFisicaServiceImpl extends GenericServiceImpl<PessoaFisica> im
 	public PessoaFisica findByCpf(String cpf) {
 		return repository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
-	
+
 	@Override
 	public Boolean verifyIfCpfExists(String cpf) {
 		return repository.findByCpf(cpf).isPresent();

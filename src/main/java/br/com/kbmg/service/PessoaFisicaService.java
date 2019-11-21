@@ -4,8 +4,7 @@ import javax.persistence.EntityNotFoundException;
 
 import br.com.kbmg.domain.PessoaFisica;
 
-public interface PessoaFisicaService extends GenericService<PessoaFisica>{
-
+public interface PessoaFisicaService extends GenericService<PessoaFisica> {
 
 	/**
 	 * Busca pessoa física por cpf.

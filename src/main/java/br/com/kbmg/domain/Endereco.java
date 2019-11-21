@@ -32,41 +32,40 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
-	
+
 	@Column
 	@NotBlank
 	private String logradouro;
-	
+
 	@Column
 	private String codigoIbgeUF;
-	
+
 	@Column
 	private Integer codigoIbgeMunicipio;
-	
+
 	@Column
 	private String cep;
-	
+
 	@Column
 	@NotBlank
 	private String bairro;
-	
+
 	@Column
 	@NotBlank
 	private String numero;
-	
+
 	@Column
 	private String complemento;
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	@NotNull(message="Tipo do endereço inválido.")
+	@NotNull(message = "Tipo do endereço inválido.")
 	private TipoEndereco tipoEndereco;
-
 
 	public Long getIdEndereco() {
 		return idEndereco;
 	}
-	
+
 	public void setIdEndereco(Long idEndereco) {
 		this.idEndereco = idEndereco;
 	}
@@ -167,5 +166,5 @@ public class Endereco implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

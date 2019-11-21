@@ -30,35 +30,38 @@ public class Pessoa implements Serializable {
 	private Long idPessoa;
 
 	@Column
-	@NotBlank(message="Nome da pessoa obrigatório")
+	@NotBlank(message = "Nome da pessoa obrigatório")
 	private String nomeCompleto;
 
 	@Column
 	@Enumerated(EnumType.STRING)
-	@NotNull(message="Tipo da pessoa obrigatório.")
+	@NotNull(message = "Tipo da pessoa obrigatório.")
 	private TipoPessoa tipoPessoa;
 
-	@OneToOne(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE })
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "PF_ID")
 	private PessoaFisica pessoaFisica;
 
-	@OneToOne(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE })
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "PJ_ID")
 	private PessoaJuridica pessoaJuridica;
 
-	@OneToMany(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Email.class)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Email.class)
 	private Set<Email> emails = new LinkedHashSet<>();
 
-	@OneToMany(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Endereco.class)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Endereco.class)
 	private Set<Endereco> enderecos = new LinkedHashSet<>();
 
-	@OneToMany(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Telefone.class)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Telefone.class)
 	private Set<Telefone> telefones = new LinkedHashSet<>();
 
 	public Long getIdPessoa() {
 		return idPessoa;
 	}
-	
+
 	public void setIdPessoa(Long idPessoa) {
 		this.idPessoa = idPessoa;
 	}
@@ -95,7 +98,6 @@ public class Pessoa implements Serializable {
 		this.pessoaJuridica = pessoaJuridica;
 	}
 
-	
 	public Set<Email> getEmails() {
 		return emails;
 	}

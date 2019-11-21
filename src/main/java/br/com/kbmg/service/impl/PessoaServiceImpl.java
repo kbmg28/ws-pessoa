@@ -16,7 +16,7 @@ import br.com.kbmg.service.PessoaJuridicaService;
 import br.com.kbmg.service.PessoaService;
 
 @Service
-public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements PessoaService  {
+public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements PessoaService {
 
 	@Autowired
 	PessoaRepository repository;
@@ -34,11 +34,11 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 	public Pessoa create(Pessoa pessoa) {
 		validaPessoa(pessoa);
 		verificaSeExisteCpfOuCnpj(pessoa);
-		
+
 		pessoa.getEmails().forEach(e -> e.setPessoa(pessoa));
 		pessoa.getEnderecos().forEach(e -> e.setPessoa(pessoa));
 		pessoa.getTelefones().forEach(t -> t.setPessoa(pessoa));
-		
+
 		return repository.save(pessoa);
 	}
 
@@ -49,9 +49,9 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 	}
 
 	private void verificaSeExisteCpfOuCnpj(Pessoa pessoa) {
-		
+
 		if (pessoa.getTipoPessoa().equals(TipoPessoa.PF)
-				? pessoaFisicaService.verifyIfCpfExists(pessoa.getPessoaFisica().getCpf()) 
+				? pessoaFisicaService.verifyIfCpfExists(pessoa.getPessoaFisica().getCpf())
 				: pessoaJuridicaService.verifyIfCnpjExists(pessoa.getPessoaJuridica().getCnpj()))
 			throw new EntityExistsException(msg.get("pessoa.existe"));
 	}

@@ -16,12 +16,12 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class PessoaFisica implements Serializable{
+public class PessoaFisica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPf;
 
 	@Column
@@ -31,7 +31,7 @@ public class PessoaFisica implements Serializable{
 
 	@Column
 	private String rg;
-	
+
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "pessoaFisica")
 	@JsonIgnore
 	private Pessoa pessoa;
@@ -39,11 +39,11 @@ public class PessoaFisica implements Serializable{
 	public Long getIdPf() {
 		return idPf;
 	}
-	
+
 	public void setIdPf(Long idPf) {
 		this.idPf = idPf;
 	}
-	
+
 	public String getCpf() {
 		return cpf;
 	}
@@ -63,7 +63,7 @@ public class PessoaFisica implements Serializable{
 	public Pessoa getPessoa() {
 		return pessoa;
 	}
-	
+
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}

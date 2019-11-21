@@ -16,12 +16,12 @@ import org.hibernate.validator.constraints.br.CNPJ;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class PessoaJuridica implements Serializable{
+public class PessoaJuridica implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idPj;
 
 	@Column
@@ -35,11 +35,11 @@ public class PessoaJuridica implements Serializable{
 	@OneToOne(fetch = FetchType.EAGER, mappedBy = "pessoaJuridica")
 	@JsonIgnore
 	private Pessoa pessoa;
-	
+
 	public Long getIdPj() {
 		return idPj;
 	}
-	
+
 	public void setIdPj(Long idPj) {
 		this.idPj = idPj;
 	}
@@ -92,5 +92,5 @@ public class PessoaJuridica implements Serializable{
 			return false;
 		return true;
 	}
-	
+
 }

@@ -14,13 +14,13 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Email  implements Serializable {
+public class Email implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	
+
 	private Long idEmail;
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -35,11 +35,11 @@ public class Email  implements Serializable {
 	public Long getIdEmail() {
 		return idEmail;
 	}
-	
+
 	public void setIdEmail(Long idEmail) {
 		this.idEmail = idEmail;
 	}
-	
+
 	public Pessoa getPessoa() {
 		return pessoa;
 	}

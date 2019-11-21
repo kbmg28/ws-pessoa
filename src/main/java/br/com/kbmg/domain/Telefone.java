@@ -27,15 +27,15 @@ public class Telefone implements Serializable {
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
-	
+
 	@Column
 	@NotNull
 	private Integer numero;
-	
+
 	@Column
 	@NotNull
 	private Integer ddd;
-	
+
 	@Column
 	@NotNull
 	private String contato;
@@ -43,7 +43,7 @@ public class Telefone implements Serializable {
 	public Long getIdTelefone() {
 		return idTelefone;
 	}
-	
+
 	public void setIdTelefone(Long idTelefone) {
 		this.idTelefone = idTelefone;
 	}

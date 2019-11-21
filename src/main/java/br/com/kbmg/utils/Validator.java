@@ -12,7 +12,7 @@ public class Validator {
 		try {
 			return Long.parseLong(param);
 		} catch (Exception e) {
-			 throw new InvalidParameterException(nomeDoParametro + " inválido.");
+			throw new InvalidParameterException(nomeDoParametro + " inválido.");
 		}
 	}
 }
