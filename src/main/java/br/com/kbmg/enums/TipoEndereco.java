@@ -2,7 +2,7 @@ package br.com.kbmg.enums;
 
 public enum TipoEndereco {
 
-	F("FISCAL"), O("OUTROS");
+	FISCAL("FISCAL"), OUTROS("OUTROS");
 
 	private String tipo;
 

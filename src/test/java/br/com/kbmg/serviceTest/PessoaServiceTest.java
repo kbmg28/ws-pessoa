@@ -25,6 +25,7 @@ import br.com.kbmg.repository.PessoaRepository;
 import br.com.kbmg.service.PessoaFisicaService;
 import br.com.kbmg.service.PessoaJuridicaService;
 import br.com.kbmg.service.impl.PessoaServiceImpl;
+import br.com.kbmg.utils.Util;
 
 public class PessoaServiceTest {
 
@@ -56,6 +57,18 @@ public class PessoaServiceTest {
 	public void setup() {
 		MockitoAnnotations.initMocks(this);
 		when(msg.get("nao.encontrado")).thenReturn(NAO_ENCONTRADO);
+	}
+
+	@Test
+	@DisplayName("Deve adicionar Pessoa física")
+	void deveAdicionarPessoaFisica() {
+		Pessoa pessoa = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).fisica(CPF).agora();
+
+		when(repository.save(pessoa)).thenReturn(pessoa);
+		Pessoa resp = service.create(pessoa);
+		
+		assertAll(() -> assertEquals(pessoa.getNomeCompleto(), resp.getNomeCompleto()),
+				() -> assertEquals(pessoa.getPessoaFisica().getCpf(), resp.getPessoaFisica().getCpf()));
 	}
 
 	@Test
