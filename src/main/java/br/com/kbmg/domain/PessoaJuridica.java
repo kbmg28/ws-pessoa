@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -23,7 +22,7 @@ public class PessoaJuridica implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id_pj;
+	private Long idPj;
 
 	@Column
 	@NotNull
@@ -33,17 +32,16 @@ public class PessoaJuridica implements Serializable{
 	@Column
 	private String inscricaoEstadual;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "IDPESSOA")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "pessoaJuridica")
 	@JsonIgnore
 	private Pessoa pessoa;
 	
-	public Long getId_pj() {
-		return id_pj;
+	public Long getIdPj() {
+		return idPj;
 	}
-
-	public void setId_pj(Long id_pj) {
-		this.id_pj = id_pj;
+	
+	public void setIdPj(Long idPj) {
+		this.idPj = idPj;
 	}
 
 	public String getCnpj() {
@@ -74,7 +72,7 @@ public class PessoaJuridica implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id_pj == null) ? 0 : id_pj.hashCode());
+		result = prime * result + ((idPj == null) ? 0 : idPj.hashCode());
 		return result;
 	}
 
@@ -87,11 +85,12 @@ public class PessoaJuridica implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		PessoaJuridica other = (PessoaJuridica) obj;
-		if (id_pj == null) {
-			if (other.id_pj != null)
+		if (idPj == null) {
+			if (other.idPj != null)
 				return false;
-		} else if (!id_pj.equals(other.id_pj))
+		} else if (!idPj.equals(other.idPj))
 			return false;
 		return true;
 	}
+	
 }

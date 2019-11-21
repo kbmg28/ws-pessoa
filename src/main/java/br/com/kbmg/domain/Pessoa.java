@@ -1,6 +1,7 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
@@ -36,20 +38,22 @@ public class Pessoa implements Serializable {
 	@NotNull(message="Tipo da pessoa obrigatório.")
 	private TipoPessoa tipoPessoa;
 
-	@OneToOne(cascade = { CascadeType.ALL }, orphanRemoval = true, mappedBy = "pessoa")
+	@OneToOne(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE })
+	@JoinColumn(name = "PF_ID")
 	private PessoaFisica pessoaFisica;
 
-	@OneToOne(cascade = { CascadeType.ALL }, mappedBy = "pessoa")
+	@OneToOne(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE })
+	@JoinColumn(name = "PJ_ID")
 	private PessoaJuridica pessoaJuridica;
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Email.class)
-	private Set<Email> emails;
+	@OneToMany(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Email.class)
+	private Set<Email> emails = new LinkedHashSet<>();
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Endereco.class)
-	private Set<Endereco> enderecos;
+	@OneToMany(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Endereco.class)
+	private Set<Endereco> enderecos = new LinkedHashSet<>();
 
-	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", targetEntity = Telefone.class)
-	private Set<Telefone> telefones;
+	@OneToMany(cascade = { CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Telefone.class)
+	private Set<Telefone> telefones = new LinkedHashSet<>();
 
 	public Long getIdPessoa() {
 		return idPessoa;

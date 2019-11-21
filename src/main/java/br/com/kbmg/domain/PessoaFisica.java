@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
@@ -33,8 +32,7 @@ public class PessoaFisica implements Serializable{
 	@Column
 	private String rg;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "IDPESSOA")
+	@OneToOne(fetch = FetchType.EAGER, mappedBy = "pessoaFisica")
 	@JsonIgnore
 	private Pessoa pessoa;
 
