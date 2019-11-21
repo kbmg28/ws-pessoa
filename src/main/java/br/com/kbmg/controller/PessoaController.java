@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kbmg.domain.Pessoa;
-import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.PessoaService;
 
@@ -26,8 +25,8 @@ public class PessoaController {
 	private PessoaService service;
 
 	@GetMapping("/findOne")
-	public ResponseEntity<ObjectResponse> findOne(@Valid @RequestParam String id_pessoa) {
-		return ResponseEntity.ok(new ObjectResponse(service.findByIdPessoa(id_pessoa)));
+	public ResponseEntity<ObjectResponse> findOne(@Valid @RequestParam String idPessoa) {
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idPessoa, "Id da pessoa")));
 	}
 
 	@PostMapping
@@ -45,6 +44,11 @@ public class PessoaController {
 		return ResponseEntity.ok(response);
 	}
 	
+
+	@DeleteMapping
+	public void deleteById(@Valid @RequestParam Long idPessoa) {
+		service.deleteById(idPessoa);
+	}
 
 	@DeleteMapping("/entity")
 	public void delete(@Valid @RequestBody Pessoa p) {

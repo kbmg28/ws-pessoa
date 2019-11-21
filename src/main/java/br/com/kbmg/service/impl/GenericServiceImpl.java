@@ -68,13 +68,8 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Override
 	public void deleteById(Long id) {
-		 T t = this.findById(id.toString(), "ID ");
-		 repository.deleteById(id);
-		 repository.delete(t);
-		 System.err.println("deletado");
 		 this.findById(id.toString(), "ID ");
-		 System.err.println("achou");
-//		 repository.flush();
+		 repository.deleteById(id);
 	}
 
 	@Override
