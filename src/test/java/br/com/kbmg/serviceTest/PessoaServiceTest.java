@@ -101,7 +101,7 @@ public class PessoaServiceTest {
 	void deveBuscarPorPessoaFisicaPorIdPessoa() {
 		Pessoa p = PessoaBuilder.umaPessoa(ID_PESSOA_1, NOME_PESSOA).fisica(CPF).agora();
 
-		when(repository.findById(p.getId_pessoa())).thenReturn(Optional.of(p));
+		when(repository.findById(p.getIdPessoa())).thenReturn(Optional.of(p));
 
 		Pessoa retorno = service.findByIdPessoa(ID_PESSOA_1.toString());
 		assertAll(() -> assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto(), "NOME COMPLETO"),

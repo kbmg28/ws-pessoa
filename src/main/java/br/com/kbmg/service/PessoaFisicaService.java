@@ -4,7 +4,7 @@ import javax.persistence.EntityNotFoundException;
 
 import br.com.kbmg.domain.PessoaFisica;
 
-public interface PessoaFisicaService {
+public interface PessoaFisicaService extends GenericService<PessoaFisica>{
 
 	/**
 	 * Busca pessoa física por ID.
@@ -14,7 +14,7 @@ public interface PessoaFisicaService {
 	 * @return O registro encontrado.
 	 * @throws EntityNotFoundException- Se não existir.
 	 */
-	PessoaFisica findById(String id_pf);
+//	PessoaFisica findById(String id_pf);
 
 	/**
 	 * Busca pessoa física por cpf.

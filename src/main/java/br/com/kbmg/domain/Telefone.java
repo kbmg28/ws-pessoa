@@ -21,10 +21,10 @@ public class Telefone implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id_telefone;
+	private Long idTelefone;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_pessoa", nullable = false)
+	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
 	
@@ -40,12 +40,12 @@ public class Telefone implements Serializable {
 	@NotNull
 	private String contato;
 
-	public Long getId_telefone() {
-		return id_telefone;
+	public Long getIdTelefone() {
+		return idTelefone;
 	}
-
-	public void setId_telefone(Long id_telefone) {
-		this.id_telefone = id_telefone;
+	
+	public void setIdTelefone(Long idTelefone) {
+		this.idTelefone = idTelefone;
 	}
 
 	public Pessoa getPessoa() {
@@ -84,7 +84,7 @@ public class Telefone implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id_telefone == null) ? 0 : id_telefone.hashCode());
+		result = prime * result + ((idTelefone == null) ? 0 : idTelefone.hashCode());
 		return result;
 	}
 
@@ -97,10 +97,10 @@ public class Telefone implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Telefone other = (Telefone) obj;
-		if (id_telefone == null) {
-			if (other.id_telefone != null)
+		if (idTelefone == null) {
+			if (other.idTelefone != null)
 				return false;
-		} else if (!id_telefone.equals(other.id_telefone))
+		} else if (!idTelefone.equals(other.idTelefone))
 			return false;
 		return true;
 	}

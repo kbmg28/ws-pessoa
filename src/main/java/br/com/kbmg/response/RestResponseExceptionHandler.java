@@ -11,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,13 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 	@ExceptionHandler({ IllegalArgumentException.class, EntityExistsException.class })
 	public ResponseEntity<ErrorResponse> handleArguments(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+	}
+
+	@ExceptionHandler({ PropertyReferenceException.class })
+	public ResponseEntity<ErrorResponse> handlePropertySpring(final PropertyReferenceException ex, final WebRequest request) {
+		String msg = "Não foi possível localizar a propriedade: %s";
+		
+		return generatedError(String.format(msg, ex.getPropertyName()), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
 
 	@ExceptionHandler({ ConstraintViolationException.class })

@@ -62,26 +62,26 @@ public class PessoaFisicaServiceTest {
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 
-	@Test
-	@DisplayName("Busca por ID_PF")
-	void deveBuscarPorIdPf() {
-		PessoaFisica pessoaFisica = CreatePessoaFisica.get(ID_PESSOA_FISICA, CPF);
-
-		when(repository.findById(ID_PESSOA_FISICA)).thenReturn(Optional.of(pessoaFisica));
-		PessoaFisica retorno = service.findById(ID_PESSOA_FISICA.toString());
-		
-		assertAll(() -> assertEquals(pessoaFisica.getCpf(), retorno.getCpf()),
-				() -> assertEquals(pessoaFisica.getId_pf(), retorno.getId_pf()));
-	}
-
-	@Test
-	@DisplayName("Lança exception quando não encontrar ID_PF")
-	void deveLancarExceptionSeNaoEncontrarIdPf() {
-
-		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findById(ID_PESSOA_FISICA.toString()));
-		assertEquals(NAO_ENCONTRADO, exception.getMessage());
-	}
+//	@Test
+//	@DisplayName("Busca por ID_PF")
+//	void deveBuscarPorIdPf() {
+//		PessoaFisica pessoaFisica = CreatePessoaFisica.get(ID_PESSOA_FISICA, CPF);
+//
+//		when(repository.findById(ID_PESSOA_FISICA)).thenReturn(Optional.of(pessoaFisica));
+//		PessoaFisica retorno = service.findById(ID_PESSOA_FISICA.toString());
+//		
+//		assertAll(() -> assertEquals(pessoaFisica.getCpf(), retorno.getCpf()),
+//				() -> assertEquals(pessoaFisica.getId_pf(), retorno.getId_pf()));
+//	}
+//
+//	@Test
+//	@DisplayName("Lança exception quando não encontrar ID_PF")
+//	void deveLancarExceptionSeNaoEncontrarIdPf() {
+//
+//		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
+//				() -> service.findById(ID_PESSOA_FISICA.toString()));
+//		assertEquals(NAO_ENCONTRADO, exception.getMessage());
+//	}
 
 	@Test
 	@DisplayName("Deve retornar \'true\' se CPF já está cadastrado")
