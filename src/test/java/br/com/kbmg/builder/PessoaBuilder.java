@@ -33,13 +33,13 @@ public class PessoaBuilder {
 	}
 
 	public PessoaBuilder comEnderecoFiscal() {
-		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa(), "RUA QUEMM ODYSSEY", null, null,
-				"69097110", "CIDADE NOVA", "001", "TESTE", TipoEndereco.FISCAL));
+		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa(), "Rua Laranjal", "AM", 1302603,
+				"69097150", "CIDADE NOVA", "001", "TESTE", TipoEndereco.FISCAL));
 		return this;
 	}
 
 	public PessoaBuilder comTelefone(Integer numero) {
-		this.pessoa.getTelefones().add(CreateTelefone.get(this.pessoa.getIdPessoa(), 92, numero, null));
+		this.pessoa.getTelefones().add(CreateTelefone.get(this.pessoa.getIdPessoa(), 92, numero, "ALGUÉM"));
 		return this;
 	}
 
