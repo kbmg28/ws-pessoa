@@ -32,20 +32,17 @@ public class Endereco implements Serializable {
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
+	
+	@Column
+	private String cep;
 
 	@Column
 	@NotBlank
 	private String logradouro;
-
+	
 	@Column
-	private String codigoIbgeUF;
-
-	@Column
-	private Integer codigoIbgeMunicipio;
-
-	@Column
-	private String cep;
-
+	private String complemento;
+	
 	@Column
 	@NotBlank
 	private String bairro;
@@ -55,7 +52,13 @@ public class Endereco implements Serializable {
 	private String numero;
 
 	@Column
-	private String complemento;
+	private String localidade;
+	
+	@Column
+	private String uf;
+
+	@Column
+	private Integer ibge;
 
 	@Column
 	@Enumerated(EnumType.STRING)
@@ -78,6 +81,15 @@ public class Endereco implements Serializable {
 		this.pessoa = pessoa;
 	}
 
+	
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
 	public String getLogradouro() {
 		return logradouro;
 	}
@@ -86,28 +98,12 @@ public class Endereco implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	public String getCodigoIbgeUF() {
-		return codigoIbgeUF;
+	public String getComplemento() {
+		return complemento;
 	}
 
-	public void setCodigoIbgeUF(String codigoIbgeUF) {
-		this.codigoIbgeUF = codigoIbgeUF;
-	}
-
-	public Integer getCodigoIbgeMunicipio() {
-		return codigoIbgeMunicipio;
-	}
-
-	public void setCodigoIbgeMunicipio(Integer codigoIbgeMunicipio) {
-		this.codigoIbgeMunicipio = codigoIbgeMunicipio;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-
-	public void setCep(String cep) {
-		this.cep = cep;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public String getBairro() {
@@ -126,12 +122,28 @@ public class Endereco implements Serializable {
 		this.numero = numero;
 	}
 
-	public String getComplemento() {
-		return complemento;
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
+	}
+
+	public String getUf() {
+		return uf;
+	}
+
+	public void setUf(String uf) {
+		this.uf = uf;
+	}
+
+	public Integer getIbge() {
+		return ibge;
+	}
+
+	public void setIbge(Integer ibge) {
+		this.ibge = ibge;
 	}
 
 	public TipoEndereco getTipoEndereco() {
