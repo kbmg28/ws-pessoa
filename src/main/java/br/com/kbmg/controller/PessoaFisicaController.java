@@ -3,16 +3,12 @@ package br.com.kbmg.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.PessoaFisicaService;
 
@@ -41,12 +37,5 @@ public class PessoaFisicaController {
 	@GetMapping("/all")
 	public ResponseEntity<ObjectResponse> findAll() {
 		return ResponseEntity.ok(new ObjectResponse(service.findAll()));
-	}
-
-	@GetMapping("/paginated")
-	public ResponseEntity<ObjectResponse> findAllPage(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "ASC") Sort.Direction direction,
-			@RequestParam(defaultValue = "idPf") String sortProperty) {
-		return ResponseEntity.ok(new ObjectResponse (service.findAllPaginated(page, size, direction, sortProperty)) );
 	}
 }
