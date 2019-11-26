@@ -10,29 +10,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kbmg.response.ObjectResponse;
-import br.com.kbmg.service.EnderecoService;
+import br.com.kbmg.service.PessoaJuridicaService;
 
 @RestController
-@RequestMapping(value = "/endereco")
-public class EnderecoController {
+@RequestMapping(value = "/pessoaJuridica")
+public class PessoaJuridicaController {
 
 	@Autowired
-	private EnderecoService service;
+	private PessoaJuridicaService service;
 
+	@GetMapping("/cnpj")
+	public ResponseEntity<ObjectResponse> findByCnpj(@Valid @RequestParam String cnpj) {
+		return ResponseEntity.ok(new ObjectResponse(service.findByCnpj(cnpj)));
+	}
 
 	@GetMapping
-	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEndereco) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, "Id do endereco")));
+	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idPj) {
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idPj, "Id da pessoa jurídica")));
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<ObjectResponse> findAll() {
 		return ResponseEntity.ok(new ObjectResponse(service.findAll()));
-	}
-
-	@GetMapping("/allByPessoa")
-	public ResponseEntity<ObjectResponse> findAllByPessoa(@Valid @RequestParam String idPessoa) {
-		return ResponseEntity.ok(new ObjectResponse(service.findByPessoa(idPessoa)));
 	}
 
 }

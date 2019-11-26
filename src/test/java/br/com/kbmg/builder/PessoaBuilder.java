@@ -33,8 +33,14 @@ public class PessoaBuilder {
 	}
 
 	public PessoaBuilder comEnderecoFiscal() {
-		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa(), "Rua Laranjal", "AM", 1302603,
-				"69097150", "CIDADE NOVA", "001", "TESTE", TipoEndereco.FISCAL));
+		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa(), "69097150", "Rua Laranjal",
+				"TESTE COMPLEMENTO", "CIDADE NOVA", "001", "MANAUS", "AM", 1302603, TipoEndereco.FISCAL));
+		return this;
+	}
+
+	public PessoaBuilder comEnderecoOutros() {
+		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa() + 1, "69067516",
+				"Rua Governador Henoch Reis", null, "Petrópolis", "12A", "MANAUS", "AM", 1302603, TipoEndereco.OUTROS));
 		return this;
 	}
 

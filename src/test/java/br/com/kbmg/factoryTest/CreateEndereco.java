@@ -5,19 +5,20 @@ import br.com.kbmg.enums.TipoEndereco;
 
 public class CreateEndereco {
 
-	public static Endereco get(Long idEndereco, String logradouro, String uf, Integer ibge,
-			String cep, String bairro, String numero, String complemento, TipoEndereco tipoEndereco) {
+	public static Endereco get(Long idEndereco, String cep, String logradouro, String complemento, String bairro,
+			String numero, String localidade, String uf, Integer ibge, TipoEndereco tipoEndereco) {
 		return new Endereco() {
 			private static final long serialVersionUID = 1L;
 			{
 				setIdEndereco(idEndereco);
-				setLogradouro(logradouro);
-				setUf(uf);
-				setIbge(ibge);
 				setCep(cep);
+				setLogradouro(logradouro);
+				setComplemento(complemento);
 				setBairro(bairro);
 				setNumero(numero);
-				setComplemento(complemento);
+				setLocalidade(localidade);
+				setUf(uf);
+				setIbge(ibge);
 				setTipoEndereco(tipoEndereco);
 			}
 		};
