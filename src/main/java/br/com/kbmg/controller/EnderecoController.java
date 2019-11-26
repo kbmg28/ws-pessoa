@@ -30,4 +30,9 @@ public class EnderecoController {
 		return ResponseEntity.ok(new ObjectResponse(service.findAll()));
 	}
 
+	@GetMapping("/allByPessoa")
+	public ResponseEntity<ObjectResponse> findAllByPessoa(@Valid @RequestParam String idPessoa) {
+		return ResponseEntity.ok(new ObjectResponse(service.findByPessoa(idPessoa)));
+	}
+
 }
