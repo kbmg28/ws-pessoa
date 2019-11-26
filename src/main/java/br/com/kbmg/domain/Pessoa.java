@@ -19,6 +19,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import br.com.kbmg.enums.TipoPessoa;
+import br.com.kbmg.utils.Validator;
 
 @Entity
 public class Pessoa implements Serializable {
@@ -57,6 +58,14 @@ public class Pessoa implements Serializable {
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REMOVE }, mappedBy = "pessoa", targetEntity = Telefone.class)
 	private Set<Telefone> telefones = new LinkedHashSet<>();
+
+	public Pessoa() {
+
+	}
+
+	public Pessoa(String idPessoa) {
+		this.idPessoa = Validator.stringParseLong(idPessoa, "Id da Pessoa");
+	}
 
 	public Long getIdPessoa() {
 		return idPessoa;
