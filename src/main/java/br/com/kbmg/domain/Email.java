@@ -4,14 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.kbmg.enums.TipoDeUso;
 
 @Entity
 public class Email implements Serializable {
@@ -30,7 +35,13 @@ public class Email implements Serializable {
 
 	@Column
 	@javax.validation.constraints.Email
+	@NotNull
 	private String email;
+
+	@Column
+	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Tipo de uso do email inválido.")
+	private TipoDeUso tipoDeUso;
 
 	public Long getIdEmail() {
 		return idEmail;
@@ -54,6 +65,14 @@ public class Email implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public TipoDeUso getTipoDeUso() {
+		return tipoDeUso;
+	}
+
+	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+		this.tipoDeUso = tipoDeUso;
 	}
 
 	@Override
