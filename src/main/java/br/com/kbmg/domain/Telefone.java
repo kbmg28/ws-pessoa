@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.kbmg.enums.TipoDeUso;
 
 @Entity
 public class Telefone implements Serializable {
@@ -39,6 +43,11 @@ public class Telefone implements Serializable {
 	@Column
 	@NotNull
 	private String contato;
+
+	@Column
+	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Tipo de uso do telefone inválido.")
+	private TipoDeUso tipoDeUso;
 
 	public Long getIdTelefone() {
 		return idTelefone;
@@ -78,6 +87,14 @@ public class Telefone implements Serializable {
 
 	public void setContato(String contato) {
 		this.contato = contato;
+	}
+
+	public TipoDeUso getTipoDeUso() {
+		return tipoDeUso;
+	}
+
+	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+		this.tipoDeUso = tipoDeUso;
 	}
 
 	@Override
