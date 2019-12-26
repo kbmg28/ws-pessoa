@@ -31,14 +31,14 @@ public class Telefone implements Serializable {
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
+	
+	@Column
+	@NotNull
+	private Integer ddd;
 
 	@Column
 	@NotNull
 	private Integer numero;
-
-	@Column
-	@NotNull
-	private Integer ddd;
 
 	@Column
 	@NotNull
@@ -64,6 +64,14 @@ public class Telefone implements Serializable {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+	
+	public Integer getDdd() {
+		return ddd;
+	}
+	
+	public void setDdd(Integer ddd) {
+		this.ddd = ddd;
+	}
 
 	public Integer getNumero() {
 		return numero;
@@ -71,14 +79,6 @@ public class Telefone implements Serializable {
 
 	public void setNumero(Integer numero) {
 		this.numero = numero;
-	}
-
-	public Integer getDdd() {
-		return ddd;
-	}
-
-	public void setDdd(Integer ddd) {
-		this.ddd = ddd;
 	}
 
 	public String getContato() {
