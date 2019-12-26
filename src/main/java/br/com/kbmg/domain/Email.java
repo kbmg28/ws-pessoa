@@ -25,7 +25,6 @@ public class Email implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-
 	private Long idEmail;
 
 	@ManyToOne(fetch = FetchType.EAGER)
