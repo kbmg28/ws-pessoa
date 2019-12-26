@@ -1,13 +1,10 @@
 package br.com.kbmg.response;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ObjectResponse {
 
 	private Object data;
-	private List<String> errors = new ArrayList<>();
-
+	private ErrorResponse errorDescription;
+	
 	public ObjectResponse() {
 	}
 
@@ -23,11 +20,11 @@ public class ObjectResponse {
 		this.data = data;
 	}
 
-	public List<String> getErrors() {
-		return errors;
+	public ErrorResponse getErrorDescription() {
+		return errorDescription;
 	}
-
-	public void setErrors(List<String> errors) {
-		this.errors = errors;
+	
+	public void setErrorDescription(ErrorResponse errorDescription) {
+		this.errorDescription = errorDescription;
 	}
 }
