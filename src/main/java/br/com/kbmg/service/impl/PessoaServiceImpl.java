@@ -56,5 +56,14 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 				: pessoaJuridicaService.verifyIfCnpjExists(pessoa.getPessoaJuridica().getCnpj()))
 			throw new EntityExistsException(msg.get("pessoa.existe"));
 	}
+	
+	public Pessoa save (Pessoa pessoa) {
+		try {
+			return repository.save(pessoa);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException(msg.get("pessoa.erro.salvar"));
+		}
+	}
 
 }

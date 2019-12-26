@@ -1,6 +1,7 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -38,6 +39,9 @@ public class Pessoa implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Tipo da pessoa obrigatório.")
 	private TipoPessoa tipoPessoa;
+	
+	@Column
+	private Date dataCriacao = new Date();
 
 	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
 	@JoinColumn(name = "PF_ID")
@@ -91,6 +95,14 @@ public class Pessoa implements Serializable {
 		this.tipoPessoa = tipoPessoa;
 	}
 
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+	
 	public PessoaFisica getPessoaFisica() {
 		return pessoaFisica;
 	}
@@ -136,6 +148,8 @@ public class Pessoa implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((idPessoa == null) ? 0 : idPessoa.hashCode());
+		result = prime * result + ((pessoaFisica == null) ? 0 : pessoaFisica.hashCode());
+		result = prime * result + ((pessoaJuridica == null) ? 0 : pessoaJuridica.hashCode());
 		return result;
 	}
 
@@ -153,7 +167,18 @@ public class Pessoa implements Serializable {
 				return false;
 		} else if (!idPessoa.equals(other.idPessoa))
 			return false;
+		if (pessoaFisica == null) {
+			if (other.pessoaFisica != null)
+				return false;
+		} else if (!pessoaFisica.equals(other.pessoaFisica))
+			return false;
+		if (pessoaJuridica == null) {
+			if (other.pessoaJuridica != null)
+				return false;
+		} else if (!pessoaJuridica.equals(other.pessoaJuridica))
+			return false;
 		return true;
 	}
 
+	
 }

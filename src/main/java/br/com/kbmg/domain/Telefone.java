@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.kbmg.enums.TipoDeUso;
 
 @Entity
 public class Telefone implements Serializable {
@@ -27,6 +31,10 @@ public class Telefone implements Serializable {
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
+	
+	@Column
+	@NotNull
+	private Integer ddd;
 
 	@Column
 	@NotNull
@@ -34,11 +42,12 @@ public class Telefone implements Serializable {
 
 	@Column
 	@NotNull
-	private Integer ddd;
+	private String contato;
 
 	@Column
-	@NotNull
-	private String contato;
+	@Enumerated(EnumType.STRING)
+	@NotNull(message = "Tipo de uso do telefone inválido.")
+	private TipoDeUso tipoDeUso;
 
 	public Long getIdTelefone() {
 		return idTelefone;
@@ -55,6 +64,14 @@ public class Telefone implements Serializable {
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+	
+	public Integer getDdd() {
+		return ddd;
+	}
+	
+	public void setDdd(Integer ddd) {
+		this.ddd = ddd;
+	}
 
 	public Integer getNumero() {
 		return numero;
@@ -64,20 +81,20 @@ public class Telefone implements Serializable {
 		this.numero = numero;
 	}
 
-	public Integer getDdd() {
-		return ddd;
-	}
-
-	public void setDdd(Integer ddd) {
-		this.ddd = ddd;
-	}
-
 	public String getContato() {
 		return contato;
 	}
 
 	public void setContato(String contato) {
 		this.contato = contato;
+	}
+
+	public TipoDeUso getTipoDeUso() {
+		return tipoDeUso;
+	}
+
+	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+		this.tipoDeUso = tipoDeUso;
 	}
 
 	@Override

@@ -3,7 +3,8 @@ package br.com.kbmg.dto;
 public class PessoaDTO {
 	
 	private String nomeCompleto;
-
+	private String cpfCnpj;
+	
 	public String getNomeCompleto() {
 		return nomeCompleto;
 	}
@@ -12,5 +13,12 @@ public class PessoaDTO {
 		this.nomeCompleto = nomeCompleto;
 	}
 	
+	public String getCpfCnpj() {
+		return cpfCnpj;
+	}
+	
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
+	}
 	
 }

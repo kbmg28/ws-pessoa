@@ -4,18 +4,19 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kbmg.domain.Pessoa;
+import br.com.kbmg.response.ErrorResponse;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.PessoaService;
 
@@ -31,9 +32,10 @@ public class PessoaController {
 		ObjectResponse response = new ObjectResponse();
 
 		if (result.hasErrors()) {
-
-			result.getAllErrors().forEach(
-					error -> response.getErrors().add(error.getObjectName() + ": " + error.getDefaultMessage()));
+			response.setErrorDescription(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Parâmetros inválidos."));
+			
+			result.getAllErrors().forEach(error -> response.getErrorDescription().getErrors()
+					.add(error.getObjectName() + ": " + error.getDefaultMessage()));
 			return ResponseEntity.badRequest().body(response);
 		}
 
@@ -60,9 +62,9 @@ public class PessoaController {
 	public ResponseEntity<ObjectResponse> findAllPage(@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, @RequestParam(defaultValue = "ASC") Sort.Direction direction,
 			@RequestParam(defaultValue = "nomeCompleto") String sortProperty) {
-		return ResponseEntity.ok(new ObjectResponse (service.findAllPaginated(page, size, direction, sortProperty)) );
+		return ResponseEntity.ok(new ObjectResponse(service.findAllPaginated(page, size, direction, sortProperty)));
 	}
-	
+
 	@DeleteMapping("/deleteOne")
 	public ResponseEntity<ObjectResponse> deleteById(@Valid @RequestParam Long idPessoa) {
 		this.service.deleteById(idPessoa);

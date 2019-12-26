@@ -28,22 +28,22 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler({ AccessDeniedException.class })
-	public ResponseEntity<ErrorResponse> handleAccessDeniedException(final Exception ex, final WebRequest request) {
+	public ResponseEntity<ObjectResponse> handleAccessDeniedException(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.value());
 	}
 
 	@ExceptionHandler({ SQLException.class })
-	public ResponseEntity<ErrorResponse> handleSQL(final Exception ex, final WebRequest request) {
+	public ResponseEntity<ObjectResponse> handleSQL(final Exception ex, final WebRequest request) {
 		return generatedError("Erro ao conectar com o banco", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
 
 	@ExceptionHandler({ IllegalArgumentException.class, EntityExistsException.class })
-	public ResponseEntity<ErrorResponse> handleArguments(final Exception ex, final WebRequest request) {
+	public ResponseEntity<ObjectResponse> handleArguments(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
 
 	@ExceptionHandler({ PropertyReferenceException.class })
-	public ResponseEntity<ErrorResponse> handlePropertySpring(final PropertyReferenceException ex,
+	public ResponseEntity<ObjectResponse> handlePropertySpring(final PropertyReferenceException ex,
 			final WebRequest request) {
 		String msg = "Não foi possível localizar a propriedade: %s";
 
@@ -55,24 +55,25 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 	public ResponseEntity<ObjectResponse> handleBadRequestConstraintViolation(final ConstraintViolationException ex,
 			final WebRequest request) {
 		ObjectResponse response = new ObjectResponse();
+		response.setErrorDescription(new ErrorResponse());
 
 		ex.getConstraintViolations()
-				.forEach(e -> response.getErrors().add(e.getPropertyPath() + ": " + e.getMessage()));
+				.forEach(e -> response.getErrorDescription().getErrors().add(e.getPropertyPath() + ": " + e.getMessage()));
 		return new ResponseEntity<ObjectResponse>(response, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(value = { EntityNotFoundException.class })
-	protected ResponseEntity<ErrorResponse> handleNotFound(final RuntimeException ex, final WebRequest request) {
+	protected ResponseEntity<ObjectResponse> handleNotFound(final RuntimeException ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.value());
 	}
 
 	@ExceptionHandler({ DataAccessException.class })
-	protected ResponseEntity<ErrorResponse> handleConflict(final RuntimeException ex, final WebRequest request) {
+	protected ResponseEntity<ObjectResponse> handleConflict(final RuntimeException ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.CONFLICT, HttpStatus.CONFLICT.value());
 	}
 
 	@ExceptionHandler({ Exception.class })
-	public ResponseEntity<ErrorResponse> handleInternal(final RuntimeException ex, final WebRequest request) {
+	public ResponseEntity<ObjectResponse> handleInternal(final RuntimeException ex, final WebRequest request) {
 
 		return generatedError(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR,
 				HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -119,12 +120,12 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 		return handleExceptionInternal(ex, response, headers, HttpStatus.BAD_REQUEST, request);
 	}
 
-	private ResponseEntity<ErrorResponse> generatedError(String message, HttpStatus http, int httpStatusValue) {
-		ErrorResponse error = new ErrorResponse();
+	private ResponseEntity<ObjectResponse> generatedError(String message, HttpStatus http, int httpStatusValue) {
+		ObjectResponse response = new ObjectResponse();
 
-		error.setErrorCode(httpStatusValue);
-		error.setMessage(message);
-		return new ResponseEntity<ErrorResponse>(error, http);
+		response.setErrorDescription(new ErrorResponse(httpStatusValue, message));
+		
+		return new ResponseEntity<ObjectResponse>(response, http);
 	}
 
 }
