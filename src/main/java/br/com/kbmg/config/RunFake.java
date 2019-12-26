@@ -13,6 +13,7 @@ import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.domain.PessoaJuridica;
+import br.com.kbmg.domain.Telefone;
 import br.com.kbmg.enums.TipoDeUso;
 import br.com.kbmg.enums.TipoEndereco;
 import br.com.kbmg.enums.TipoPessoa;
@@ -43,6 +44,13 @@ public class RunFake implements CommandLineRunner {
 			this.novoEmail("teste4@teste.com", TipoDeUso.PARTICULAR),
 			this.novoEmail("teste5@teste.com", TipoDeUso.CORPORATIVO));
 
+	private List<Telefone> listTelefone = Arrays.asList(
+			this.novoTelefone(61, 989264530, "Teste 1", TipoDeUso.PARTICULAR),
+			this.novoTelefone(91, 988477241, "Teste 2", TipoDeUso.OUTROS),
+			this.novoTelefone(98, 987135805, "Teste 3", TipoDeUso.PARTICULAR),
+			this.novoTelefone(95, 996681564, "Teste 4", TipoDeUso.PARTICULAR),
+			this.novoTelefone(82, 998602849, "Teste 5", TipoDeUso.CORPORATIVO));
+
 	private Pessoa p;
 
 	@Override
@@ -64,14 +72,7 @@ public class RunFake implements CommandLineRunner {
 		pf.setRg(rg);
 		pf.setPessoa(p);
 
-		p = repository.save(p);
-
-		listPosEnd.forEach(pos -> {
-			this.criaEndereco(p, pos);
-			this.criaEmail(p, pos);
-		});	
-
-		repository.save(p);
+		this.saveAddEnderecoEmailTelefone(listPosEnd);
 	}
 
 	private void criaPessoaJuridica(String nomeCompleto, String cnpj, String inscricaoEstadual,
@@ -87,22 +88,48 @@ public class RunFake implements CommandLineRunner {
 		pj.setInscricaoEstadual(inscricaoEstadual);
 		pj.setPessoa(p);
 
-		p = repository.save(p);
+		this.saveAddEnderecoEmailTelefone(listPosEnd);
+	}
 
-		listPosEnd.forEach(pos -> {
+	private void saveAddEnderecoEmailTelefone(List<Integer> listPos) {
+		repository.save(p);
+
+		listPos.forEach(pos -> {
 			this.criaEndereco(p, pos);
-			this.criaEmail(p, 0);
+			this.criaEmail(p, pos);
+			this.criaTelefone(p, pos);
 		});
 
 		repository.save(p);
 	}
 
+	private void criaTelefone(Pessoa p, Integer pos) {
+		Telefone telefone = this.getTelefone(listTelefone.get(pos));
+		
+		telefone.setIdTelefone(pos.longValue() + 1);
+		telefone.setPessoa(p);
+
+		p.getTelefones().add(telefone);
+	}
+
+	private Telefone getTelefone(Telefone telefone) {
+		return new Telefone() {
+			private static final long serialVersionUID = 1L;
+			{
+				setDdd(telefone.getDdd());
+				setNumero(telefone.getNumero());
+				setContato(telefone.getContato());
+				setTipoDeUso(telefone.getTipoDeUso());
+			}
+		};
+	}
+
 	private void criaEmail(Pessoa p, Integer pos) {
 		Email email = this.getEmail(listEmail.get(pos));
-		
+
 		email.setIdEmail(pos.longValue() + 1);
 		email.setPessoa(p);
-		
+
 		p.getEmails().add(email);
 	}
 
@@ -165,6 +192,18 @@ public class RunFake implements CommandLineRunner {
 			private static final long serialVersionUID = 1L;
 			{
 				setEmail(email);
+				setTipoDeUso(tipoDeUso);
+			}
+		};
+	}
+
+	private Telefone novoTelefone(Integer ddd, Integer numero, String contato, TipoDeUso tipoDeUso) {
+		return new Telefone() {
+			private static final long serialVersionUID = 1L;
+			{
+				setDdd(ddd);
+				setNumero(numero);
+				setContato(contato);
 				setTipoDeUso(tipoDeUso);
 			}
 		};
