@@ -34,12 +34,25 @@ public interface GenericService<T> {
 	 * Busca a entidade por ID.
 	 * 
 	 * @param id - identificador único.
+	 * @param nomeDoIdDaClasse - Em caso de erro, este parâmetro será utilizado
 	 * 
 	 * @return O registro encontrado.
 	 * @throws EntityNotFoundException- Se não existir.
 	 */
 	public T findById(String id, String nomeDoIdDaClasse);
 
+	/**
+	 * Busca a entidade por ID e retorna um DTO especificado por typeConvert.
+	 * 
+	 * @param id - identificador único.
+	 * @param nomeDoIdDaClasse - Em caso de erro, este parâmetro será utilizado
+	 * @param typeConvert - tipo do DTO para conversão da entidade.
+	 *  
+	 * @return O registro encontrado.
+	 * @throws EntityNotFoundException- Se não existir.
+	 */
+	Object findById(String id, String nomeDoIdDaClasse, Class<?> typeConvert);
+	
 	/**
 	 * Busca uma lista de todos os registros.
 	 * 

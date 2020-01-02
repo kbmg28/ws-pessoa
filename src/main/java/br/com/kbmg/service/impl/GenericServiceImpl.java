@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.service.GenericService;
+import br.com.kbmg.utils.Util;
 import br.com.kbmg.utils.Validator;
 
 public abstract class GenericServiceImpl<T> implements GenericService<T> {
@@ -42,8 +43,13 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Override
 	public T findById(String id, String nomeDoIdDaClasse) {
-		return repository.findById(Validator.stringParseLong(id, nomeDoIdDaClasse))
+		return repository.findById(Validator.stringParseLong(id.trim(), nomeDoIdDaClasse))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
+	}
+
+	@Override
+	public Object findById(String id, String nomeDoIdDaClasse, Class<?> typeConvert) {
+		return Util.convertObject(this.findById(id, nomeDoIdDaClasse), typeConvert);
 	}
 
 	@Override

@@ -43,8 +43,8 @@ public class EmailController {
 	}
 
 	@GetMapping
-	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEndereco) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, "Id do endereco")));
+	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEmail) {
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idEmail, "Id do email", EmailDTO.class)));
 	}
 
 	@GetMapping("/all")
