@@ -21,7 +21,6 @@ import org.mockito.MockitoAnnotations;
 import br.com.kbmg.builder.PessoaBuilder;
 import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Email;
-import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.enums.TipoDeUso;
 import br.com.kbmg.repository.EmailRepository;
@@ -59,7 +58,7 @@ public class EmailServiceTest {
 
 		List<Email> retorno = service.findByPessoa(ID_PESSOA);
 
-		assertEquals(list.size(), 3);
+		assertEquals(2, list.size());
 
 		for (i = 0; i < retorno.size(); i++) {
 			assertAll(() -> assertEquals(list.get(i).getIdEmail(), retorno.get(i).getIdEmail()),
@@ -71,8 +70,8 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Lança exception quando não encontrar endereços de uma Pessoa por ID_PESSOA")
 	void deveLancarExceptionSeNaoEncontrarEnderecosPorIdPessoa() {
-		String msgException = "Pessoa sem endereços cadastrados.";
-		when(msg.get("pessoa.sem.enderecos")).thenReturn(msgException);
+		String msgException = "Pessoa sem emails cadastrados.";
+		when(msg.get("pessoa.sem.emails")).thenReturn(msgException);
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
 				() -> service.findByPessoa(ID_PESSOA));
