@@ -56,10 +56,20 @@ public interface GenericService<T> {
 	/**
 	 * Busca uma lista de todos os registros.
 	 * 
-	 * @return A lista de objetos.
+	 * @return A lista de entidades.
 	 * @throws EntityNotFoundException Se a tabela estiver vazia.
 	 */
 	public List<T> findAll();
+
+	/**
+	 * Busca todas as entidades e retorna o DTO equivalente.
+	 * 
+	 * @param typeConvert - Class do DTO para conversão
+	 * 
+	 * @return A lista de DTO's.
+	 * @throws EntityNotFoundException Se a tabela estiver vazia.
+	 */
+	List<?> findAllDto(Class<?> typeConvert);
 
 	/**
 	 * Cria uma lista paginada dos registros.

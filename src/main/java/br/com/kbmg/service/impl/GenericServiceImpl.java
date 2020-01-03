@@ -2,7 +2,9 @@ package br.com.kbmg.service.impl;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -54,12 +56,15 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Override
 	public List<T> findAll() {
-		List<T> list = repository.findAll();
+		List<T> all = repository.findAll();
+		Optional<List<T>> op = all.isEmpty() ? Optional.empty() : Optional.of(all);
 
-		if (list == null)
-			throw new EntityNotFoundException(msg.get("nao.encontrado"));
+		return op.orElseThrow(() -> new EntityNotFoundException(msg.get("sem.registros")));
+	}
 
-		return list;
+	@Override
+	public List<?> findAllDto(Class<?> typeConvert) {
+		return this.findAll().stream().map(e -> Util.convertObject(e, typeConvert)).collect(Collectors.toList());
 	}
 
 	@Override
