@@ -49,7 +49,7 @@ public class EmailController {
 
 	@GetMapping("/all")
 	public ResponseEntity<ObjectResponse> findAll() {
-		return ResponseEntity.ok(new ObjectResponse(service.findAll()));
+		return ResponseEntity.ok(new ObjectResponse(service.findAllDto(EmailDTO.class)));
 	}
 
 	@GetMapping("/allByPessoa")
