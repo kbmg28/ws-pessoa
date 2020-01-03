@@ -47,7 +47,7 @@ public class EmailServiceTest {
 
 	@Test
 	@DisplayName("Busca todos os emails da pessoa por ID_PESSOA")
-	void deveBuscarEnderecosComIdDaPessoa() {
+	void deveBuscarEmailsComIdDaPessoa() {
 
 		Pessoa pessoa = new Pessoa(ID_PESSOA);
 		List<Email> list = new ArrayList<>(
@@ -68,8 +68,8 @@ public class EmailServiceTest {
 	}
 
 	@Test
-	@DisplayName("Lança exception quando não encontrar endereços de uma Pessoa por ID_PESSOA")
-	void deveLancarExceptionSeNaoEncontrarEnderecosPorIdPessoa() {
+	@DisplayName("Lança exception quando não encontrar emails de uma Pessoa por ID_PESSOA")
+	void deveLancarExceptionSeNaoEncontrarEmailsPorIdPessoa() {
 		String msgException = "Pessoa sem emails cadastrados.";
 		when(msg.get("pessoa.sem.emails")).thenReturn(msgException);
 
