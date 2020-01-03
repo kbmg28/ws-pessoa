@@ -1,12 +1,10 @@
 package br.com.kbmg.service.impl;
 
 import java.security.InvalidParameterException;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,13 +47,4 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.emails")));
 	}
 
-	@Override
-	public List<Email> findAll() {
-		List<Email> all = super.findAll();
-		ModelMapper me = new ModelMapper();
-		
-		me.map(all, Arrays.asList(arg0))
-		
-		return null; 
-	}
 }
