@@ -74,8 +74,8 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
 	@ExceptionHandler({ Exception.class })
 	public ResponseEntity<ObjectResponse> handleInternal(final RuntimeException ex, final WebRequest request) {
-
-		return generatedError(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR,
+		ex.printStackTrace();
+		return generatedError("Erro desconhecido.", HttpStatus.INTERNAL_SERVER_ERROR,
 				HttpStatus.INTERNAL_SERVER_ERROR.value());
 	}
 
@@ -122,7 +122,7 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 
 	private ResponseEntity<ObjectResponse> generatedError(String message, HttpStatus http, int httpStatusValue) {
 		ObjectResponse response = new ObjectResponse();
-
+		
 		response.setErrorDescription(new ErrorResponse(httpStatusValue, message));
 		
 		return new ResponseEntity<ObjectResponse>(response, http);
