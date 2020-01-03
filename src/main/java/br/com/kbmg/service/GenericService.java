@@ -34,6 +34,7 @@ public interface GenericService<T> {
 	 * Busca a entidade por ID.
 	 * 
 	 * @param id - identificador único.
+	 * @param nomeDoIdDaClasse - Em caso de erro, este parâmetro será utilizado
 	 * 
 	 * @return O registro encontrado.
 	 * @throws EntityNotFoundException- Se não existir.
@@ -41,12 +42,34 @@ public interface GenericService<T> {
 	public T findById(String id, String nomeDoIdDaClasse);
 
 	/**
+	 * Busca a entidade por ID e retorna um DTO especificado por typeConvert.
+	 * 
+	 * @param id - identificador único.
+	 * @param nomeDoIdDaClasse - Em caso de erro, este parâmetro será utilizado
+	 * @param typeConvert - tipo do DTO para conversão da entidade.
+	 *  
+	 * @return O registro encontrado.
+	 * @throws EntityNotFoundException- Se não existir.
+	 */
+	Object findById(String id, String nomeDoIdDaClasse, Class<?> typeConvert);
+	
+	/**
 	 * Busca uma lista de todos os registros.
 	 * 
-	 * @return A lista de objetos.
+	 * @return A lista de entidades.
 	 * @throws EntityNotFoundException Se a tabela estiver vazia.
 	 */
 	public List<T> findAll();
+
+	/**
+	 * Busca todas as entidades e retorna o DTO equivalente.
+	 * 
+	 * @param typeConvert - Class do DTO para conversão
+	 * 
+	 * @return A lista de DTO's.
+	 * @throws EntityNotFoundException Se a tabela estiver vazia.
+	 */
+	List<?> findAllDto(Class<?> typeConvert);
 
 	/**
 	 * Cria uma lista paginada dos registros.

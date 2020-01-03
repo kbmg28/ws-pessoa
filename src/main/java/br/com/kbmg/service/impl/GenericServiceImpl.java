@@ -2,7 +2,9 @@ package br.com.kbmg.service.impl;
 
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -14,6 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.service.GenericService;
+import br.com.kbmg.utils.Util;
 import br.com.kbmg.utils.Validator;
 
 public abstract class GenericServiceImpl<T> implements GenericService<T> {
@@ -42,18 +45,26 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Override
 	public T findById(String id, String nomeDoIdDaClasse) {
-		return repository.findById(Validator.stringParseLong(id, nomeDoIdDaClasse))
+		return repository.findById(Validator.stringParseLong(id.trim(), nomeDoIdDaClasse))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
 
 	@Override
+	public Object findById(String id, String nomeDoIdDaClasse, Class<?> typeConvert) {
+		return Util.convertObject(this.findById(id, nomeDoIdDaClasse), typeConvert);
+	}
+
+	@Override
 	public List<T> findAll() {
-		List<T> list = repository.findAll();
+		List<T> all = repository.findAll();
+		Optional<List<T>> op = all.isEmpty() ? Optional.empty() : Optional.of(all);
 
-		if (list == null)
-			throw new EntityNotFoundException(msg.get("nao.encontrado"));
+		return op.orElseThrow(() -> new EntityNotFoundException(msg.get("sem.registros")));
+	}
 
-		return list;
+	@Override
+	public List<?> findAllDto(Class<?> typeConvert) {
+		return this.findAll().stream().map(e -> Util.convertObject(e, typeConvert)).collect(Collectors.toList());
 	}
 
 	@Override

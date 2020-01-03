@@ -1,6 +1,7 @@
 package br.com.kbmg.builder;
 
 import br.com.kbmg.domain.Pessoa;
+import br.com.kbmg.enums.TipoDeUso;
 import br.com.kbmg.enums.TipoEndereco;
 import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.factoryTest.CreateEmail;
@@ -49,8 +50,8 @@ public class PessoaBuilder {
 		return this;
 	}
 
-	public PessoaBuilder comEmail(String email) {
-		this.pessoa.getEmails().add(CreateEmail.get(this.pessoa.getIdPessoa(), email));
+	public PessoaBuilder comEmail(String email, TipoDeUso tipoDeUso) {
+		this.pessoa.getEmails().add(CreateEmail.get(this.pessoa.getIdPessoa(), email, tipoDeUso));
 		return this;
 	}
 
