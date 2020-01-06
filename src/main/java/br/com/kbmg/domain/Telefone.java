@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 
 @Entity
 public class Telefone implements Serializable {
@@ -47,7 +47,7 @@ public class Telefone implements Serializable {
 	@Column
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Tipo de uso do telefone inválido.")
-	private TipoDeUso tipoDeUso;
+	private TipoDeUsoEnum tipoDeUso;
 
 	public Long getIdTelefone() {
 		return idTelefone;
@@ -89,11 +89,11 @@ public class Telefone implements Serializable {
 		this.contato = contato;
 	}
 
-	public TipoDeUso getTipoDeUso() {
+	public TipoDeUsoEnum getTipoDeUso() {
 		return tipoDeUso;
 	}
 
-	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
 	}
 

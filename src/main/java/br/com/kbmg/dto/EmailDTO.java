@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 import br.com.kbmg.enums.StatusEnum;
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 
 public class EmailDTO {
 
@@ -14,7 +14,7 @@ public class EmailDTO {
 	private String email;
 	
 	@NotNull(message="tipoDeUso não informado.")
-	private TipoDeUso tipoDeUso;
+	private TipoDeUsoEnum tipoDeUso;
 	
 	@NotNull(message="pessoaId obrigatório.")
 	private String pessoaId;
@@ -37,11 +37,11 @@ public class EmailDTO {
 		this.email = email;
 	}
 
-	public TipoDeUso getTipoDeUso() {
+	public TipoDeUsoEnum getTipoDeUso() {
 		return tipoDeUso;
 	}
 
-	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
 	}
 

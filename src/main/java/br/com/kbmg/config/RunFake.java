@@ -16,7 +16,7 @@ import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.domain.PessoaJuridica;
 import br.com.kbmg.domain.Telefone;
 import br.com.kbmg.enums.StatusEnum;
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 import br.com.kbmg.enums.TipoEndereco;
 import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.repository.PessoaRepository;
@@ -40,18 +40,18 @@ public class RunFake implements CommandLineRunner {
 			this.novoEndereco("69317471", "Rua Santa Catarina", null, "Estados", "3A", "Boa Vista", "RR", 1400100,
 					TipoEndereco.FISCAL));
 
-	private List<Email> listEmail = Arrays.asList(this.novoEmail("teste@teste.com", TipoDeUso.PARTICULAR),
-			this.novoEmail("teste2@teste.com", TipoDeUso.OUTROS),
-			this.novoEmail("teste3@teste.com", TipoDeUso.PARTICULAR),
-			this.novoEmail("teste4@teste.com", TipoDeUso.PARTICULAR),
-			this.novoEmail("teste5@teste.com", TipoDeUso.CORPORATIVO));
+	private List<Email> listEmail = Arrays.asList(this.novoEmail("teste@teste.com", TipoDeUsoEnum.PARTICULAR),
+			this.novoEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS),
+			this.novoEmail("teste3@teste.com", TipoDeUsoEnum.PARTICULAR),
+			this.novoEmail("teste4@teste.com", TipoDeUsoEnum.PARTICULAR),
+			this.novoEmail("teste5@teste.com", TipoDeUsoEnum.CORPORATIVO));
 
 	private List<Telefone> listTelefone = Arrays.asList(
-			this.novoTelefone(61, 989264530, "Teste 1", TipoDeUso.PARTICULAR),
-			this.novoTelefone(91, 988477241, "Teste 2", TipoDeUso.OUTROS),
-			this.novoTelefone(98, 987135805, "Teste 3", TipoDeUso.PARTICULAR),
-			this.novoTelefone(95, 996681564, "Teste 4", TipoDeUso.PARTICULAR),
-			this.novoTelefone(82, 998602849, "Teste 5", TipoDeUso.CORPORATIVO));
+			this.novoTelefone(61, 989264530, "Teste 1", TipoDeUsoEnum.PARTICULAR),
+			this.novoTelefone(91, 988477241, "Teste 2", TipoDeUsoEnum.OUTROS),
+			this.novoTelefone(98, 987135805, "Teste 3", TipoDeUsoEnum.PARTICULAR),
+			this.novoTelefone(95, 996681564, "Teste 4", TipoDeUsoEnum.PARTICULAR),
+			this.novoTelefone(82, 998602849, "Teste 5", TipoDeUsoEnum.CORPORATIVO));
 
 	private Pessoa p;
 
@@ -190,7 +190,7 @@ public class RunFake implements CommandLineRunner {
 		};
 	}
 
-	private Email novoEmail(String email, TipoDeUso tipoDeUso) {
+	private Email novoEmail(String email, TipoDeUsoEnum tipoDeUso) {
 		return new Email() {
 			private static final long serialVersionUID = 1L;
 			{
@@ -200,7 +200,7 @@ public class RunFake implements CommandLineRunner {
 		};
 	}
 
-	private Telefone novoTelefone(Integer ddd, Integer numero, String contato, TipoDeUso tipoDeUso) {
+	private Telefone novoTelefone(Integer ddd, Integer numero, String contato, TipoDeUsoEnum tipoDeUso) {
 		return new Telefone() {
 			private static final long serialVersionUID = 1L;
 			{

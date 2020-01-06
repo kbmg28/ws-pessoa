@@ -24,7 +24,7 @@ import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Email;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 import br.com.kbmg.factoryTest.dto.CreateEmailDto;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.PessoaService;
@@ -58,8 +58,8 @@ public class EmailServiceTest {
 
 		Pessoa pessoa = new Pessoa(ID_PESSOA);
 		List<Email> list = new ArrayList<>(
-				PessoaBuilder.umaPessoa(pessoa.getIdPessoa(), null).comEmail("teste1@teste.com", TipoDeUso.PARTICULAR)
-						.comEmail("teste2@teste.com", TipoDeUso.OUTROS).agora().getEmails());
+				PessoaBuilder.umaPessoa(pessoa.getIdPessoa(), null).comEmail("teste1@teste.com", TipoDeUsoEnum.PARTICULAR)
+						.comEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS).agora().getEmails());
 
 		when(repository.findByPessoa(pessoa)).thenReturn(Optional.of(list));
 
@@ -89,9 +89,9 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Deve adicionar Email para a pessoa")
 	void deveAdicionarEmailParaPessoa() {
-		EmailDTO dto = CreateEmailDto.get("21", "add@email.com", TipoDeUso.PARTICULAR, ID_PESSOA);
+		EmailDTO dto = CreateEmailDto.get("21", "add@email.com", TipoDeUsoEnum.PARTICULAR, ID_PESSOA);
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
-				.comEmail("email@email.com", TipoDeUso.CORPORATIVO).agora();
+				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
 		when(pessoaService.findById(dto.getPessoaId(), "Id da Pessoa")).thenReturn(pessoa);
 
@@ -104,9 +104,9 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Não deve adicionar Email para a pessoa se já existe")
 	void naoDeveAdicionarEmailParaPessoaSeJaEstaCadastrado() {
-		EmailDTO dto = CreateEmailDto.get(null, "email@email.com", TipoDeUso.PARTICULAR, ID_PESSOA);
+		EmailDTO dto = CreateEmailDto.get(null, "email@email.com", TipoDeUsoEnum.PARTICULAR, ID_PESSOA);
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
-				.comEmail("email@email.com", TipoDeUso.CORPORATIVO).agora();
+				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
 		when(pessoaService.findById(dto.getPessoaId(), "Id da Pessoa")).thenReturn(pessoa);
 

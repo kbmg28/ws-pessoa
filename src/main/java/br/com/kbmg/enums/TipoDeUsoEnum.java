@@ -1,12 +1,12 @@
 package br.com.kbmg.enums;
 
-public enum TipoDeUso {
+public enum TipoDeUsoEnum {
 
-	PARTICULAR("PARTICULAR"), CORPORATIVO("CORPORATIVO"), OUTROS("OUTROS");
+	PARTICULAR("P"), CORPORATIVO("C"), OUTROS("O");
 
 	private String tipo;
 
-	private TipoDeUso(String tipo) {
+	private TipoDeUsoEnum(String tipo) {
 		this.tipo = tipo;
 	}
 
