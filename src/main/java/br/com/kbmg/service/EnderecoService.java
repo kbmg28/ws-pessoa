@@ -7,7 +7,8 @@ import br.com.kbmg.dto.EnderecoDto;
 
 public interface EnderecoService extends GenericService<Endereco> {
 
-	List<Endereco> findByPessoa(String idPessoa);
+	List<?> findByPessoa(String idPessoa);
+
 	EnderecoDto addEnderecoParaPessoa(EnderecoDto enderecoDto);
 
 }

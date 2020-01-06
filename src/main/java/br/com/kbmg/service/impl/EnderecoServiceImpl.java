@@ -16,6 +16,7 @@ import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.EnderecoService;
 import br.com.kbmg.service.PessoaService;
+import br.com.kbmg.utils.Util;
 
 @Service
 public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements EnderecoService {
@@ -55,9 +56,10 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 	}
 
 	@Override
-	public List<Endereco> findByPessoa(String idPessoa) {
-		return repository.findByPessoa(new Pessoa(idPessoa))
-				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.enderecos")));
+	public List<?> findByPessoa(String idPessoa) {
+		return Util.convertList(repository.findByPessoa(new Pessoa(idPessoa))
+				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.enderecos"))), EnderecoDto.class);
 	}
+
 
 }

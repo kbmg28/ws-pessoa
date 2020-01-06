@@ -42,15 +42,14 @@ public class EnderecoController {
 		return ResponseEntity.ok(response);
 	}
 
-
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEndereco) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, "Id do endereco")));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, "Id do endereco", EnderecoDto.class)));
 	}
 
 	@GetMapping("/all")
 	public ResponseEntity<ObjectResponse> findAll() {
-		return ResponseEntity.ok(new ObjectResponse(service.findAll()));
+		return ResponseEntity.ok(new ObjectResponse(service.findAllDto(EnderecoDto.class)));
 	}
 
 	@GetMapping("/allByPessoa")
