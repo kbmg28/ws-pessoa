@@ -4,7 +4,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -64,7 +63,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Override
 	public List<?> findAllDto(Class<?> typeConvert) {
-		return this.findAll().stream().map(e -> Util.convertObject(e, typeConvert)).collect(Collectors.toList());
+		return Util.convertList(this.findAll(), typeConvert);
 	}
 
 	@Override

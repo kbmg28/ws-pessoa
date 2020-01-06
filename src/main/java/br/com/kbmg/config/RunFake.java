@@ -1,5 +1,6 @@
 package br.com.kbmg.config;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,8 +15,9 @@ import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.domain.PessoaJuridica;
 import br.com.kbmg.domain.Telefone;
-import br.com.kbmg.enums.TipoDeUso;
-import br.com.kbmg.enums.TipoEndereco;
+import br.com.kbmg.enums.StatusEnum;
+import br.com.kbmg.enums.TipoDeUsoEnum;
+import br.com.kbmg.enums.TipoEnderecoEnum;
 import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.repository.PessoaRepository;
 
@@ -28,28 +30,28 @@ public class RunFake implements CommandLineRunner {
 
 	private List<Endereco> listEnd = Arrays.asList(
 			this.novoEndereco("69097150", "Rua Laranjal", null, "Cidade Nova", "56", "Manaus", "AM", 1302603,
-					TipoEndereco.FISCAL),
+					TipoEnderecoEnum.FISCAL),
 			this.novoEndereco("69090080", "Rua Guapiaçu", null, "Cidade Nova", "50", "Manaus", "AM", 1302603,
-					TipoEndereco.FISCAL),
+					TipoEnderecoEnum.FISCAL),
 			this.novoEndereco("69087031", "Rua Charles Darwin", null, "Tancredo Neves", "40", "Manaus", "AM", 1302603,
-					TipoEndereco.OUTROS),
+					TipoEnderecoEnum.OUTROS),
 			this.novoEndereco("69317566", "Rua Sirius", null, "Cidade Satélite", "7", "Boa Vista", "RR", 1400100,
-					TipoEndereco.FISCAL),
+					TipoEnderecoEnum.FISCAL),
 			this.novoEndereco("69317471", "Rua Santa Catarina", null, "Estados", "3A", "Boa Vista", "RR", 1400100,
-					TipoEndereco.FISCAL));
+					TipoEnderecoEnum.FISCAL));
 
-	private List<Email> listEmail = Arrays.asList(this.novoEmail("teste@teste.com", TipoDeUso.PARTICULAR),
-			this.novoEmail("teste2@teste.com", TipoDeUso.OUTROS),
-			this.novoEmail("teste3@teste.com", TipoDeUso.PARTICULAR),
-			this.novoEmail("teste4@teste.com", TipoDeUso.PARTICULAR),
-			this.novoEmail("teste5@teste.com", TipoDeUso.CORPORATIVO));
+	private List<Email> listEmail = Arrays.asList(this.novoEmail("teste@teste.com", TipoDeUsoEnum.PARTICULAR),
+			this.novoEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS),
+			this.novoEmail("teste3@teste.com", TipoDeUsoEnum.PARTICULAR),
+			this.novoEmail("teste4@teste.com", TipoDeUsoEnum.PARTICULAR),
+			this.novoEmail("teste5@teste.com", TipoDeUsoEnum.CORPORATIVO));
 
 	private List<Telefone> listTelefone = Arrays.asList(
-			this.novoTelefone(61, 989264530, "Teste 1", TipoDeUso.PARTICULAR),
-			this.novoTelefone(91, 988477241, "Teste 2", TipoDeUso.OUTROS),
-			this.novoTelefone(98, 987135805, "Teste 3", TipoDeUso.PARTICULAR),
-			this.novoTelefone(95, 996681564, "Teste 4", TipoDeUso.PARTICULAR),
-			this.novoTelefone(82, 998602849, "Teste 5", TipoDeUso.CORPORATIVO));
+			this.novoTelefone(61, 989264530, "Teste 1", TipoDeUsoEnum.PARTICULAR),
+			this.novoTelefone(91, 988477241, "Teste 2", TipoDeUsoEnum.OUTROS),
+			this.novoTelefone(98, 987135805, "Teste 3", TipoDeUsoEnum.PARTICULAR),
+			this.novoTelefone(95, 996681564, "Teste 4", TipoDeUsoEnum.PARTICULAR),
+			this.novoTelefone(82, 998602849, "Teste 5", TipoDeUsoEnum.CORPORATIVO));
 
 	private Pessoa p;
 
@@ -129,7 +131,8 @@ public class RunFake implements CommandLineRunner {
 
 		email.setIdEmail(pos.longValue() + 1);
 		email.setPessoa(p);
-
+		email.setDataModificacao(LocalDate.now());
+		email.setStatus(StatusEnum.ATIVO);
 		p.getEmails().add(email);
 	}
 
@@ -148,6 +151,8 @@ public class RunFake implements CommandLineRunner {
 
 		endereco.setIdEndereco(pos.longValue() + 1);
 		endereco.setPessoa(p);
+		endereco.setDataModificacao(LocalDate.now());
+		endereco.setStatus(StatusEnum.ATIVO);
 		p.getEnderecos().add(endereco);
 	}
 
@@ -169,7 +174,7 @@ public class RunFake implements CommandLineRunner {
 	}
 
 	private Endereco novoEndereco(String cep, String logradouro, String complemento, String bairro, String numero,
-			String localidade, String uf, Integer ibge, TipoEndereco tipoEndereco) {
+			String localidade, String uf, Integer ibge, TipoEnderecoEnum tipoEndereco) {
 		return new Endereco() {
 			private static final long serialVersionUID = 1L;
 			{
@@ -187,7 +192,7 @@ public class RunFake implements CommandLineRunner {
 		};
 	}
 
-	private Email novoEmail(String email, TipoDeUso tipoDeUso) {
+	private Email novoEmail(String email, TipoDeUsoEnum tipoDeUso) {
 		return new Email() {
 			private static final long serialVersionUID = 1L;
 			{
@@ -197,7 +202,7 @@ public class RunFake implements CommandLineRunner {
 		};
 	}
 
-	private Telefone novoTelefone(Integer ddd, Integer numero, String contato, TipoDeUso tipoDeUso) {
+	private Telefone novoTelefone(Integer ddd, Integer numero, String contato, TipoDeUsoEnum tipoDeUso) {
 		return new Telefone() {
 			private static final long serialVersionUID = 1L;
 			{

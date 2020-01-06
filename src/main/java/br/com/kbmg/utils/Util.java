@@ -1,5 +1,8 @@
 package br.com.kbmg.utils;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,4 +30,9 @@ public class Util {
 		printObjectConsole(map);
 		return map;
 	}
+
+	public static List<?> convertList(List<?> list, Class<?> typeConvert) {
+		return list.stream().map(e -> Util.convertObject(e, typeConvert)).collect(Collectors.toList());
+	}
+
 }

@@ -1,11 +1,9 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.kbmg.enums.TipoEndereco;
+import br.com.kbmg.enums.StatusEnum;
+import br.com.kbmg.enums.TipoEnderecoEnum;
 
 @Entity
 public class Endereco implements Serializable {
@@ -33,38 +32,32 @@ public class Endereco implements Serializable {
 	@JsonIgnore
 	private Pessoa pessoa;
 	
-	@Column
 	private String cep;
 
-	@Column
 	@NotBlank
 	private String logradouro;
 	
-	@Column
 	private String complemento;
 	
-	@Column
 	@NotBlank
 	private String bairro;
 
-	@Column
 	@NotBlank
 	private String numero;
 
-	@Column
 	private String localidade;
-	
-	@Column
 	private String uf;
-
-	@Column
 	private Integer ibge;
 
-	@Column
-	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Tipo do endereço inválido.")
-	private TipoEndereco tipoEndereco;
+	private TipoEnderecoEnum tipoEndereco;
 
+	@NotNull
+	private LocalDate dataModificacao;
+
+	@NotNull
+	private StatusEnum status;
+	
 	public Long getIdEndereco() {
 		return idEndereco;
 	}
@@ -146,12 +139,28 @@ public class Endereco implements Serializable {
 		this.ibge = ibge;
 	}
 
-	public TipoEndereco getTipoEndereco() {
+	public TipoEnderecoEnum getTipoEndereco() {
 		return tipoEndereco;
 	}
 
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+	public void setTipoEndereco(TipoEnderecoEnum tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
+	}
+
+	public LocalDate getDataModificacao() {
+		return dataModificacao;
+	}
+
+	public void setDataModificacao(LocalDate dataModificacao) {
+		this.dataModificacao = dataModificacao;
+	}
+
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import br.com.kbmg.dto.EmailDTO;
 
 public interface EmailService extends GenericService<Email> {
 
-	List<Email> findByPessoa(String idPessoa);
+	List<?> findByPessoa(String idPessoa);
 
 	EmailDTO addEmailParaPessoa(EmailDTO emailDto);
 

@@ -1,11 +1,9 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +14,8 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.StatusEnum;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 
 @Entity
 public class Email implements Serializable {
@@ -32,16 +31,19 @@ public class Email implements Serializable {
 	@JsonIgnore
 	private Pessoa pessoa;
 
-	@Column
 	@javax.validation.constraints.Email
 	@NotNull
 	private String email;
 
-	@Column
-	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Tipo de uso do email inválido.")
-	private TipoDeUso tipoDeUso;
+	private TipoDeUsoEnum tipoDeUso;
+	
+	@NotNull
+	private LocalDate dataModificacao;
 
+	@NotNull
+	private StatusEnum status;
+	
 	public Long getIdEmail() {
 		return idEmail;
 	}
@@ -66,12 +68,28 @@ public class Email implements Serializable {
 		this.email = email;
 	}
 
-	public TipoDeUso getTipoDeUso() {
+	public TipoDeUsoEnum getTipoDeUso() {
 		return tipoDeUso;
 	}
 
-	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
+	}
+
+	public LocalDate getDataModificacao() {
+		return dataModificacao;
+	}
+
+	public void setDataModificacao(LocalDate dataModificacao) {
+		this.dataModificacao = dataModificacao;
+	}
+	
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
 	}
 
 	@Override

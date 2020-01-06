@@ -3,9 +3,9 @@ package br.com.kbmg.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 
-public class EmailDTO {
+public class EmailDTO extends BaseCadastroDto{
 
 	private String idEmail;
 	
@@ -13,19 +13,16 @@ public class EmailDTO {
 	private String email;
 	
 	@NotNull(message="tipoDeUso não informado.")
-	private TipoDeUso tipoDeUso;
+	private TipoDeUsoEnum tipoDeUso;
 	
-	@NotNull(message="pessoaId obrigatório.")
-	private String pessoaId;
-
 	public String getIdEmail() {
 		return idEmail;
 	}
-	
+
 	public void setIdEmail(String idEmail) {
 		this.idEmail = idEmail;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -34,19 +31,12 @@ public class EmailDTO {
 		this.email = email;
 	}
 
-	public TipoDeUso getTipoDeUso() {
+	public TipoDeUsoEnum getTipoDeUso() {
 		return tipoDeUso;
 	}
 
-	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
 	}
 
-	public String getPessoaId() {
-		return pessoaId;
-	}
-
-	public void setPessoaId(String pessoaId) {
-		this.pessoaId = pessoaId;
-	}
 }
