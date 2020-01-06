@@ -2,7 +2,7 @@ package br.com.kbmg.builder;
 
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.enums.TipoDeUsoEnum;
-import br.com.kbmg.enums.TipoEndereco;
+import br.com.kbmg.enums.TipoEnderecoEnum;
 import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.factoryTest.CreateEmail;
 import br.com.kbmg.factoryTest.CreateEndereco;
@@ -35,13 +35,13 @@ public class PessoaBuilder {
 
 	public PessoaBuilder comEnderecoFiscal() {
 		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa(), "69097150", "Rua Laranjal",
-				"TESTE COMPLEMENTO", "CIDADE NOVA", "001", "MANAUS", "AM", 1302603, TipoEndereco.FISCAL));
+				"TESTE COMPLEMENTO", "CIDADE NOVA", "001", "MANAUS", "AM", 1302603, TipoEnderecoEnum.FISCAL));
 		return this;
 	}
 
 	public PessoaBuilder comEnderecoOutros() {
 		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa() + 1, "69067516",
-				"Rua Governador Henoch Reis", null, "Petrópolis", "12A", "MANAUS", "AM", 1302603, TipoEndereco.OUTROS));
+				"Rua Governador Henoch Reis", null, "Petrópolis", "12A", "MANAUS", "AM", 1302603, TipoEnderecoEnum.OUTROS));
 		return this;
 	}
 

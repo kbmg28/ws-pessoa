@@ -1,12 +1,12 @@
 package br.com.kbmg.enums;
 
-public enum TipoEndereco {
+public enum TipoEnderecoEnum {
 
 	FISCAL("FISCAL"), OUTROS("OUTROS");
 
 	private String tipo;
 
-	private TipoEndereco(String tipo) {
+	private TipoEnderecoEnum(String tipo) {
 		this.tipo = tipo;
 	}
 

@@ -3,7 +3,6 @@ package br.com.kbmg.domain;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.kbmg.enums.StatusEnum;
-import br.com.kbmg.enums.TipoEndereco;
+import br.com.kbmg.enums.TipoEnderecoEnum;
 
 @Entity
 public class Endereco implements Serializable {
@@ -38,7 +37,6 @@ public class Endereco implements Serializable {
 	@NotBlank
 	private String logradouro;
 	
-	@Column
 	private String complemento;
 	
 	@NotBlank
@@ -52,7 +50,7 @@ public class Endereco implements Serializable {
 	private Integer ibge;
 
 	@NotNull(message = "Tipo do endereço inválido.")
-	private TipoEndereco tipoEndereco;
+	private TipoEnderecoEnum tipoEndereco;
 
 	@NotNull
 	private LocalDate dataModificacao;
@@ -141,11 +139,11 @@ public class Endereco implements Serializable {
 		this.ibge = ibge;
 	}
 
-	public TipoEndereco getTipoEndereco() {
+	public TipoEnderecoEnum getTipoEndereco() {
 		return tipoEndereco;
 	}
 
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+	public void setTipoEndereco(TipoEnderecoEnum tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
 

@@ -17,7 +17,7 @@ import br.com.kbmg.domain.PessoaJuridica;
 import br.com.kbmg.domain.Telefone;
 import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoDeUsoEnum;
-import br.com.kbmg.enums.TipoEndereco;
+import br.com.kbmg.enums.TipoEnderecoEnum;
 import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.repository.PessoaRepository;
 
@@ -30,15 +30,15 @@ public class RunFake implements CommandLineRunner {
 
 	private List<Endereco> listEnd = Arrays.asList(
 			this.novoEndereco("69097150", "Rua Laranjal", null, "Cidade Nova", "56", "Manaus", "AM", 1302603,
-					TipoEndereco.FISCAL),
+					TipoEnderecoEnum.FISCAL),
 			this.novoEndereco("69090080", "Rua Guapiaçu", null, "Cidade Nova", "50", "Manaus", "AM", 1302603,
-					TipoEndereco.FISCAL),
+					TipoEnderecoEnum.FISCAL),
 			this.novoEndereco("69087031", "Rua Charles Darwin", null, "Tancredo Neves", "40", "Manaus", "AM", 1302603,
-					TipoEndereco.OUTROS),
+					TipoEnderecoEnum.OUTROS),
 			this.novoEndereco("69317566", "Rua Sirius", null, "Cidade Satélite", "7", "Boa Vista", "RR", 1400100,
-					TipoEndereco.FISCAL),
+					TipoEnderecoEnum.FISCAL),
 			this.novoEndereco("69317471", "Rua Santa Catarina", null, "Estados", "3A", "Boa Vista", "RR", 1400100,
-					TipoEndereco.FISCAL));
+					TipoEnderecoEnum.FISCAL));
 
 	private List<Email> listEmail = Arrays.asList(this.novoEmail("teste@teste.com", TipoDeUsoEnum.PARTICULAR),
 			this.novoEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS),
@@ -172,7 +172,7 @@ public class RunFake implements CommandLineRunner {
 	}
 
 	private Endereco novoEndereco(String cep, String logradouro, String complemento, String bairro, String numero,
-			String localidade, String uf, Integer ibge, TipoEndereco tipoEndereco) {
+			String localidade, String uf, Integer ibge, TipoEnderecoEnum tipoEndereco) {
 		return new Endereco() {
 			private static final long serialVersionUID = 1L;
 			{
