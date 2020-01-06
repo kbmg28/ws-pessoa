@@ -1,5 +1,6 @@
 package br.com.kbmg.config;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.domain.PessoaFisica;
 import br.com.kbmg.domain.PessoaJuridica;
 import br.com.kbmg.domain.Telefone;
+import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoDeUso;
 import br.com.kbmg.enums.TipoEndereco;
 import br.com.kbmg.enums.TipoPessoa;
@@ -129,7 +131,8 @@ public class RunFake implements CommandLineRunner {
 
 		email.setIdEmail(pos.longValue() + 1);
 		email.setPessoa(p);
-
+		email.setDataModificacao(LocalDate.now());
+		email.setStatus(StatusEnum.ATIVO);
 		p.getEmails().add(email);
 	}
 
