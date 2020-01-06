@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +15,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.kbmg.enums.StatusEnum;
-import br.com.kbmg.enums.TipoDeUso;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 
 @Entity
 public class Email implements Serializable {
@@ -37,9 +35,8 @@ public class Email implements Serializable {
 	@NotNull
 	private String email;
 
-	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Tipo de uso do email inválido.")
-	private TipoDeUso tipoDeUso;
+	private TipoDeUsoEnum tipoDeUso;
 	
 	@NotNull
 	private LocalDate dataModificacao;
@@ -71,11 +68,11 @@ public class Email implements Serializable {
 		this.email = email;
 	}
 
-	public TipoDeUso getTipoDeUso() {
+	public TipoDeUsoEnum getTipoDeUso() {
 		return tipoDeUso;
 	}
 
-	public void setTipoDeUso(TipoDeUso tipoDeUso) {
+	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
 	}
 
