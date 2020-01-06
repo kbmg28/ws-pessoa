@@ -1,5 +1,6 @@
 package br.com.kbmg.builder;
 
+import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.enums.TipoDeUsoEnum;
 import br.com.kbmg.enums.TipoEnderecoEnum;
@@ -34,14 +35,18 @@ public class PessoaBuilder {
 	}
 
 	public PessoaBuilder comEnderecoFiscal() {
-		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa(), "69097150", "Rua Laranjal",
-				"TESTE COMPLEMENTO", "CIDADE NOVA", "001", "MANAUS", "AM", 1302603, TipoEnderecoEnum.FISCAL));
+		Endereco endereco = CreateEndereco.get(this.pessoa.getIdPessoa(), "69097150", "Rua Laranjal",
+				"TESTE COMPLEMENTO", "CIDADE NOVA", "001", "MANAUS", "AM", 1302603, TipoEnderecoEnum.FISCAL);
+		endereco.setPessoa(this.pessoa);
+		this.pessoa.getEnderecos().add(endereco);
 		return this;
 	}
 
 	public PessoaBuilder comEnderecoOutros() {
-		this.pessoa.getEnderecos().add(CreateEndereco.get(this.pessoa.getIdPessoa() + 1, "69067516",
-				"Rua Governador Henoch Reis", null, "Petrópolis", "12A", "MANAUS", "AM", 1302603, TipoEnderecoEnum.OUTROS));
+		Endereco endereco = CreateEndereco.get(this.pessoa.getIdPessoa() + 1, "69067516", "Rua Governador Henoch Reis",
+				null, "Petrópolis", "12A", "MANAUS", "AM", 1302603, TipoEnderecoEnum.OUTROS);
+		endereco.setPessoa(this.pessoa);
+		this.pessoa.getEnderecos().add(endereco);
 		return this;
 	}
 
