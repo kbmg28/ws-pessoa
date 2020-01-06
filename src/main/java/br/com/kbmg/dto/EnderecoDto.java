@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 import br.com.kbmg.enums.TipoEnderecoEnum;
 
-public class EnderecoDto {
+public class EnderecoDto extends BaseCadastroDto{
 
 	private String idEndereco;
 	private String cep;

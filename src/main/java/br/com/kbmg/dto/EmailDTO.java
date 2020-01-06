@@ -3,10 +3,9 @@ package br.com.kbmg.dto;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoDeUsoEnum;
 
-public class EmailDTO {
+public class EmailDTO extends BaseCadastroDto{
 
 	private String idEmail;
 	
@@ -16,11 +15,6 @@ public class EmailDTO {
 	@NotNull(message="tipoDeUso não informado.")
 	private TipoDeUsoEnum tipoDeUso;
 	
-	@NotNull(message="pessoaId obrigatório.")
-	private String pessoaId;
-	
-	private StatusEnum status;
-
 	public String getIdEmail() {
 		return idEmail;
 	}
@@ -45,20 +39,4 @@ public class EmailDTO {
 		this.tipoDeUso = tipoDeUso;
 	}
 
-	public String getPessoaId() {
-		return pessoaId;
-	}
-
-	public void setPessoaId(String pessoaId) {
-		this.pessoaId = pessoaId;
-	}
-
-	public StatusEnum getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusEnum status) {
-		this.status = status;
-	}
-	
 }
