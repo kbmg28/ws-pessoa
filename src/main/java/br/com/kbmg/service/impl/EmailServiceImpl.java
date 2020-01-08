@@ -3,7 +3,6 @@ package br.com.kbmg.service.impl;
 import static br.com.kbmg.utils.Util.convertList;
 
 import java.security.InvalidParameterException;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -33,7 +32,7 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 	public EmailDTO addEmailParaPessoa(EmailDTO emailDto) {
 
 		Pessoa pessoa = pessoaService.findById(emailDto.getPessoaId(), "Id da Pessoa");
-		emailDto.setDataModificacao(LocalDate.now());
+		emailDto.setIdEmail(null);
 		emailDto.setStatus(StatusEnum.ATIVO);
 		Email email = (Email) Util.convertObject(emailDto, Email.class);
 
