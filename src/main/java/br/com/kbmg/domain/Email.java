@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoDeUsoEnum;
 
 @Entity
@@ -39,6 +40,9 @@ public class Email implements Serializable{
 	
 	@Embedded
 	private ControleInterno controleInterno = new ControleInterno();
+
+	@NotNull
+	private StatusEnum status;
 	
 	public Long getIdEmail() {
 		return idEmail;
@@ -72,6 +76,22 @@ public class Email implements Serializable{
 		this.tipoDeUso = tipoDeUso;
 	}
 
+	public ControleInterno getControleInterno() {
+		return controleInterno;
+	}
+
+	public void setControleInterno(ControleInterno controleInterno) {
+		this.controleInterno = controleInterno;
+	}
+
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -80,7 +100,7 @@ public class Email implements Serializable{
 		result = prime * result + ((idEmail == null) ? 0 : idEmail.hashCode());
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
