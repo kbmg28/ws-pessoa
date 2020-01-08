@@ -32,14 +32,12 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	}
 
 	@Override
-	public T update(T entity, Long id) {
+	public Object update(String id, Object dto, Class<?> typeReturn) {
+		T entity = this.findById(id, "Id do Email");
 
-		if (id == null)
-			throw new IllegalArgumentException(msg.get("id.obrigatorio"));
-
-		this.findById(id.toString(), "ID");
-
-		return repository.save(entity);
+		Util.map(dto, entity);
+		repository.save(entity);
+		return Util.convertObject(entity, typeReturn);
 	}
 
 	@Override

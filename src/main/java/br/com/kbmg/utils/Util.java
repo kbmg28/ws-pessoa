@@ -8,7 +8,8 @@ import org.modelmapper.ModelMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Util {
-
+	private static ModelMapper me = new ModelMapper();
+	
 	public static void printObjectConsole(Object obj) {
 		try {
 			ObjectMapper m = new ObjectMapper();
@@ -20,12 +21,14 @@ public class Util {
 	}
 
 	public static Object convertObject(Object obj, Class<?> type) {
-		ModelMapper me = new ModelMapper();
 		return me.map(obj, type);
 	}
 
+	public static void map(Object base, Object destination) {
+		me.map(base, destination);
+	}
+
 	public static Object convertObjectAndPrintConsole(Object obj, Class<?> type) {
-		ModelMapper me = new ModelMapper();
 		Object map = me.map(obj, type);
 		printObjectConsole(map);
 		return map;
