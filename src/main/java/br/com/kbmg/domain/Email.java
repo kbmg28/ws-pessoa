@@ -1,8 +1,8 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,11 +14,10 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoDeUsoEnum;
 
 @Entity
-public class Email implements Serializable {
+public class Email implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,11 +37,8 @@ public class Email implements Serializable {
 	@NotNull(message = "Tipo de uso do email inválido.")
 	private TipoDeUsoEnum tipoDeUso;
 	
-	@NotNull
-	private LocalDate dataModificacao;
-
-	@NotNull
-	private StatusEnum status;
+	@Embedded
+	private ControleInterno controleInterno = new ControleInterno();
 	
 	public Long getIdEmail() {
 		return idEmail;
@@ -74,22 +70,6 @@ public class Email implements Serializable {
 
 	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
-	}
-
-	public LocalDate getDataModificacao() {
-		return dataModificacao;
-	}
-
-	public void setDataModificacao(LocalDate dataModificacao) {
-		this.dataModificacao = dataModificacao;
-	}
-	
-	public StatusEnum getStatus() {
-		return status;
-	}
-
-	public void setStatus(StatusEnum status) {
-		this.status = status;
 	}
 
 	@Override
