@@ -1,25 +1,23 @@
 package br.com.kbmg.dto;
 
-import java.time.LocalDate;
-
 import javax.validation.constraints.NotNull;
 
 import br.com.kbmg.enums.StatusEnum;
 
 public abstract class BaseCadastroDto {
 
-	private LocalDate dataModificacao;
+	private ControleInternoDto controleInterno;
 	private StatusEnum status;
 
 	@NotNull(message = "pessoaId obrigatório.")
 	private String pessoaId;
 
-	public LocalDate getDataModificacao() {
-		return dataModificacao;
+	public ControleInternoDto getControleInterno() {
+		return controleInterno;
 	}
 
-	public void setDataModificacao(LocalDate dataModificacao) {
-		this.dataModificacao = dataModificacao;
+	public void setControleInterno(ControleInternoDto controleInterno) {
+		this.controleInterno = controleInterno;
 	}
 
 	public StatusEnum getStatus() {
@@ -38,5 +36,4 @@ public abstract class BaseCadastroDto {
 		this.pessoaId = pessoaId;
 	}
 
-	
 }
