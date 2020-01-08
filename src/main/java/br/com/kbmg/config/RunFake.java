@@ -131,7 +131,7 @@ public class RunFake implements CommandLineRunner {
 
 		email.setIdEmail(pos.longValue() + 1);
 		email.setPessoa(p);
-		email.setDataModificacao(LocalDate.now());
+//		email.setDataModificacao(LocalDate.now());
 		email.setStatus(StatusEnum.ATIVO);
 		p.getEmails().add(email);
 	}

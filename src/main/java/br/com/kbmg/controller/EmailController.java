@@ -8,15 +8,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.kbmg.dto.EmailBodyDto;
 import br.com.kbmg.dto.EmailDTO;
 import br.com.kbmg.response.ErrorResponse;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.EmailService;
+import br.com.kbmg.service.impl.GenericServiceImpl;
+import br.com.kbmg.utils.Validator;
 
 @RestController
 @RequestMapping(value = "/email")
@@ -45,6 +49,14 @@ public class EmailController {
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEmail) {
 		return ResponseEntity.ok(new ObjectResponse(service.findById(idEmail, "Id do email", EmailDTO.class)));
+	}
+
+	@PutMapping
+	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody EmailBodyDto emailBodyDto,
+			BindingResult result) {
+//		return Validator.verifyRequestBody(emailBodyDto, result, service::update);
+		Validator.verifyRequestBody(emailBodyDto, result, GenericServiceImpl::update);
+		return ResponseEntity.ok(new ObjectResponse(service.update(emailBodyDto.getIdEmail(), emailBodyDto, EmailDTO.class)));
 	}
 
 	@GetMapping("/all")
