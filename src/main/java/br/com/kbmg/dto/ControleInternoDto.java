@@ -1,25 +1,24 @@
 package br.com.kbmg.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ControleInternoDto {
 
-	private LocalDate dataCriacao;
-	private LocalDate dataAtualizacao;
-
-	public LocalDate getDataCriacao() {
+	private LocalDateTime dataCriacao;
+	private LocalDateTime dataAtualizacao;
+	
+	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
-
-	public void setDataCriacao(LocalDate dataCriacao) {
+	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-
-	public LocalDate getDataAtualizacao() {
+	public LocalDateTime getDataAtualizacao() {
 		return dataAtualizacao;
 	}
-
-	public void setDataAtualizacao(LocalDate dataAtualizacao) {
+	public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
 		this.dataAtualizacao = dataAtualizacao;
 	}
+
+	
 }
