@@ -27,9 +27,8 @@ public class EmailController {
 	private EmailService service;
 
 	@PostMapping
-	public ResponseEntity<ObjectResponse> addEmailParaPessoa(@Valid @RequestBody EmailBodyDto emailDto,
-			@RequestParam String idPessoa,
-			BindingResult result) {
+	public ResponseEntity<ObjectResponse> addEmailParaPessoa(@RequestParam String idPessoa,
+			@Valid @RequestBody EmailBodyDto emailDto, BindingResult result) {
 
 		return result.hasErrors() ? Util.responseBad(result)
 				: Util.createResponseOk(service.addEmailParaPessoa(idPessoa, emailDto));
@@ -41,9 +40,10 @@ public class EmailController {
 	}
 
 	@PutMapping
-	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody EmailBodyDto emailBodyDto, BindingResult result) {
+	public ResponseEntity<ObjectResponse> update(@RequestParam String idEmail,
+			@Valid @RequestBody EmailBodyDto emailBodyDto, BindingResult result) {
 		return result.hasErrors() ? Util.responseBad(result)
-				: Util.createResponseOk(service.update(emailBodyDto.getIdEmail(), emailBodyDto, EmailDTO.class));
+				: Util.createResponseOk(service.update(idEmail, emailBodyDto, EmailDTO.class));
 	}
 
 	@GetMapping("/all")
