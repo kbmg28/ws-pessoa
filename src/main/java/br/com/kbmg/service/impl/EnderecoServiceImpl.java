@@ -1,7 +1,6 @@
 package br.com.kbmg.service.impl;
 
 import java.security.InvalidParameterException;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -32,7 +31,7 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 
 		
 		Pessoa pessoa = pessoaService.findById(enderecoDto.getPessoaId(), "Id da Pessoa");
-		enderecoDto.setDataModificacao(LocalDate.now());
+		
 		enderecoDto.setStatus(StatusEnum.ATIVO);
 		Endereco endereco = (Endereco) Util.convertObject(enderecoDto, Endereco.class);
 
