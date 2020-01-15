@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EnderecoDto;
+import br.com.kbmg.dto.body.EnderecoBodyDto;
 import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.EnderecoService;
@@ -27,22 +28,21 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 	PessoaService pessoaService;
 
 	@Override
-	public EnderecoDto addEnderecoParaPessoa(EnderecoDto enderecoDto) {
-
+	public EnderecoDto addEnderecoParaPessoa(String idPessoa, EnderecoBodyDto body) {
 		
-		Pessoa pessoa = pessoaService.findById(enderecoDto.getPessoaId(), "Id da Pessoa");
-		
-		enderecoDto.setStatus(StatusEnum.ATIVO);
-		Endereco endereco = (Endereco) Util.convertObject(enderecoDto, Endereco.class);
+		Pessoa pessoa = pessoaService.findById(idPessoa, "Id da Pessoa");
+		Endereco endereco = (Endereco) Util.convertObject(body, Endereco.class);
 
+		endereco.setStatus(StatusEnum.ATIVO);
+		endereco.setPessoa(new Pessoa(idPessoa));
+		
 		if (pessoa.getEnderecos().stream().filter(e -> this.compareEndereco(e, endereco)).findFirst()
 				.isPresent())
 			throw new InvalidParameterException(msg.get("endereco.cadastrado.para.pessoa"));
 
 		repository.save(endereco);
 
-		enderecoDto.setIdEndereco(endereco.getIdEndereco().toString());
-		return enderecoDto;
+		return (EnderecoDto) Util.convertObject(endereco, EnderecoDto.class);
 	}
 	
 	private Boolean compareEndereco(Endereco atual, Endereco novo) {

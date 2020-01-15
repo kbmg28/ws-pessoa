@@ -1,8 +1,8 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -146,13 +146,13 @@ public class Endereco implements Serializable {
 	public void setTipoEndereco(TipoEnderecoEnum tipoEndereco) {
 		this.tipoEndereco = tipoEndereco;
 	}
-
-	public LocalDate getDataModificacao() {
-		return dataModificacao;
+	
+	public ControleInterno getControleInterno() {
+		return controleInterno;
 	}
-
-	public void setDataModificacao(LocalDate dataModificacao) {
-		this.dataModificacao = dataModificacao;
+	
+	public void setControleInterno(ControleInterno controleInterno) {
+		this.controleInterno = controleInterno;
 	}
 
 	public StatusEnum getStatus() {
