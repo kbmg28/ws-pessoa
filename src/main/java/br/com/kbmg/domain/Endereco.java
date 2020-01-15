@@ -52,8 +52,8 @@ public class Endereco implements Serializable {
 	@NotNull(message = "Tipo do endereço inválido.")
 	private TipoEnderecoEnum tipoEndereco;
 
-	@NotNull
-	private LocalDate dataModificacao;
+	@Embedded
+	private ControleInterno controleInterno = new ControleInterno();
 
 	@NotNull
 	private StatusEnum status;

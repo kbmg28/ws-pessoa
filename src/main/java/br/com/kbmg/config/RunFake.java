@@ -1,6 +1,5 @@
 package br.com.kbmg.config;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -151,7 +150,6 @@ public class RunFake implements CommandLineRunner {
 
 		endereco.setIdEndereco(pos.longValue() + 1);
 		endereco.setPessoa(p);
-		endereco.setDataModificacao(LocalDate.now());
 		endereco.setStatus(StatusEnum.ATIVO);
 		p.getEnderecos().add(endereco);
 	}
