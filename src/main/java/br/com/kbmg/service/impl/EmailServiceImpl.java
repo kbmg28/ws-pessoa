@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.kbmg.domain.Email;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
+import br.com.kbmg.dto.body.EmailBodyDto;
 import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.EmailService;
@@ -29,21 +30,22 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 	PessoaService pessoaService;
 
 	@Override
-	public EmailDTO addEmailParaPessoa(EmailDTO emailDto) {
+	public EmailDTO addEmailParaPessoa(String idPessoa, EmailBodyDto emailDto) {
 
-		Pessoa pessoa = pessoaService.findById(emailDto.getPessoaId(), "Id da Pessoa");
-		emailDto.setIdEmail(null);
-		emailDto.setStatus(StatusEnum.ATIVO);
+		Pessoa pessoa = pessoaService.findById(idPessoa, "Id da Pessoa");
 		Email email = (Email) Util.convertObject(emailDto, Email.class);
 
+		email.setIdEmail(null);
+		email.setStatus(StatusEnum.ATIVO);
+		email.setPessoa(new Pessoa(idPessoa));
+		
 		if (pessoa.getEmails().stream().filter(e -> e.getEmail().equalsIgnoreCase(email.getEmail())).findFirst()
 				.isPresent())
 			throw new InvalidParameterException(msg.get("email.cadastrado.para.pessoa"));
 
 		repository.save(email);
 
-		emailDto.setIdEmail(email.getIdEmail().toString());
-		return emailDto;
+		return (EmailDTO) Util.convertObject(email, EmailDTO.class);
 	}
 
 	@Override

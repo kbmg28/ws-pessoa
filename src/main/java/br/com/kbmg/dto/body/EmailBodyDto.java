@@ -1,4 +1,4 @@
-package br.com.kbmg.dto;
+package br.com.kbmg.dto.body;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;

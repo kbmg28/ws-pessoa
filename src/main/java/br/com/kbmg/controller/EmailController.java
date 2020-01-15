@@ -3,7 +3,6 @@ package br.com.kbmg.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.kbmg.dto.EmailBodyDto;
 import br.com.kbmg.dto.EmailDTO;
-import br.com.kbmg.response.ErrorResponse;
+import br.com.kbmg.dto.body.EmailBodyDto;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.EmailService;
-import br.com.kbmg.service.impl.GenericServiceImpl;
-import br.com.kbmg.utils.Validator;
+import br.com.kbmg.utils.Util;
 
 @RestController
 @RequestMapping(value = "/email")
@@ -30,20 +27,12 @@ public class EmailController {
 	private EmailService service;
 
 	@PostMapping
-	public ResponseEntity<ObjectResponse> addEmailParaPessoa(@Valid @RequestBody EmailDTO emailDto,
+	public ResponseEntity<ObjectResponse> addEmailParaPessoa(@Valid @RequestBody EmailBodyDto emailDto,
+			@RequestParam String idPessoa,
 			BindingResult result) {
-		ObjectResponse response = new ObjectResponse();
 
-		if (result.hasErrors()) {
-			response.setErrorDescription(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Dados inválidos."));
-			
-			result.getAllErrors().forEach(error -> response.getErrorDescription().getErrors()
-					.add(error.getObjectName() + ": " + error.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-		}
-
-		response.setData(service.addEmailParaPessoa(emailDto));
-		return ResponseEntity.ok(response);
+		return result.hasErrors() ? Util.responseBad(result)
+				: Util.createResponseOk(service.addEmailParaPessoa(idPessoa, emailDto));
 	}
 
 	@GetMapping
@@ -52,11 +41,9 @@ public class EmailController {
 	}
 
 	@PutMapping
-	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody EmailBodyDto emailBodyDto,
-			BindingResult result) {
-//		return Validator.verifyRequestBody(emailBodyDto, result, service::update);
-		Validator.verifyRequestBody(emailBodyDto, result, GenericServiceImpl::update);
-		return ResponseEntity.ok(new ObjectResponse(service.update(emailBodyDto.getIdEmail(), emailBodyDto, EmailDTO.class)));
+	public ResponseEntity<ObjectResponse> update(@Valid @RequestBody EmailBodyDto emailBodyDto, BindingResult result) {
+		return result.hasErrors() ? Util.responseBad(result)
+				: Util.createResponseOk(service.update(emailBodyDto.getIdEmail(), emailBodyDto, EmailDTO.class));
 	}
 
 	@GetMapping("/all")
