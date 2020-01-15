@@ -28,10 +28,10 @@ public class EmailController {
 
 	@PostMapping
 	public ResponseEntity<ObjectResponse> addEmailParaPessoa(@RequestParam String idPessoa,
-			@Valid @RequestBody EmailBodyDto emailDto, BindingResult result) {
+			@Valid @RequestBody EmailBodyDto body, BindingResult result) {
 
 		return result.hasErrors() ? Util.responseBad(result)
-				: Util.createResponseOk(service.addEmailParaPessoa(idPessoa, emailDto));
+				: Util.createResponseOk(service.addEmailParaPessoa(idPessoa, body));
 	}
 
 	@GetMapping

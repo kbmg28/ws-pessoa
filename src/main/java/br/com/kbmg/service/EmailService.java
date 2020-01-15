@@ -10,6 +10,6 @@ public interface EmailService extends GenericService<Email> {
 
 	List<?> findByPessoa(String idPessoa);
 
-	EmailDTO addEmailParaPessoa(String idPessoa, EmailBodyDto emailDto);
+	EmailDTO addEmailParaPessoa(String idPessoa, EmailBodyDto body);
 
 }

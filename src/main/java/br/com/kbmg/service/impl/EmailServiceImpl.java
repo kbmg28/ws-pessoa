@@ -30,12 +30,11 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 	PessoaService pessoaService;
 
 	@Override
-	public EmailDTO addEmailParaPessoa(String idPessoa, EmailBodyDto emailDto) {
+	public EmailDTO addEmailParaPessoa(String idPessoa, EmailBodyDto body) {
 
 		Pessoa pessoa = pessoaService.findById(idPessoa, "Id da Pessoa");
-		Email email = (Email) Util.convertObject(emailDto, Email.class);
+		Email email = (Email) Util.convertObject(body, Email.class);
 
-		email.setIdEmail(null);
 		email.setStatus(StatusEnum.ATIVO);
 		email.setPessoa(new Pessoa(idPessoa));
 		
