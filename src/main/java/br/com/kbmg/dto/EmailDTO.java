@@ -1,18 +1,11 @@
 package br.com.kbmg.dto;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-
 import br.com.kbmg.enums.TipoDeUsoEnum;
 
 public class EmailDTO extends BaseCadastroDto{
 
 	private String idEmail;
-	
-	@Email(message="email inválido.")
 	private String email;
-	
-	@NotNull(message="tipoDeUso não informado.")
 	private TipoDeUsoEnum tipoDeUso;
 	
 	public String getIdEmail() {
