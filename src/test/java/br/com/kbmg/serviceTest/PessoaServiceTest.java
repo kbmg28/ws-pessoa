@@ -25,7 +25,6 @@ import br.com.kbmg.repository.PessoaRepository;
 import br.com.kbmg.service.PessoaFisicaService;
 import br.com.kbmg.service.PessoaJuridicaService;
 import br.com.kbmg.service.impl.PessoaServiceImpl;
-import br.com.kbmg.utils.Util;
 
 public class PessoaServiceTest {
 
@@ -116,7 +115,7 @@ public class PessoaServiceTest {
 
 		when(repository.findById(p.getIdPessoa())).thenReturn(Optional.of(p));
 
-		Pessoa retorno = service.findById(ID_PESSOA_1.toString(), "Id da Pessoa");
+		Pessoa retorno = service.findById(ID_PESSOA_1.toString());
 		assertAll(() -> assertEquals(p.getNomeCompleto(), retorno.getNomeCompleto(), "NOME COMPLETO"),
 				() -> assertEquals(p.getPessoaFisica().getCpf(), retorno.getPessoaFisica().getCpf(), "CPF"));
 	}
@@ -126,7 +125,7 @@ public class PessoaServiceTest {
 	void deveLancarExceptionSeNaoEncontrarPessoaPorId() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findById(ID_PESSOA_1.toString(), "Id da Pessoa"));
+				() -> service.findById(ID_PESSOA_1.toString()));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 

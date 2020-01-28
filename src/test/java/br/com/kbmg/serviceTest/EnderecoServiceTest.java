@@ -94,7 +94,7 @@ public class EnderecoServiceTest {
 				.comEnderecoOutros().agora();
 		EnderecoBodyDto enderecoBodyDto = CreateEnderecoBodyDto.get("NOVA RUA", "BAIRRO DO TESTE", "1A");
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 		EnderecoDto retorno = service.addEnderecoParaPessoa(ID_PESSOA, enderecoBodyDto);
 
 		assertAll(() -> assertEquals(enderecoBodyDto.getLogradouro(), retorno.getLogradouro()),
@@ -109,7 +109,7 @@ public class EnderecoServiceTest {
 		EnderecoBodyDto body = (EnderecoBodyDto) Util.convertObject(pessoa.getEnderecos().stream().findFirst().get(),
 				EnderecoBodyDto.class);
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		String msgException = "Endereço já cadastrado para a pessoa.";
 		when(msg.get("endereco.cadastrado.para.pessoa")).thenReturn(msgException);

@@ -94,7 +94,7 @@ public class EmailServiceTest {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
 				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		EmailDTO resp = service.addEmailParaPessoa(ID_PESSOA, dto);
 
@@ -109,7 +109,7 @@ public class EmailServiceTest {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
 				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		String msgException = "Email já cadastrado para a pessoa.";
 		when(msg.get("email.cadastrado.para.pessoa")).thenReturn(msgException);
