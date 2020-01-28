@@ -18,41 +18,42 @@ public interface GenericService<T> {
 	 */
 	public T create(T entity);
 
-//	/**
-//	 * Atualizar uma entidade que já existe.
-//	 * 
-//	 * @param entity - objeto com os novos dados.
-//	 * @param id     - identificador do objeto.
-//	 * @return O registro atualizado.
-//	 * @throws IllegalArgumentException Se id for null.
-//	 * @throws EntityNotFoundException  Se não encontrar a entidade com o id
-//	 *                                  informado.
-//	 */
-//	public T update(T entity, Long id);
+	/**
+	 * Atualiza uma entidade. Realiza uma busca para verificar se o id
+	 * existe, transfere as informações presentes no dto para a entidade, salva as
+	 * alterações e por fim realiza um parse para o tipo especificado por
+	 * typeReturn.
+	 * 
+	 * @param id         - identificador da entidade.
+	 * @param dto        - Objeto com os novos dados.
+	 * @param typeReturn - tipo da classe de retorno.
+	 * @return O registro atualizado.
+	 */
+	Object update(String id, Object dto, Class<?> typeReturn);
 
 	/**
 	 * Busca a entidade por ID.
 	 * 
 	 * @param id - identificador único.
-	 * @param nomeDoIdDaClasse - Em caso de erro, este parâmetro será utilizado
 	 * 
 	 * @return O registro encontrado.
-	 * @throws EntityNotFoundException- Se não existir.
+	 * @throws InvalidParameterException - Se id não for um número
+	 * @throws EntityNotFoundException-  Se não existir.
 	 */
-	public T findById(String id, String nomeDoIdDaClasse);
+	public T findById(String id);
 
 	/**
 	 * Busca a entidade por ID e retorna um DTO especificado por typeConvert.
 	 * 
-	 * @param id - identificador único.
-	 * @param nomeDoIdDaClasse - Em caso de erro, este parâmetro será utilizado
+	 * @param id          - identificador único.
 	 * @param typeConvert - tipo do DTO para conversão da entidade.
-	 *  
+	 * 
 	 * @return O registro encontrado.
-	 * @throws EntityNotFoundException- Se não existir.
+	 * @throws InvalidParameterException - Se id não for um número
+	 * @throws EntityNotFoundException-  Se não existir.
 	 */
-	Object findById(String id, String nomeDoIdDaClasse, Class<?> typeConvert);
-	
+	Object findById(String id, Class<?> typeConvert);
+
 	/**
 	 * Busca uma lista de todos os registros.
 	 * 
@@ -95,7 +96,7 @@ public interface GenericService<T> {
 	 * 
 	 * @param id - identificador do objeto que será apagado.
 	 */
-	public void deleteById(Long id);
+	public void deleteById(String id);
 
 	/**
 	 * Apaga uma lista de entidades.
@@ -112,11 +113,5 @@ public interface GenericService<T> {
 	 * @throws EntityNotFoundException Se na lista houver algum id que não existe.
 	 */
 	public void deleteAllById(Set<Long> id);
-
-	
-	
-	
-	
-	Object update(String id, Object dto, Class<?> typeReturn);
 
 }
