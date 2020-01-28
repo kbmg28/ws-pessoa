@@ -63,6 +63,7 @@ public class EmailServiceTest {
 						.comEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS).agora().getEmails());
 
 		when(repository.findByPessoa(pessoa)).thenReturn(Optional.of(list));
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		List<?> retorno = service.findByPessoa(ID_PESSOA);
 
