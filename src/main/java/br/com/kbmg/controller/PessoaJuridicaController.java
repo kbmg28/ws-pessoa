@@ -26,7 +26,7 @@ public class PessoaJuridicaController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idPj) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idPj, "Id da pessoa jurídica")));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idPj)));
 	}
 
 	@GetMapping("/all")

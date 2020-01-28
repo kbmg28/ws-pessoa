@@ -30,7 +30,7 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 	@Override
 	public EnderecoDto addEnderecoParaPessoa(String idPessoa, EnderecoBodyDto body) {
 		
-		Pessoa pessoa = pessoaService.findById(idPessoa, "Id da Pessoa");
+		Pessoa pessoa = pessoaService.findById(idPessoa);
 		Endereco endereco = (Endereco) Util.convertObject(body, Endereco.class);
 
 		endereco.setStatus(StatusEnum.ATIVO);

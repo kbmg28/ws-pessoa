@@ -50,7 +50,7 @@ public class PessoaController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findOne(@Valid @RequestParam String idPessoa) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idPessoa, "Id da pessoa")));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idPessoa)));
 	}
 
 	@GetMapping("/all")
@@ -66,7 +66,7 @@ public class PessoaController {
 	}
 
 	@DeleteMapping("/deleteOne")
-	public ResponseEntity<ObjectResponse> deleteById(@Valid @RequestParam Long idPessoa) {
+	public ResponseEntity<ObjectResponse> deleteById(@Valid @RequestParam String idPessoa) {
 		this.service.deleteById(idPessoa);
 		return ResponseEntity.ok(new ObjectResponse("Objeto deletado com sucesso"));
 	}
