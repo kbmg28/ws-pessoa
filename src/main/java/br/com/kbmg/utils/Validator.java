@@ -8,11 +8,11 @@ public class Validator {
 		return (str == null || str.trim().isEmpty());
 	}
 
-	public static Long stringParseLong(String param, String nomeDoParametro) {
+	public static Long stringParseLong(String param, String msgErro) {
 		try {
 			return Long.parseLong(param);
 		} catch (Exception e) {
-			throw new InvalidParameterException(nomeDoParametro + " inválido.");
+			throw new InvalidParameterException(msgErro);
 		}
 	}
 }
