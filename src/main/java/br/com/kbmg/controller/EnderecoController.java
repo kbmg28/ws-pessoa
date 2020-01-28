@@ -3,20 +3,21 @@ package br.com.kbmg.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kbmg.dto.EnderecoDto;
-import br.com.kbmg.response.ErrorResponse;
+import br.com.kbmg.dto.body.EnderecoBodyDto;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.EnderecoService;
+import br.com.kbmg.utils.Util;
 
 @RestController
 @RequestMapping(value = "/endereco")
@@ -26,20 +27,18 @@ public class EnderecoController {
 	private EnderecoService service;
 
 	@PostMapping
-	public ResponseEntity<ObjectResponse> addEnderecoParaPessoa(@Valid @RequestBody EnderecoDto enderecoDto,
-			BindingResult result) {
-		ObjectResponse response = new ObjectResponse();
+	public ResponseEntity<ObjectResponse> addEnderecoParaPessoa(@RequestParam String idPessoa,
+			@Valid @RequestBody EnderecoBodyDto body, BindingResult result) {
 
-		if (result.hasErrors()) {
-			response.setErrorDescription(new ErrorResponse(HttpStatus.BAD_REQUEST.value(), "Dados inválidos."));
-			
-			result.getAllErrors().forEach(error -> response.getErrorDescription().getErrors()
-					.add(error.getObjectName() + ": " + error.getDefaultMessage()));
-			return ResponseEntity.badRequest().body(response);
-		}
+		return result.hasErrors() ? Util.responseBad(result)
+				: Util.createResponseOk(service.addEnderecoParaPessoa(idPessoa, body));
+	}
 
-		response.setData(service.addEnderecoParaPessoa(enderecoDto));
-		return ResponseEntity.ok(response);
+	@PutMapping
+	public ResponseEntity<ObjectResponse> update(@RequestParam String idEndereco,
+			@Valid @RequestBody EnderecoBodyDto body, BindingResult result) {
+		return result.hasErrors() ? Util.responseBad(result)
+				: Util.createResponseOk(service.update(idEndereco, body, EnderecoDto.class));
 	}
 
 	@GetMapping

@@ -18,17 +18,17 @@ public interface GenericService<T> {
 	 */
 	public T create(T entity);
 
-	/**
-	 * Atualizar uma entidade que já existe.
-	 * 
-	 * @param entity - objeto com os novos dados.
-	 * @param id     - identificador do objeto.
-	 * @return O registro atualizado.
-	 * @throws IllegalArgumentException Se id for null.
-	 * @throws EntityNotFoundException  Se não encontrar a entidade com o id
-	 *                                  informado.
-	 */
-	public T update(T entity, Long id);
+//	/**
+//	 * Atualizar uma entidade que já existe.
+//	 * 
+//	 * @param entity - objeto com os novos dados.
+//	 * @param id     - identificador do objeto.
+//	 * @return O registro atualizado.
+//	 * @throws IllegalArgumentException Se id for null.
+//	 * @throws EntityNotFoundException  Se não encontrar a entidade com o id
+//	 *                                  informado.
+//	 */
+//	public T update(T entity, Long id);
 
 	/**
 	 * Busca a entidade por ID.
@@ -112,5 +112,11 @@ public interface GenericService<T> {
 	 * @throws EntityNotFoundException Se na lista houver algum id que não existe.
 	 */
 	public void deleteAllById(Set<Long> id);
+
+	
+	
+	
+	
+	Object update(String id, Object dto, Class<?> typeReturn);
 
 }

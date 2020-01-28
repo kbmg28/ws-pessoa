@@ -1,28 +1,33 @@
-package br.com.kbmg.dto;
+package br.com.kbmg.dto.body;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import br.com.kbmg.enums.TipoEnderecoEnum;
 
-public class EnderecoDto extends BaseCadastroDto{
+public class EnderecoBodyDto {
 
-	private String idEndereco;
 	private String cep;
+
+	@NotBlank(message="logradouro obrigatório")
 	private String logradouro;
+
 	private String complemento;
+
+	@NotBlank(message="bairro obrigatório")
 	private String bairro;
+
+	@NotBlank(message="numero obrigatório")
 	private String numero;
+
 	private String localidade;
 	private String uf;
 	private Integer ibge;
+
+	@NotNull(message = "Tipo do endereço inválido.")
 	private TipoEnderecoEnum tipoEndereco;
 
-	public String getIdEndereco() {
-		return idEndereco;
-	}
-
-	public void setIdEndereco(String idEndereco) {
-		this.idEndereco = idEndereco;
-	}
-
+	
 	public String getCep() {
 		return cep;
 	}

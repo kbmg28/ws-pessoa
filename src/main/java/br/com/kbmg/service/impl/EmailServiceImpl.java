@@ -3,7 +3,6 @@ package br.com.kbmg.service.impl;
 import static br.com.kbmg.utils.Util.convertList;
 
 import java.security.InvalidParameterException;
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Service;
 import br.com.kbmg.domain.Email;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
+import br.com.kbmg.dto.body.EmailBodyDto;
 import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.EmailService;
@@ -30,21 +30,21 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 	PessoaService pessoaService;
 
 	@Override
-	public EmailDTO addEmailParaPessoa(EmailDTO emailDto) {
+	public EmailDTO addEmailParaPessoa(String idPessoa, EmailBodyDto body) {
 
-		Pessoa pessoa = pessoaService.findById(emailDto.getPessoaId(), "Id da Pessoa");
-		emailDto.setDataModificacao(LocalDate.now());
-		emailDto.setStatus(StatusEnum.ATIVO);
-		Email email = (Email) Util.convertObject(emailDto, Email.class);
+		Pessoa pessoa = pessoaService.findById(idPessoa, "Id da Pessoa");
+		Email email = (Email) Util.convertObject(body, Email.class);
 
+		email.setStatus(StatusEnum.ATIVO);
+		email.setPessoa(new Pessoa(idPessoa));
+		
 		if (pessoa.getEmails().stream().filter(e -> e.getEmail().equalsIgnoreCase(email.getEmail())).findFirst()
 				.isPresent())
 			throw new InvalidParameterException(msg.get("email.cadastrado.para.pessoa"));
 
 		repository.save(email);
 
-		emailDto.setIdEmail(email.getIdEmail().toString());
-		return emailDto;
+		return (EmailDTO) Util.convertObject(email, EmailDTO.class);
 	}
 
 	@Override

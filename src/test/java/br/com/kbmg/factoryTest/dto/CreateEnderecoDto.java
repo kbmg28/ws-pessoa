@@ -17,7 +17,6 @@ public class CreateEnderecoDto {
 				setBairro(bairro);
 				setNumero(numero);
 				setTipoEndereco(TipoEnderecoEnum.FISCAL);
-				setDataModificacao(LocalDate.now());
 				setStatus(status);
 				setPessoaId(pessoaId);
 			}
