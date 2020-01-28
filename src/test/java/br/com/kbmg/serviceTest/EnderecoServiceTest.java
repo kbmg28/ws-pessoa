@@ -24,6 +24,8 @@ import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EnderecoDto;
+import br.com.kbmg.dto.body.EnderecoBodyDto;
+import br.com.kbmg.factoryTest.dto.CreateEnderecoBodyDto;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.impl.EnderecoServiceImpl;
@@ -90,33 +92,30 @@ public class EnderecoServiceTest {
 	void deveAdicionarEnderecoParaPessoa() {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA").comEnderecoFiscal()
 				.comEnderecoOutros().agora();
-		Endereco endereco = pessoa.getEnderecos().stream().findFirst().get();
-		EnderecoDto dto = (EnderecoDto) Util.convertObject(endereco, EnderecoDto.class);
+		EnderecoBodyDto enderecoBodyDto = CreateEnderecoBodyDto.get("NOVA RUA", "BAIRRO DO TESTE", "1A");
 
-		pessoa.getEnderecos().remove(endereco);
+		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		EnderecoDto retorno = service.addEnderecoParaPessoa(ID_PESSOA, enderecoBodyDto);
 
-		when(pessoaService.findById(dto.getPessoaId(), "Id da Pessoa")).thenReturn(pessoa);
-		EnderecoDto retorno = service.addEnderecoParaPessoa(dto);
-
-		assertAll(() -> assertEquals(dto.getLogradouro(), retorno.getLogradouro()),
-				() -> assertEquals(dto.getNumero(), retorno.getNumero()),
-				() -> assertEquals(dto.getBairro(), retorno.getBairro()));
+		assertAll(() -> assertEquals(enderecoBodyDto.getLogradouro(), retorno.getLogradouro()),
+				() -> assertEquals(enderecoBodyDto.getNumero(), retorno.getNumero()),
+				() -> assertEquals(enderecoBodyDto.getBairro(), retorno.getBairro()));
 	}
 
 	@Test
 	@DisplayName("Não deve adicionar Endereco para a pessoa se já existe")
 	void naoDeveAdicionarEnderecoParaPessoaSeJaEstaCadastrado() {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA").comEnderecoFiscal().agora();
-		EnderecoDto dto = (EnderecoDto) Util.convertObject(pessoa.getEnderecos().stream().findFirst().get(),
-				EnderecoDto.class);
-		
-		when(pessoaService.findById(dto.getPessoaId(), "Id da Pessoa")).thenReturn(pessoa);
+		EnderecoBodyDto body = (EnderecoBodyDto) Util.convertObject(pessoa.getEnderecos().stream().findFirst().get(),
+				EnderecoBodyDto.class);
+
+		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
 
 		String msgException = "Endereço já cadastrado para a pessoa.";
 		when(msg.get("endereco.cadastrado.para.pessoa")).thenReturn(msgException);
 
 		InvalidParameterException exception = assertThrows(InvalidParameterException.class,
-				() -> service.addEnderecoParaPessoa(dto));
+				() -> service.addEnderecoParaPessoa(ID_PESSOA, body));
 		assertEquals(msgException, exception.getMessage());
 
 	}
