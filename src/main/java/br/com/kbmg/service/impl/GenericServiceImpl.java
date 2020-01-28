@@ -33,7 +33,7 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
 	@Override
 	public Object update(String id, Object dto, Class<?> typeReturn) {
-		T entity = this.findById(id, "Id do Email");
+		T entity = this.findById(id);
 
 		Util.map(dto, entity);
 		repository.save(entity);
@@ -41,14 +41,14 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	}
 
 	@Override
-	public T findById(String id, String nomeDoIdDaClasse) {
-		return repository.findById(Validator.stringParseLong(id.trim(), nomeDoIdDaClasse))
+	public T findById(String id) {
+		return repository.findById(Validator.stringParseLong(id.trim(), msg.get("id.invalido")))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("nao.encontrado")));
 	}
 
 	@Override
-	public Object findById(String id, String nomeDoIdDaClasse, Class<?> typeConvert) {
-		return Util.convertObject(this.findById(id, nomeDoIdDaClasse), typeConvert);
+	public Object findById(String id, Class<?> typeConvert) {
+		return Util.convertObject(this.findById(id), typeConvert);
 	}
 
 	@Override
@@ -75,9 +75,9 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 	}
 
 	@Override
-	public void deleteById(Long id) {
-		this.findById(id.toString(), "ID ");
-		repository.deleteById(id);
+	public void deleteById(String id) {
+		this.findById(id);
+		repository.deleteById(Validator.stringParseLong(id, msg.get("id.invalido")));
 	}
 
 	@Override
