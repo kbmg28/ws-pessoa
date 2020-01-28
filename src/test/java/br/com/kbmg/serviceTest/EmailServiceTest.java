@@ -24,8 +24,9 @@ import br.com.kbmg.config.MessagesService;
 import br.com.kbmg.domain.Email;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
+import br.com.kbmg.dto.body.EmailBodyDto;
 import br.com.kbmg.enums.TipoDeUsoEnum;
-import br.com.kbmg.factoryTest.dto.CreateEmailDto;
+import br.com.kbmg.factoryTest.dto.CreateEmailBodyDto;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.impl.EmailServiceImpl;
@@ -89,13 +90,13 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Deve adicionar Email para a pessoa")
 	void deveAdicionarEmailParaPessoa() {
-		EmailDTO dto = CreateEmailDto.get("21", "add@email.com", TipoDeUsoEnum.PARTICULAR, ID_PESSOA);
+		EmailBodyDto dto = CreateEmailBodyDto.get("add@email.com", TipoDeUsoEnum.PARTICULAR);
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
 				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
-		when(pessoaService.findById(dto.getPessoaId(), "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
 
-		EmailDTO resp = service.addEmailParaPessoa(dto);
+		EmailDTO resp = service.addEmailParaPessoa(ID_PESSOA, dto);
 
 		assertAll(() -> assertEquals(dto.getEmail(), resp.getEmail()),
 				() -> assertEquals(dto.getTipoDeUso(), resp.getTipoDeUso()));
@@ -104,17 +105,17 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Não deve adicionar Email para a pessoa se já existe")
 	void naoDeveAdicionarEmailParaPessoaSeJaEstaCadastrado() {
-		EmailDTO dto = CreateEmailDto.get(null, "email@email.com", TipoDeUsoEnum.PARTICULAR, ID_PESSOA);
+		EmailBodyDto dto = CreateEmailBodyDto.get("email@email.com", TipoDeUsoEnum.PARTICULAR);
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
 				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
-		when(pessoaService.findById(dto.getPessoaId(), "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
 
 		String msgException = "Email já cadastrado para a pessoa.";
 		when(msg.get("email.cadastrado.para.pessoa")).thenReturn(msgException);
 
 		InvalidParameterException exception = assertThrows(InvalidParameterException.class,
-				() -> service.addEmailParaPessoa(dto));
+				() -> service.addEmailParaPessoa(ID_PESSOA, dto));
 		assertEquals(msgException, exception.getMessage());
 
 	}

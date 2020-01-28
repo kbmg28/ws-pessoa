@@ -1,7 +1,5 @@
 package br.com.kbmg.factoryTest;
 
-import java.time.LocalDate;
-
 import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoEnderecoEnum;
@@ -23,7 +21,6 @@ public class CreateEndereco {
 				setUf(uf);
 				setIbge(ibge);
 				setTipoEndereco(tipoEndereco);
-				setDataModificacao(LocalDate.now());
 				setStatus(StatusEnum.ATIVO);
 			}
 		};
