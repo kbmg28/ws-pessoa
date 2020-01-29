@@ -3,6 +3,7 @@ package br.com.kbmg.domain;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoDeUsoEnum;
 
 @Entity
@@ -49,6 +51,12 @@ public class Telefone implements Serializable {
 	@NotNull(message = "Tipo de uso do telefone inválido.")
 	private TipoDeUsoEnum tipoDeUso;
 
+	@Embedded
+	private ControleInterno controleInterno = new ControleInterno();
+
+	@NotNull
+	private StatusEnum status;
+	
 	public Long getIdTelefone() {
 		return idTelefone;
 	}
@@ -95,6 +103,22 @@ public class Telefone implements Serializable {
 
 	public void setTipoDeUso(TipoDeUsoEnum tipoDeUso) {
 		this.tipoDeUso = tipoDeUso;
+	}
+
+	public ControleInterno getControleInterno() {
+		return controleInterno;
+	}
+
+	public void setControleInterno(ControleInterno controleInterno) {
+		this.controleInterno = controleInterno;
+	}
+
+	public StatusEnum getStatus() {
+		return status;
+	}
+
+	public void setStatus(StatusEnum status) {
+		this.status = status;
 	}
 
 	@Override
