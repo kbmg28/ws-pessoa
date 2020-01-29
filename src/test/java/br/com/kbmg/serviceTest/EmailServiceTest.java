@@ -56,11 +56,10 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Busca todos os emails da pessoa por ID_PESSOA")
 	void deveBuscarEmailsComIdDaPessoa() {
-
-		Pessoa pessoa = new Pessoa(ID_PESSOA);
-		List<Email> list = new ArrayList<>(
-				PessoaBuilder.umaPessoa(pessoa.getIdPessoa(), null).comEmail("teste1@teste.com", TipoDeUsoEnum.PARTICULAR)
-						.comEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS).agora().getEmails());
+		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), null)
+				.comEmail("teste1@teste.com", TipoDeUsoEnum.PARTICULAR)
+				.comEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS).agora();
+		List<Email> list = new ArrayList<>(pessoa.getEmails());
 
 		when(repository.findByPessoa(pessoa)).thenReturn(Optional.of(list));
 		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);

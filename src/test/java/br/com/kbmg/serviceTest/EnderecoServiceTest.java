@@ -57,11 +57,12 @@ public class EnderecoServiceTest {
 	@DisplayName("Busca todos os endereços da pessoa por ID_PESSOA")
 	void deveBuscarEnderecosComIdDaPessoa() {
 
-		Pessoa pessoa = new Pessoa(ID_PESSOA);
-		List<Endereco> list = new ArrayList<>(PessoaBuilder.umaPessoa(pessoa.getIdPessoa(), null).comEnderecoFiscal()
-				.comEnderecoOutros().agora().getEnderecos());
+		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), null).comEnderecoFiscal().comEnderecoOutros()
+				.agora();
+		List<Endereco> list = new ArrayList<>(pessoa.getEnderecos());
 
 		when(repository.findByPessoa(pessoa)).thenReturn(Optional.of(list));
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		List<?> retorno = service.findByPessoa(ID_PESSOA);
 

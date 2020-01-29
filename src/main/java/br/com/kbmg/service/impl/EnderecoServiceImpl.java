@@ -34,7 +34,7 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 		Endereco endereco = (Endereco) Util.convertObject(body, Endereco.class);
 
 		endereco.setStatus(StatusEnum.ATIVO);
-		endereco.setPessoa(new Pessoa(idPessoa));
+		endereco.setPessoa(pessoa);
 		
 		if (pessoa.getEnderecos().stream().filter(e -> this.compareEndereco(e, endereco)).findFirst()
 				.isPresent())
@@ -56,7 +56,7 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 
 	@Override
 	public List<?> findByPessoa(String idPessoa) {
-		return Util.convertList(repository.findByPessoa(new Pessoa(idPessoa))
+		return Util.convertList(repository.findByPessoa(pessoaService.findById(idPessoa))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.enderecos"))), EnderecoDto.class);
 	}
 

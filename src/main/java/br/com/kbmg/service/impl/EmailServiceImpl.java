@@ -36,7 +36,7 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 		Email email = (Email) Util.convertObject(body, Email.class);
 
 		email.setStatus(StatusEnum.ATIVO);
-		email.setPessoa(new Pessoa(idPessoa));
+		email.setPessoa(pessoa);
 
 		if (pessoa.getEmails().stream().filter(e -> e.getEmail().equalsIgnoreCase(email.getEmail())).findFirst()
 				.isPresent())
