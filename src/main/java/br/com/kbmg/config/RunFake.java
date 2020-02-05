@@ -109,7 +109,6 @@ public class RunFake implements CommandLineRunner {
 		
 		telefone.setIdTelefone(pos.longValue() + 1);
 		telefone.setPessoa(p);
-
 		p.getTelefones().add(telefone);
 	}
 
@@ -121,6 +120,7 @@ public class RunFake implements CommandLineRunner {
 				setNumero(telefone.getNumero());
 				setContato(telefone.getContato());
 				setTipoDeUso(telefone.getTipoDeUso());
+				setStatus(StatusEnum.ATIVO);
 			}
 		};
 	}
