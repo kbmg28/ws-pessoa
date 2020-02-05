@@ -26,7 +26,7 @@ public class Email implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEmail;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;

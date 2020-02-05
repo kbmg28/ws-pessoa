@@ -27,7 +27,7 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEndereco;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;

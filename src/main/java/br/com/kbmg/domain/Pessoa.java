@@ -1,7 +1,7 @@
 package br.com.kbmg.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -13,9 +13,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -38,16 +38,14 @@ public class Pessoa implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "Tipo da pessoa obrigatório.")
 	private TipoPessoa tipoPessoa;
-	
-	@Column
-	private Date dataCriacao = new Date();
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-	@JoinColumn(name = "PF_ID")
+	@Column
+	private LocalDateTime dataCriacao;
+
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, mappedBy = "pessoa")
 	private PessoaFisica pessoaFisica;
 
-	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
-	@JoinColumn(name = "PJ_ID")
+	@OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE }, mappedBy = "pessoa")
 	private PessoaJuridica pessoaJuridica;
 
 	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
@@ -90,14 +88,14 @@ public class Pessoa implements Serializable {
 		this.tipoPessoa = tipoPessoa;
 	}
 
-	public Date getDataCriacao() {
+	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
-	
-	public void setDataCriacao(Date dataCriacao) {
+
+	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-	
+
 	public PessoaFisica getPessoaFisica() {
 		return pessoaFisica;
 	}
@@ -175,5 +173,9 @@ public class Pessoa implements Serializable {
 		return true;
 	}
 
-	
+	@PrePersist
+	public void PrePersist() {
+		this.dataCriacao = LocalDateTime.now();
+	}
+
 }

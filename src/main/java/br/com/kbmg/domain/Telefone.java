@@ -29,7 +29,7 @@ public class Telefone implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idTelefone;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
