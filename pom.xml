@@ -81,13 +81,6 @@
 			<version>2.6.1</version>
 		</dependency>
 
-		<!-- Json in console -->
-		<dependency>
-			<groupId>org.codehaus.jackson</groupId>
-			<artifactId>jackson-mapper-asl</artifactId>
-			<version>1.9.13</version>
-		</dependency>
-
 		<!-- Parse in objects -->
 		<dependency>
 			<groupId>org.modelmapper</groupId>
