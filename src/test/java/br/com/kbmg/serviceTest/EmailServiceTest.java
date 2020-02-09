@@ -26,7 +26,7 @@ import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
 import br.com.kbmg.dto.body.EmailBodyDto;
 import br.com.kbmg.enums.TipoDeUsoEnum;
-import br.com.kbmg.factoryTest.dto.CreateEmailBodyDto;
+import br.com.kbmg.factoryTest.body.dto.CreateEmailBodyDto;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.impl.EmailServiceImpl;

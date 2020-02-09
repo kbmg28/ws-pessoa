@@ -1,4 +1,4 @@
-package br.com.kbmg.factoryTest.dto;
+package br.com.kbmg.factoryTest.body.dto;
 
 import br.com.kbmg.dto.body.EnderecoBodyDto;
 import br.com.kbmg.enums.TipoEnderecoEnum;

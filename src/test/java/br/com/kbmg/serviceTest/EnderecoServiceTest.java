@@ -25,7 +25,7 @@ import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EnderecoDto;
 import br.com.kbmg.dto.body.EnderecoBodyDto;
-import br.com.kbmg.factoryTest.dto.CreateEnderecoBodyDto;
+import br.com.kbmg.factoryTest.body.dto.CreateEnderecoBodyDto;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.impl.EnderecoServiceImpl;

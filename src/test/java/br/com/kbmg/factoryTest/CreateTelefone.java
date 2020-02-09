@@ -1,6 +1,7 @@
 package br.com.kbmg.factoryTest;
 
 import br.com.kbmg.domain.Telefone;
+import br.com.kbmg.enums.TipoDeUsoEnum;
 
 public class CreateTelefone {
 
@@ -12,6 +13,7 @@ public class CreateTelefone {
 				setDdd(ddd);
 				setNumero(numero);
 				setContato(contato);
+				setTipoDeUso(TipoDeUsoEnum.PARTICULAR);
 			}
 		};
 	}
