@@ -1,5 +1,7 @@
 package br.com.kbmg.service.impl;
 
+import static br.com.kbmg.utils.Util.convertList;
+
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class TelefoneServiceImpl extends GenericServiceImpl<Telefone> implements
 		telefone.setPessoa(pessoa);
 
 		if (pessoa.getTelefones().stream().filter(t -> compareTelefone(telefone, t)).findFirst().isPresent())
-			throw new InvalidParameterException(msg.get("email.cadastrado.para.pessoa"));
+			throw new InvalidParameterException(msg.get("telefone.cadastrado.para.pessoa"));
 
 		repository.save(telefone);
 
@@ -49,9 +51,9 @@ public class TelefoneServiceImpl extends GenericServiceImpl<Telefone> implements
 	}
 
 	@Override
-	public List<Telefone> findByPessoa(String idPessoa) {
-		return repository.findByPessoa(pessoaService.findById(idPessoa))
-				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.telefones")));
+	public List<?> findByPessoa(String idPessoa) {
+		return convertList(repository.findByPessoa(pessoaService.findById(idPessoa))
+				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.telefones"))), TelefoneDto.class);
 	}
 
 }

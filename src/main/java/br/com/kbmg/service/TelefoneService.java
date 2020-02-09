@@ -8,7 +8,7 @@ import br.com.kbmg.dto.body.TelefoneBodyDto;
 
 public interface TelefoneService extends GenericService<Telefone> {
 
-	List<Telefone> findByPessoa(String idPessoa);
+	List<?> findByPessoa(String idPessoa);
 
 	TelefoneDto addTelefoneParaPessoa(String idPessoa, TelefoneBodyDto telefoneBody);
 
