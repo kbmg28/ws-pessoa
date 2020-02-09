@@ -41,7 +41,7 @@ public class TelefoneServiceImpl extends GenericServiceImpl<Telefone> implements
 		if (pessoa.getTelefones().stream().filter(t -> compareTelefone(telefone, t)).findFirst().isPresent())
 			throw new InvalidParameterException(msg.get("telefone.cadastrado.para.pessoa"));
 
-		repository.save(telefone);
+		this.saveEntity(telefone);
 
 		return (TelefoneDto) Util.convertObject(telefone, TelefoneDto.class);
 	}

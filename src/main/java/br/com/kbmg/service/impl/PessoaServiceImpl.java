@@ -38,8 +38,7 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 		pessoa.getEmails().forEach(e -> e.setPessoa(pessoa));
 		pessoa.getEnderecos().forEach(e -> e.setPessoa(pessoa));
 		pessoa.getTelefones().forEach(t -> t.setPessoa(pessoa));
-
-//		return repository.save(pessoa);
+		//this.saveEntity(pessoa);
 		return pessoa;
 	}
 
@@ -57,13 +56,4 @@ public class PessoaServiceImpl extends GenericServiceImpl<Pessoa> implements Pes
 			throw new EntityExistsException(msg.get("pessoa.existe"));
 	}
 	
-	public Pessoa save (Pessoa pessoa) {
-		try {
-			return repository.save(pessoa);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new IllegalArgumentException(msg.get("pessoa.erro.salvar"));
-		}
-	}
-
 }

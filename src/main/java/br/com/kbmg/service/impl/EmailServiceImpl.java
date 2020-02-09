@@ -42,7 +42,7 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 				.isPresent())
 			throw new InvalidParameterException(msg.get("email.cadastrado.para.pessoa"));
 
-		repository.save(email);
+		this.saveEntity(email);
 
 		return (EmailDTO) Util.convertObject(email, EmailDTO.class);
 	}

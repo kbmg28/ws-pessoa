@@ -114,4 +114,13 @@ public interface GenericService<T> {
 	 */
 	public void deleteAllById(Set<Long> id);
 
+	/**
+	 * 
+	 * @param entity 
+	 * @return a entidade salva no banco 
+	 * 
+	 *  @throws IllegalAccessException - Se ocorrer algum erro.
+	 */
+	T saveEntity(T entity);
+
 }

@@ -40,7 +40,7 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 				.isPresent())
 			throw new InvalidParameterException(msg.get("endereco.cadastrado.para.pessoa"));
 
-		repository.save(endereco);
+		this.saveEntity(endereco);
 
 		return (EnderecoDto) Util.convertObject(endereco, EnderecoDto.class);
 	}
