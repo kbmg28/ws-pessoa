@@ -38,6 +38,16 @@ public class PessoaFisica implements Serializable {
 	@JsonIgnore
 	private Pessoa pessoa;
 
+	public PessoaFisica() {
+
+	}
+
+	public PessoaFisica(String cpf, String rg, Pessoa pessoa) {
+		this.cpf = cpf;
+		this.rg = rg;
+		this.pessoa = pessoa;
+	}
+
 	public Long getIdPf() {
 		return idPf;
 	}

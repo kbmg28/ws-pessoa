@@ -108,6 +108,6 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new IllegalArgumentException("Falha ao salvar registro");
-		}
+		} 
 	}
 }

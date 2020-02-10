@@ -10,6 +10,10 @@ import org.springframework.validation.BindingResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.caelum.stella.validation.CNPJValidator;
+import br.com.caelum.stella.validation.CPFValidator;
+import br.com.caelum.stella.validation.InvalidStateException;
+import br.com.kbmg.enums.TipoPessoa;
 import br.com.kbmg.response.ErrorResponse;
 import br.com.kbmg.response.ObjectResponse;
 
@@ -60,6 +64,18 @@ public class Util {
 
 	public static ResponseEntity<ObjectResponse> createResponseOk(Object obj) {
 		return ResponseEntity.ok().body(new ObjectResponse(obj));
+	}
+
+	public static TipoPessoa getTipoPessoaByCpfCnpj(String cpfCnpj) {
+		try {
+			CPFValidator cpfValidator = new CPFValidator();
+			cpfValidator.assertValid(cpfCnpj);
+			return TipoPessoa.PF;
+		} catch (InvalidStateException e) {
+			CNPJValidator cnpjValidator = new CNPJValidator();
+			cnpjValidator.assertValid(cpfCnpj);
+			return TipoPessoa.PJ;
+		}
 	}
 
 }
