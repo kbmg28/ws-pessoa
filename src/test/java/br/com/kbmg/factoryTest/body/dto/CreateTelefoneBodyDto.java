@@ -5,10 +5,10 @@ import br.com.kbmg.enums.TipoDeUsoEnum;
 
 public class CreateTelefoneBodyDto {
 
-	public static TelefoneBodyDto get(String numero) {
+	public static TelefoneBodyDto get(Integer numero) {
 		return new TelefoneBodyDto() {
 			{
-				setDdd("92");
+				setDdd(92);
 				setNumero(numero);
 				setContato("ALGUÉM");
 				setTipoDeUso(TipoDeUsoEnum.PARTICULAR);

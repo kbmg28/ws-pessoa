@@ -90,21 +90,21 @@ public class TelefoneServiceTest {
 	@Test
 	@DisplayName("Deve adicionar Telefone para a pessoa")
 	void deveAdicionarTelefoneParaPessoa() {
-		TelefoneBodyDto body = CreateTelefoneBodyDto.get(TELEFONE_1.toString());
+		TelefoneBodyDto body = CreateTelefoneBodyDto.get(TELEFONE_1);
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA").comTelefone(TELEFONE_2).agora();
 
 		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		TelefoneDto resp = service.addTelefoneParaPessoa(ID_PESSOA, body);
 
-		assertAll(() -> assertEquals(body.getDdd(), resp.getDdd().toString()),
-				() -> assertEquals(body.getNumero(), resp.getNumero().toString()));
+		assertAll(() -> assertEquals(body.getDdd(), resp.getDdd()),
+				() -> assertEquals(body.getNumero(), resp.getNumero()));
 	}
 
 	@Test
 	@DisplayName("Não deve adicionar Telefone para a pessoa se já existe")
 	void naoDeveAdicionarTelefoneParaPessoaSeJaEstaCadastrado() {
-		TelefoneBodyDto body = CreateTelefoneBodyDto.get(TELEFONE_1.toString());
+		TelefoneBodyDto body = CreateTelefoneBodyDto.get(TELEFONE_1);
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA").comTelefone(TELEFONE_1).agora();
 
 		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
