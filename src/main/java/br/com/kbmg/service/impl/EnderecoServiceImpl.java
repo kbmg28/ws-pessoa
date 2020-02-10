@@ -12,7 +12,6 @@ import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EnderecoDto;
 import br.com.kbmg.dto.body.EnderecoBodyDto;
-import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.EnderecoService;
 import br.com.kbmg.service.PessoaService;
@@ -33,7 +32,6 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 		Pessoa pessoa = pessoaService.findById(idPessoa);
 		Endereco endereco = (Endereco) Util.convertObject(body, Endereco.class);
 
-		endereco.setStatus(StatusEnum.ATIVO);
 		endereco.setPessoa(pessoa);
 		
 		if (pessoa.getEnderecos().stream().filter(e -> this.compareEndereco(e, endereco)).findFirst()

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -121,6 +122,11 @@ public class Email implements Serializable{
 		} else if (!idEmail.equals(other.idEmail))
 			return false;
 		return true;
+	}
+	
+	@PrePersist
+	public void PrePersist() {
+		setStatus(StatusEnum.ATIVO);
 	}
 
 }

@@ -14,7 +14,6 @@ import br.com.kbmg.domain.Email;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
 import br.com.kbmg.dto.body.EmailBodyDto;
-import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.EmailService;
 import br.com.kbmg.service.PessoaService;
@@ -35,7 +34,6 @@ public class EmailServiceImpl extends GenericServiceImpl<Email> implements Email
 		Pessoa pessoa = pessoaService.findById(idPessoa);
 		Email email = (Email) Util.convertObject(body, Email.class);
 
-		email.setStatus(StatusEnum.ATIVO);
 		email.setPessoa(pessoa);
 
 		if (pessoa.getEmails().stream().filter(e -> e.getEmail().equalsIgnoreCase(email.getEmail())).findFirst()

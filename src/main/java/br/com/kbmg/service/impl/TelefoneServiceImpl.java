@@ -14,7 +14,6 @@ import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.domain.Telefone;
 import br.com.kbmg.dto.TelefoneDto;
 import br.com.kbmg.dto.body.TelefoneBodyDto;
-import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.TelefoneRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.TelefoneService;
@@ -35,7 +34,6 @@ public class TelefoneServiceImpl extends GenericServiceImpl<Telefone> implements
 		Pessoa pessoa = pessoaService.findById(idPessoa);
 		Telefone telefone = (Telefone) Util.convertObject(telefoneBody, Telefone.class);
 
-		telefone.setStatus(StatusEnum.ATIVO);
 		telefone.setPessoa(pessoa);
 
 		if (pessoa.getTelefones().stream().filter(t -> compareTelefone(telefone, t)).findFirst().isPresent())
