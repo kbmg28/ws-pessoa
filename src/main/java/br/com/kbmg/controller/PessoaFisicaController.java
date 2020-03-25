@@ -26,7 +26,7 @@ public class PessoaFisicaController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idPf) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idPf, "Id da pessoa física")));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idPf)));
 	}
 
 //	@PutMapping

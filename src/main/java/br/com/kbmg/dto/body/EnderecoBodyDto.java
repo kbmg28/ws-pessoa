@@ -2,6 +2,7 @@ package br.com.kbmg.dto.body;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import br.com.kbmg.enums.TipoEnderecoEnum;
 
@@ -21,7 +22,10 @@ public class EnderecoBodyDto {
 	private String numero;
 
 	private String localidade;
+	
+	@Size(max = 2, message = "UF inválida.")
 	private String uf;
+	
 	private Integer ibge;
 
 	@NotNull(message = "Tipo do endereço inválido.")

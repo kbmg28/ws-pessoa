@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import br.com.caelum.stella.validation.InvalidStateException;
+
 @ControllerAdvice
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -36,10 +38,14 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
 	public ResponseEntity<ObjectResponse> handleSQL(final Exception ex, final WebRequest request) {
 		return generatedError("Erro ao conectar com o banco", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
-
+	
 	@ExceptionHandler({ IllegalArgumentException.class, EntityExistsException.class })
 	public ResponseEntity<ObjectResponse> handleArguments(final Exception ex, final WebRequest request) {
 		return generatedError(ex.getMessage(), HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
+	}
+	@ExceptionHandler({ InvalidStateException.class})
+	public ResponseEntity<ObjectResponse> handleValidatorCpfCnpj(final Exception ex, final WebRequest request) {
+		return generatedError("CPF ou CNPJ inválido.", HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value());
 	}
 
 	@ExceptionHandler({ PropertyReferenceException.class })

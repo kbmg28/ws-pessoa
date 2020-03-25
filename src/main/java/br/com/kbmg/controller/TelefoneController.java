@@ -22,7 +22,7 @@ public class TelefoneController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEndereco) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, "Id do endereco")));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco)));
 	}
 
 	@GetMapping("/all")

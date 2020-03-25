@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -27,7 +30,7 @@ public class Endereco implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idEndereco;
 
-	@OneToOne(fetch = FetchType.EAGER)
+	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
@@ -50,6 +53,7 @@ public class Endereco implements Serializable {
 	private Integer ibge;
 
 	@NotNull(message = "Tipo do endereço inválido.")
+	@Enumerated(EnumType.STRING)
 	private TipoEnderecoEnum tipoEndereco;
 
 	@Embedded
@@ -187,5 +191,11 @@ public class Endereco implements Serializable {
 			return false;
 		return true;
 	}
+	
+	@PrePersist
+	public void PrePersist() {
+		setStatus(StatusEnum.ATIVO);
+	}
+
 
 }

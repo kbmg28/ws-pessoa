@@ -25,7 +25,7 @@ import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EnderecoDto;
 import br.com.kbmg.dto.body.EnderecoBodyDto;
-import br.com.kbmg.factoryTest.dto.CreateEnderecoBodyDto;
+import br.com.kbmg.factoryTest.body.dto.CreateEnderecoBodyDto;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.impl.EnderecoServiceImpl;
@@ -57,11 +57,12 @@ public class EnderecoServiceTest {
 	@DisplayName("Busca todos os endereços da pessoa por ID_PESSOA")
 	void deveBuscarEnderecosComIdDaPessoa() {
 
-		Pessoa pessoa = new Pessoa(ID_PESSOA);
-		List<Endereco> list = new ArrayList<>(PessoaBuilder.umaPessoa(pessoa.getIdPessoa(), null).comEnderecoFiscal()
-				.comEnderecoOutros().agora().getEnderecos());
+		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), null).comEnderecoFiscal().comEnderecoOutros()
+				.agora();
+		List<Endereco> list = new ArrayList<>(pessoa.getEnderecos());
 
 		when(repository.findByPessoa(pessoa)).thenReturn(Optional.of(list));
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		List<?> retorno = service.findByPessoa(ID_PESSOA);
 
@@ -94,7 +95,7 @@ public class EnderecoServiceTest {
 				.comEnderecoOutros().agora();
 		EnderecoBodyDto enderecoBodyDto = CreateEnderecoBodyDto.get("NOVA RUA", "BAIRRO DO TESTE", "1A");
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 		EnderecoDto retorno = service.addEnderecoParaPessoa(ID_PESSOA, enderecoBodyDto);
 
 		assertAll(() -> assertEquals(enderecoBodyDto.getLogradouro(), retorno.getLogradouro()),
@@ -109,7 +110,7 @@ public class EnderecoServiceTest {
 		EnderecoBodyDto body = (EnderecoBodyDto) Util.convertObject(pessoa.getEnderecos().stream().findFirst().get(),
 				EnderecoBodyDto.class);
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		String msgException = "Endereço já cadastrado para a pessoa.";
 		when(msg.get("endereco.cadastrado.para.pessoa")).thenReturn(msgException);

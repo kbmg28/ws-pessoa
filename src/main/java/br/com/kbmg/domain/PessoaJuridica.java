@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
@@ -32,9 +33,20 @@ public class PessoaJuridica implements Serializable {
 	@Column
 	private String inscricaoEstadual;
 
-	@OneToOne(fetch = FetchType.EAGER, mappedBy = "pessoaJuridica")
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "PESSOA_ID")
 	@JsonIgnore
 	private Pessoa pessoa;
+
+	public PessoaJuridica() {
+
+	}
+
+	public PessoaJuridica(String cnpj, String inscricaoEstadual, Pessoa pessoa) {
+		this.cnpj = cnpj;
+		this.inscricaoEstadual = inscricaoEstadual;
+		this.pessoa = pessoa;
+	}
 
 	public Long getIdPj() {
 		return idPj;

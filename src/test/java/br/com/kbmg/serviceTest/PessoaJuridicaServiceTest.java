@@ -69,7 +69,7 @@ public class PessoaJuridicaServiceTest {
 		PessoaJuridica pessoaJuridica = CreatePessoaJuridica.get(ID_PESSOA_JURIDICA, CNPJ, INSCRICAO_ESTADUAL);
 
 		when(repository.findById(ID_PESSOA_JURIDICA)).thenReturn(Optional.of(pessoaJuridica));
-		PessoaJuridica retorno = service.findById(ID_PESSOA_JURIDICA.toString(), "ID da pessoa jurídica");
+		PessoaJuridica retorno = service.findById(ID_PESSOA_JURIDICA.toString());
 
 		assertAll(() -> assertEquals(pessoaJuridica.getCnpj(), retorno.getCnpj()),
 				() -> assertEquals(pessoaJuridica.getIdPj(), retorno.getIdPj()));
@@ -80,7 +80,7 @@ public class PessoaJuridicaServiceTest {
 	void deveLancarExceptionSeNaoEncontrarIdPj() {
 
 		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
-				() -> service.findById(ID_PESSOA_JURIDICA.toString(), "ID da pessoa jurídica"));
+				() -> service.findById(ID_PESSOA_JURIDICA.toString()));
 		assertEquals(NAO_ENCONTRADO, exception.getMessage());
 	}
 

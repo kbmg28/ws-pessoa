@@ -12,7 +12,6 @@ import br.com.kbmg.domain.Endereco;
 import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EnderecoDto;
 import br.com.kbmg.dto.body.EnderecoBodyDto;
-import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.repository.EnderecoRepository;
 import br.com.kbmg.service.EnderecoService;
 import br.com.kbmg.service.PessoaService;
@@ -30,17 +29,16 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 	@Override
 	public EnderecoDto addEnderecoParaPessoa(String idPessoa, EnderecoBodyDto body) {
 		
-		Pessoa pessoa = pessoaService.findById(idPessoa, "Id da Pessoa");
+		Pessoa pessoa = pessoaService.findById(idPessoa);
 		Endereco endereco = (Endereco) Util.convertObject(body, Endereco.class);
 
-		endereco.setStatus(StatusEnum.ATIVO);
-		endereco.setPessoa(new Pessoa(idPessoa));
+		endereco.setPessoa(pessoa);
 		
 		if (pessoa.getEnderecos().stream().filter(e -> this.compareEndereco(e, endereco)).findFirst()
 				.isPresent())
 			throw new InvalidParameterException(msg.get("endereco.cadastrado.para.pessoa"));
 
-		repository.save(endereco);
+		this.saveEntity(endereco);
 
 		return (EnderecoDto) Util.convertObject(endereco, EnderecoDto.class);
 	}
@@ -56,7 +54,7 @@ public class EnderecoServiceImpl extends GenericServiceImpl<Endereco> implements
 
 	@Override
 	public List<?> findByPessoa(String idPessoa) {
-		return Util.convertList(repository.findByPessoa(new Pessoa(idPessoa))
+		return Util.convertList(repository.findByPessoa(pessoaService.findById(idPessoa))
 				.orElseThrow(() -> new EntityNotFoundException(msg.get("pessoa.sem.enderecos"))), EnderecoDto.class);
 	}
 

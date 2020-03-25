@@ -36,7 +36,7 @@ public class EmailController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEmail) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idEmail, "Id do email", EmailDTO.class)));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idEmail, EmailDTO.class)));
 	}
 
 	@PutMapping

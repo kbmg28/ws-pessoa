@@ -43,7 +43,7 @@ public class EnderecoController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findById(@Valid @RequestParam String idEndereco) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, "Id do endereco", EnderecoDto.class)));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idEndereco, EnderecoDto.class)));
 	}
 
 	@GetMapping("/all")

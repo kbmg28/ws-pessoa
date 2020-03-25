@@ -1,7 +1,5 @@
 package br.com.kbmg.factoryTest.dto;
 
-import java.time.LocalDate;
-
 import br.com.kbmg.dto.EnderecoDto;
 import br.com.kbmg.enums.StatusEnum;
 import br.com.kbmg.enums.TipoEnderecoEnum;

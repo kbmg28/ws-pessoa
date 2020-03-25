@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.kbmg.domain.Pessoa;
+import br.com.kbmg.dto.body.PessoaBodyDto;
 import br.com.kbmg.response.ErrorResponse;
 import br.com.kbmg.response.ObjectResponse;
 import br.com.kbmg.service.PessoaService;
@@ -28,7 +29,7 @@ public class PessoaController {
 	private PessoaService service;
 
 	@PostMapping
-	public ResponseEntity<ObjectResponse> create(@Valid @RequestBody Pessoa pessoa, BindingResult result) {
+	public ResponseEntity<ObjectResponse> create(@Valid @RequestBody PessoaBodyDto pessoa, BindingResult result) {
 		ObjectResponse response = new ObjectResponse();
 
 		if (result.hasErrors()) {
@@ -50,7 +51,7 @@ public class PessoaController {
 
 	@GetMapping
 	public ResponseEntity<ObjectResponse> findOne(@Valid @RequestParam String idPessoa) {
-		return ResponseEntity.ok(new ObjectResponse(service.findById(idPessoa, "Id da pessoa")));
+		return ResponseEntity.ok(new ObjectResponse(service.findById(idPessoa)));
 	}
 
 	@GetMapping("/all")
@@ -66,7 +67,7 @@ public class PessoaController {
 	}
 
 	@DeleteMapping("/deleteOne")
-	public ResponseEntity<ObjectResponse> deleteById(@Valid @RequestParam Long idPessoa) {
+	public ResponseEntity<ObjectResponse> deleteById(@Valid @RequestParam String idPessoa) {
 		this.service.deleteById(idPessoa);
 		return ResponseEntity.ok(new ObjectResponse("Objeto deletado com sucesso"));
 	}

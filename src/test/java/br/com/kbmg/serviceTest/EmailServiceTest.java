@@ -26,7 +26,7 @@ import br.com.kbmg.domain.Pessoa;
 import br.com.kbmg.dto.EmailDTO;
 import br.com.kbmg.dto.body.EmailBodyDto;
 import br.com.kbmg.enums.TipoDeUsoEnum;
-import br.com.kbmg.factoryTest.dto.CreateEmailBodyDto;
+import br.com.kbmg.factoryTest.body.dto.CreateEmailBodyDto;
 import br.com.kbmg.repository.EmailRepository;
 import br.com.kbmg.service.PessoaService;
 import br.com.kbmg.service.impl.EmailServiceImpl;
@@ -56,13 +56,13 @@ public class EmailServiceTest {
 	@Test
 	@DisplayName("Busca todos os emails da pessoa por ID_PESSOA")
 	void deveBuscarEmailsComIdDaPessoa() {
-
-		Pessoa pessoa = new Pessoa(ID_PESSOA);
-		List<Email> list = new ArrayList<>(
-				PessoaBuilder.umaPessoa(pessoa.getIdPessoa(), null).comEmail("teste1@teste.com", TipoDeUsoEnum.PARTICULAR)
-						.comEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS).agora().getEmails());
+		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), null)
+				.comEmail("teste1@teste.com", TipoDeUsoEnum.PARTICULAR)
+				.comEmail("teste2@teste.com", TipoDeUsoEnum.OUTROS).agora();
+		List<Email> list = new ArrayList<>(pessoa.getEmails());
 
 		when(repository.findByPessoa(pessoa)).thenReturn(Optional.of(list));
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		List<?> retorno = service.findByPessoa(ID_PESSOA);
 
@@ -94,7 +94,7 @@ public class EmailServiceTest {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
 				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		EmailDTO resp = service.addEmailParaPessoa(ID_PESSOA, dto);
 
@@ -109,7 +109,7 @@ public class EmailServiceTest {
 		Pessoa pessoa = PessoaBuilder.umaPessoa(Long.parseLong(ID_PESSOA), "PESSOA")
 				.comEmail("email@email.com", TipoDeUsoEnum.CORPORATIVO).agora();
 
-		when(pessoaService.findById(ID_PESSOA, "Id da Pessoa")).thenReturn(pessoa);
+		when(pessoaService.findById(ID_PESSOA)).thenReturn(pessoa);
 
 		String msgException = "Email já cadastrado para a pessoa.";
 		when(msg.get("email.cadastrado.para.pessoa")).thenReturn(msgException);
